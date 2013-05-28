@@ -21,4 +21,15 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     assert(img.getHeight === 560)
   }
 
+  test("cut image in 2x2") {
+    val slicer = new Slicer(img)
+    val halfHeight = img.getHeight() / 2
+    val halfWidth = img.getWidth() / 2
+    val slices: Seq[Image] = slicer.cut(2, 2)
+    slices.foreach(slice => {
+      assert(slice.getHeight() === halfHeight)
+      assert(slice.getWidth() === halfWidth)
+    })
+  }
+
 }
