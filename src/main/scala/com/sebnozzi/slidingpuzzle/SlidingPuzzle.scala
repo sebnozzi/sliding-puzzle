@@ -22,15 +22,21 @@ class SlidingPuzzle extends Application {
   override def start(primaryStage: Stage) {
     val group = new Group();
     val scene = new Scene(group);
-    group.getChildren().add(imageView)
-    primaryStage.setTitle("Sliding Puzzle")
-    primaryStage.setX(100)
-    primaryStage.setY(100)
-    primaryStage.setMinWidth(840)
-    primaryStage.setMinHeight(560)
-    primaryStage.setResizable(false)
-    primaryStage.setFullScreen(false)
     primaryStage.setScene(scene)
-    primaryStage.show()
+
+    group.getChildren().add(imageView)
+
+    setupStage(primaryStage)
+  }
+
+  private def setupStage(stage: Stage) {
+    stage.setTitle("Sliding Puzzle")
+    stage.setX(100)
+    stage.setY(100)
+    stage.setMinWidth(840)
+    stage.setMinHeight(560)
+    stage.setResizable(false)
+    stage.setFullScreen(false)
+    stage.show()
   }
 }
