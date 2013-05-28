@@ -1,4 +1,4 @@
-package com.sebnozzi
+package com.sebnozzi.slidingpuzzle
 
 import org.scalatest.FunSuite
 
