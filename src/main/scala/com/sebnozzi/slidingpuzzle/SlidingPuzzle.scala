@@ -6,6 +6,9 @@ import javafx.scene.Scene
 import javafx.scene.Group
 import javafx.scene.image.Image
 import javafx.scene.image.ImageView
+import javafx.event.EventHandler
+import javafx.stage.WindowEvent
+import javafx.application.Platform
 
 object SlidingPuzzle extends App {
   Application.launch(classOf[SlidingPuzzle], "")
@@ -21,15 +24,15 @@ class SlidingPuzzle extends Application {
 
   override def start(primaryStage: Stage) {
     val group = new Group();
-    val scene = new Scene(group);
-    primaryStage.setScene(scene)
-
     group.getChildren().add(imageView)
 
-    setupStage(primaryStage)
+    setupStage(primaryStage, group)
   }
 
-  private def setupStage(stage: Stage) {
+  private def setupStage(stage: Stage, mainGroup: Group) {
+    val scene = new Scene(mainGroup)
+    stage.setScene(scene)
+
     stage.setTitle("Sliding Puzzle")
     stage.setX(100)
     stage.setY(100)
@@ -38,5 +41,11 @@ class SlidingPuzzle extends Application {
     stage.setResizable(false)
     stage.setFullScreen(false)
     stage.show()
+    
+    stage.setOnCloseRequest(new EventHandler[WindowEvent]{
+      def handle(event:WindowEvent){
+        Platform.exit()
+      }
+    })
   }
 }
