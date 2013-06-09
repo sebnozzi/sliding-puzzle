@@ -36,8 +36,7 @@ class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
   }
 
   def allSlices: Seq[Canvas] = {
-
-    ???
-
+    slicePositions.map{ case (xPos, yPos) => sliceAt(xPos, yPos) }
   }
+  
 }
