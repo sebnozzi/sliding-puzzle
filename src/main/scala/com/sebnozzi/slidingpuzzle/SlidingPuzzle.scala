@@ -16,9 +16,12 @@ object SlidingPuzzle extends App {
 
 class SlidingPuzzle extends Application {
 
-  lazy val imageView = {
+  val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
-    val img = new Image(inputStream)
+    new Image(inputStream)
+  }
+
+  lazy val imageView = {
     new ImageView(img)
   }
 
@@ -41,9 +44,9 @@ class SlidingPuzzle extends Application {
     stage.setResizable(false)
     stage.setFullScreen(false)
     stage.show()
-    
-    stage.setOnCloseRequest(new EventHandler[WindowEvent]{
-      def handle(event:WindowEvent){
+
+    stage.setOnCloseRequest(new EventHandler[WindowEvent] {
+      def handle(event: WindowEvent) {
         Platform.exit()
       }
     })
