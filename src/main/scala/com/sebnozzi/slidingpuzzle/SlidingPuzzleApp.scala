@@ -11,11 +11,11 @@ import javafx.stage.WindowEvent
 import javafx.application.Platform
 import javafx.scene.canvas.Canvas
 
-object SlidingPuzzle extends App {
-  Application.launch(classOf[SlidingPuzzle], "")
+object SlidingPuzzleApp extends App {
+  Application.launch(classOf[SlidingPuzzleJavaFXApp], "")
 }
 
-class SlidingPuzzle extends Application {
+class SlidingPuzzleJavaFXApp extends Application {
 
   val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
