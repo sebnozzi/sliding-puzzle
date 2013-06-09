@@ -30,16 +30,15 @@ class SlidingPuzzle extends Application {
       val group = new Group();
       val nodesToAdd = {
         val slicer = new Slicer(img, xAmount = 4, yAmount = 2)
-        val nodes = slicer.allSlices
-        var xCoord = 0
-        var yCoord = 0
-        nodes.foreach { node =>
-          node.setLayoutX(xCoord)
-          node.setLayoutY(yCoord)
-          xCoord += 20
-          yCoord += 20
+        slicer.slicePositions.map {
+          case (x, y) =>
+            val xCoord = (x - 1) * slicer.sliceWidth
+            val yCoord = (y - 1) * slicer.sliceHeight
+            val slice = slicer.sliceAt(x, y)
+            slice.setLayoutX(xCoord)
+            slice.setLayoutY(yCoord)
+            slice
         }
-        nodes
       }
       nodesToAdd.foreach { group.getChildren().add(_) }
       group
