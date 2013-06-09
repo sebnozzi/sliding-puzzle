@@ -3,6 +3,7 @@ package com.sebnozzi.slidingpuzzle
 import org.scalatest.FunSuite
 import javafx.scene.image.Image
 import org.scalatest.BeforeAndAfter
+import javafx.scene.canvas.Canvas
 
 class SlicerSuite extends FunSuite with BeforeAndAfter {
 
@@ -12,8 +13,10 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     new Image(inputStream)
   }
 
-  test("instantiate a slicer") {
-    val slicer = new Slicer(img)
+  var slicer: Slicer = _
+
+  before {
+    slicer = new Slicer(img, xAmount = 2, yAmount = 2)
   }
 
   test("dimensions") {
@@ -21,15 +24,35 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     assert(img.getHeight === 560)
   }
 
-  test("cut image in 2x2") {
-    val slicer = new Slicer(img)
-    val halfHeight = img.getHeight() / 2
-    val halfWidth = img.getWidth() / 2
-    val slices: Seq[Image] = slicer.cut(2, 2)
-    slices.foreach(slice => {
-      assert(slice.getHeight() === halfHeight)
-      assert(slice.getWidth() === halfWidth)
-    })
+  test("slice dimensions") {
+    assert(slicer.sliceWidth === 420)
+    assert(slicer.sliceHeight === 280)
+  }
+
+  test("get coordinates of bottom-right slice") {
+    val (x:Int, y:Int) = slicer.coordinatesOfSliceAt(x = 2, y = 2)
+    assert(x === 420)
+    assert(y === 280)
+  }
+  
+  test("get coordinates of bottom-left slice") {
+    val (x:Int, y:Int) = slicer.coordinatesOfSliceAt(x = 1, y = 2)
+    assert(x === 0)
+    assert(y === 280)
+  }
+
+  ignore("get one slice") {
+    val slice: Canvas = slicer.sliceAt(x = 0, y = 0)
+    assert(slice.getWidth() === 420)
+    assert(slice.getHeight() === 280)
+  }
+
+  ignore("cut image in 2x2, check dimensions") {
+    val slices: Seq[Canvas] = slicer.allSlices
+    slices.foreach { slice =>
+      assert(slice.getWidth() === 420)
+      assert(slice.getHeight() === 280)
+    }
   }
 
 }
