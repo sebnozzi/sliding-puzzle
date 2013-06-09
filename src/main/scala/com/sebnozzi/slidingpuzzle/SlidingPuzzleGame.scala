@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle
 
-class SlidingPuzzleGame(horizontalTiles:Int, verticalTiles:Int) {
+class SlidingPuzzleGame(columns:Int, rows:Int) {
 
   val tiles = 1 to 12
   
