@@ -30,13 +30,13 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("get coordinates of bottom-right slice") {
-    val (x:Int, y:Int) = slicer.coordinatesOfSliceAt(x = 2, y = 2)
+    val (x: Int, y: Int) = slicer.coordinatesOfSliceAt(x = 2, y = 2)
     assert(x === 420)
     assert(y === 280)
   }
-  
+
   test("get coordinates of bottom-left slice") {
-    val (x:Int, y:Int) = slicer.coordinatesOfSliceAt(x = 1, y = 2)
+    val (x: Int, y: Int) = slicer.coordinatesOfSliceAt(x = 1, y = 2)
     assert(x === 0)
     assert(y === 280)
   }
@@ -45,6 +45,10 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     val slice: Canvas = slicer.sliceAt(x = 1, y = 1)
     assert(slice.getWidth() === 420)
     assert(slice.getHeight() === 280)
+  }
+
+  test("get slice positions") {
+    assert(slicer.slicePositions === List((1, 1), (2, 1), (1, 2), (2, 2)))
   }
 
   ignore("cut image in 2x2, check dimensions") {
