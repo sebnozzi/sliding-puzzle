@@ -51,12 +51,17 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     assert(slicer.slicePositions === List((1, 1), (2, 1), (1, 2), (2, 2)))
   }
 
-  test("cut image in 2x2, check dimensions") {
+  test("check dimensions of all slices") {
     val slices: Seq[Canvas] = slicer.allSlices
     slices.foreach { slice =>
       assert(slice.getWidth() === 420)
       assert(slice.getHeight() === 280)
     }
+  }
+  
+  test("slice number for position"){
+    assert( slicer.sliceIndexFor(1,1) === 0)
+    assert( slicer.sliceIndexFor(2,2) === 3)
   }
 
 }
