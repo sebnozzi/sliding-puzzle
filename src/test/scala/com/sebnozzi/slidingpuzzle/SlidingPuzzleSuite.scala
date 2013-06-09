@@ -11,12 +11,12 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     game = new SlidingPuzzleGame(columns = 4, rows = 3)
   }
 
-  test("a game with 12 tiles") {
+  test("a game of dimensions 4x3 should have 12 tiles") {
     game = new SlidingPuzzleGame(columns = 4, rows = 3)
     assert(game.tiles.size === 12)
   }
 
-  test("a game with 9 tiles") {
+  test("a game of dimensions 3x2 should have 9 tiles") {
     game = new SlidingPuzzleGame(columns = 3, rows = 3)
     assert(game.tiles.size === 9)
   }
