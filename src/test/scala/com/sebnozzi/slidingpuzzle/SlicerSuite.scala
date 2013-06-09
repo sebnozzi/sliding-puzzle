@@ -58,10 +58,25 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
       assert(slice.getHeight() === 280)
     }
   }
-  
-  test("slice number for position"){
-    assert( slicer.sliceIndexFor(1,1) === 0)
-    assert( slicer.sliceIndexFor(2,2) === 3)
+
+  test("all slices are different instances") {
+    val slicer = new Slicer(img, xAmount = 4, yAmount = 2)
+    slicer.allSlices.combinations(2).foreach {
+      case Seq(left, right) =>
+        assert(left != right)
+    }
+  }
+
+  test("slice number for position") {
+    val slicer = new Slicer(img, xAmount = 4, yAmount = 2)
+    assert(slicer.sliceIndexFor(1, 1) === 0)
+    assert(slicer.sliceIndexFor(2, 1) === 1)
+    assert(slicer.sliceIndexFor(3, 1) === 2)
+    assert(slicer.sliceIndexFor(4, 1) === 3)
+    assert(slicer.sliceIndexFor(1, 2) === 4)
+    assert(slicer.sliceIndexFor(2, 2) === 5)
+    assert(slicer.sliceIndexFor(3, 2) === 6)
+    assert(slicer.sliceIndexFor(4, 2) === 7)
   }
 
 }

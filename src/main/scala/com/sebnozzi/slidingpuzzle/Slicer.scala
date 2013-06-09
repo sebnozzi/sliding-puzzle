@@ -15,7 +15,7 @@ class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
     ) yield (xPos, yPos)).toList
   }
 
-  val allSlices: Seq[Canvas] = {
+  lazy val allSlices: Seq[Canvas] = {
     slicePositions.map { case (xPos, yPos) => makeSliceAt(xPos, yPos) }
   }
 
@@ -31,7 +31,7 @@ class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
   }
 
   def sliceIndexFor(x: Int, y: Int): Int = {
-    (x - 1) + (y - 1) * yAmount
+    (x - 1) + (y - 1) * xAmount
   }
 
   private def makeSliceAt(x: Int, y: Int): Canvas = {
