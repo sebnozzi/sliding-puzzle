@@ -16,5 +16,14 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     assert(game.tiles.size === 12)
   }
 
+  test("a game with 9 tiles") {
+    game = new SlidingPuzzleGame(columns = 3, rows = 3)
+    assert(game.tiles.size === 9)
+  }
+  
+  test("initially, game is in solved state"){
+    assert(game.isSolved)
+  }
+  
   
 }
