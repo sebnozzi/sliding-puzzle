@@ -37,7 +37,21 @@ class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
   }
 
   def allSlices: Seq[Canvas] = {
-    slicePositions.map{ case (xPos, yPos) => sliceAt(xPos, yPos) }
+    slicePositions.map{ case (xPos, yPos) => makeSliceAt(xPos, yPos) }
+  }
+  
+  private def makeSliceAt(x: Int, y: Int): Canvas = {
+    val canvas = new Canvas(sliceWidth, sliceHeight)
+    val grContext = canvas.getGraphicsContext2D()
+
+    val (sourceX, sourceY) = coordinatesOfSliceAt(x, y)
+    val (destX, destY) = (0, 0)
+
+    grContext.drawImage(img,
+      sourceX, sourceY, sliceWidth, sliceHeight,
+      destX, destY, sliceWidth, sliceHeight)
+
+    canvas
   }
   
 }
