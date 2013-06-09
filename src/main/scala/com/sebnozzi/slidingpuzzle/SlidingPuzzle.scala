@@ -26,8 +26,12 @@ class SlidingPuzzle extends Application {
   }
 
   override def start(primaryStage: Stage) {
-    val group = new Group();
-    group.getChildren().add(imageView)
+    val group = {
+      val group = new Group();
+      val nodesToAdd = List(imageView)
+      nodesToAdd.foreach { group.getChildren().add(_) }
+      group
+    }
 
     setupStage(primaryStage, group)
   }
