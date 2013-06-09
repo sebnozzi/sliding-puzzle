@@ -9,6 +9,7 @@ import javafx.scene.image.ImageView
 import javafx.event.EventHandler
 import javafx.stage.WindowEvent
 import javafx.application.Platform
+import javafx.scene.canvas.Canvas
 
 object SlidingPuzzle extends App {
   Application.launch(classOf[SlidingPuzzle], "")
@@ -29,6 +30,13 @@ class SlidingPuzzle extends Application {
     val group = {
       val group = new Group();
       val nodesToAdd = {
+        def drawBorders(slice: Canvas) {
+          val gc = slice.getGraphicsContext2D()
+          gc.beginPath()
+          gc.rect(0, 0, slice.getWidth(), slice.getHeight())
+          gc.closePath()
+          gc.stroke()
+        }
         val slicer = new Slicer(img, xAmount = 4, yAmount = 3)
         slicer.slicePositions.map {
           case (x, y) =>
@@ -37,11 +45,7 @@ class SlidingPuzzle extends Application {
             val slice = slicer.sliceAt(x, y)
             slice.setLayoutX(xCoord)
             slice.setLayoutY(yCoord)
-            val gc = slice.getGraphicsContext2D()
-            gc.beginPath()
-            gc.rect(0, 0, slicer.sliceWidth, slicer.sliceHeight)
-            gc.closePath()
-            gc.stroke()
+            drawBorders(slice)
             slice
         }
       }
