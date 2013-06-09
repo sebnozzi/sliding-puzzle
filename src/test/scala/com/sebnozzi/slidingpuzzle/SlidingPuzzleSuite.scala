@@ -12,18 +12,29 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("a game of dimensions 4x3 should have 12 tiles") {
-    game = new SlidingPuzzleGame(columns = 4, rows = 3)
+    val game = new SlidingPuzzleGame(columns = 4, rows = 3)
     assert(game.tiles.size === 12)
   }
 
   test("a game of dimensions 3x2 should have 9 tiles") {
-    game = new SlidingPuzzleGame(columns = 3, rows = 3)
+    val game = new SlidingPuzzleGame(columns = 3, rows = 3)
     assert(game.tiles.size === 9)
   }
-  
-  test("initially, game is in solved state"){
+
+  test("initially, game is in solved state") {
     assert(game.isSolved)
   }
-  
-  
+
+  test("it is possible to define a hidden tile") {
+    val tile = game.tileAt(4, 3)
+    game.setHiddenTileAt(4, 3)
+    assert(game.hiddenTile === tile)
+  }
+
+  test("defining the first tile as hidden") {
+    val tile = game.tileAt(1, 1)
+    game.setHiddenTileAt(1, 1)
+    assert(game.hiddenTile === tile)
+  }
+
 }
