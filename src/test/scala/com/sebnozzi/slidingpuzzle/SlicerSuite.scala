@@ -41,8 +41,8 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     assert(y === 280)
   }
 
-  ignore("get one slice") {
-    val slice: Canvas = slicer.sliceAt(x = 0, y = 0)
+  test("get one slice") {
+    val slice: Canvas = slicer.sliceAt(x = 1, y = 1)
     assert(slice.getWidth() === 420)
     assert(slice.getHeight() === 280)
   }

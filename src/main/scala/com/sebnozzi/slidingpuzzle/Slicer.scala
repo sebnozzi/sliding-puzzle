@@ -10,8 +10,16 @@ class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
 
   def sliceAt(x: Int, y: Int): Canvas = {
     val canvas = new Canvas(sliceWidth, sliceHeight)
-    //canvas.getGraphicsContext2D().drawImage
-    ???
+    val grContext = canvas.getGraphicsContext2D()
+
+    val (sourceX, sourceY) = coordinatesOfSliceAt(x, y)
+    val (destX, destY) = (0, 0)
+
+    grContext.drawImage(img,
+      sourceX, sourceY, sliceWidth, sliceHeight,
+      destX, destY, sliceWidth, sliceHeight)
+
+    canvas
   }
 
   def coordinatesOfSliceAt(x: Int, y: Int): (Int, Int) = {
