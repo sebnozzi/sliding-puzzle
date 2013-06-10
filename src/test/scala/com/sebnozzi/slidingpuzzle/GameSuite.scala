@@ -151,7 +151,16 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.isSolved === false)
   }  
   
-  // detect solved state after some moves
+  test("asking for a random adjacent tile"){
+    val tile = game.tileAt(2,2)
+    val possibleTiles = List(
+        game.tileAt(3,2),
+        game.tileAt(1,2),
+        game.tileAt(2,1),
+        game.tileAt(2,3))
+    (1 to 100).foreach{ _ => assert(possibleTiles.contains(tile.randomAdjacentTile)) }
+  }
+  
   // shuffle tiles
   // revert to initial state
   // count number of moves

@@ -1,5 +1,7 @@
 package com.sebnozzi.slidingpuzzle
 
+import scala.util.Random
+
 class Tile(val game: Game, val initialPosition: Position) {
 
   private var _currentPosition = initialPosition
@@ -42,6 +44,11 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   def adjacentTiles: List[Tile] = {
     _currentPosition.adjacentIn(game.positionsRect).map { pos => game.tileAt(pos) }
+  }
+
+  def randomAdjacentTile: Tile = {
+    val tiles = adjacentTiles
+    Random.shuffle(tiles).head
   }
 
   override def toString() = {
