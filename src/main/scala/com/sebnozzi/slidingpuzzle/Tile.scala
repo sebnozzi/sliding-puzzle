@@ -15,8 +15,14 @@ class Tile(val game: Game, val initialPosition: Position) {
     this.currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
+  
+  def isAdjacentTo(other:Tile) = this.adjacentTiles.contains(other)
+  
+  def canMoveToEmptySlot = {
+    true
+  }
 
-  def moveToEmptyPosition() {
+  def moveToEmptySlot() {
     swapPositionWith(game.hiddenTile)
   }  
   

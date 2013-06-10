@@ -17,7 +17,7 @@ class Game(val columns: Int, val rows: Int) {
 
   def tileAt(position:Position) = tiles((position.col - 1) + (position.row - 1) * columns)
 
-  def setHiddenTileAt(position:Position) { _hiddenTile = Some(tileAt(position)) }
+  def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }
 
   def hiddenTile: Tile = _hiddenTile.get
 

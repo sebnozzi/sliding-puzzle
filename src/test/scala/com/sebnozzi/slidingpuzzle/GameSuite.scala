@@ -67,6 +67,13 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(topLeft.adjacentTiles === List(topRight, bottomLeft))
     assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
+  
+  
+  test("asking if one tile is adjacent to another"){
+    val game = new Game(columns = 3, rows = 3)
+    assert(game.tileAt(1,1).isAdjacentTo(game.tileAt(2,1)))
+    assert(!game.tileAt(1,1).isAdjacentTo(game.tileAt(3,2)))
+  }
 
   test("it is possible to define a hidden tile") {
     val tile = game.tileAt(4, 3)
@@ -74,20 +81,26 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.hiddenTile === tile)
   }
   
-  test("moving to empty position"){
+  test("moving to empty slot"){
     val tile1 = game.tileAt(3, 3)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
-    tile1.moveToEmptyPosition
+    tile1.moveToEmptySlot
     assert(tile1.currentPosition === Position(4,3))
     assert(tile2.currentPosition === Position(3,3))
+  }
+  
+  ignore("asking if tile can be moved to empty slot"){
+    val tile1 = game.tileAt(1, 1)
+    val tile2 = game.tileAt(4, 3)
+    game.setHiddenTileAt(4, 3)
+    assert(!tile1.canMoveToEmptySlot)
   }
 
   test("initially, game is in solved state") {
     assert(game.isSolved)
   }
 
-  // move tile to hidden slot
   // re-show hidden tile
   // detect solved state after some moves
   // shuffle tiles
