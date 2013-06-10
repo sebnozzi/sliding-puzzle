@@ -184,10 +184,10 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(tile2.isAtInitialPosition)    
   }
 
-  ignore("revert to initial state"){
+  test("revert to initial state"){
     game.tileAt(4,3).makeHidden
     game.makeRandomMove()
-    game.resetState()
+    game.reset()
     assert(game.isSolved)
   }
 

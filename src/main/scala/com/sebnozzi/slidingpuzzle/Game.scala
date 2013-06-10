@@ -22,8 +22,8 @@ class Game(val columns: Int, val rows: Int) {
     }
   }
   
-  def resetState() {
-    //tiles.foreach(_.backToInitialPosition)
+  def reset() {
+    tiles.foreach(_.moveToInitialPosition())
     clearHiddenTile()
   }
 
