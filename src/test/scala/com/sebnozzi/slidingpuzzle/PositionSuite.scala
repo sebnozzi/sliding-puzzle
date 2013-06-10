@@ -13,9 +13,28 @@ class PositionSuite extends FunSuite  {
     assert(pos2.row === 3)
   }
   
-  test("a Position knows adjacent positions to itself") {
+  test("if within rect"){
     val pos1 = Position(col = 1, row = 1)
-    assert(pos1.adjacent === List(Position(2,1), Position(1,2)))
+    val pos2 = Position(col = 2, row = 2)
+    val pos3 = Position(col = 2, row = 3)
+    val pos4 = Position(col = 4, row = 3)
+    val rect = Rect(topLeft=Position(1,1), bottomRight=Position(2,2))
+    
+    assert(rect.contains(pos1))
+    assert(rect.contains(pos2))
+    assert(!rect.contains(pos3))
+    assert(!rect.contains(pos4))
+    
+  }
+  
+  test("adjacent positions of 1,1 (top left corner)") {
+    val pos1 = Position(col = 1, row = 1)
+    assert(pos1.adjacentIn(Rect(Position(1,1), Position(4,3))) === List(Position(2,1), Position(1,2)))
   }  
+  
+  test("adjacent positions of 4,3 (bottom right corner)") {
+    val pos1 = Position(col = 4, row = 3)
+    assert(pos1.adjacentIn(Rect(Position(1,1), Position(4,3))) === List(Position(4,2), Position(3,3)))
+  }    
   
 }
