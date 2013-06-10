@@ -13,9 +13,9 @@ class SlidingPuzzleGame(columns: Int, rows: Int) {
 
   val isSolved = true
 
-  def tileAt(x: Int, y: Int) = tiles((x - 1) + (y - 1) * columns)
+  def tileAt(col: Int, row: Int) = tiles((col - 1) + (row - 1) * columns)
 
-  def setHiddenTileAt(x: Int, y: Int) { _hiddenTile = Some(tileAt(x, y)) }
+  def setHiddenTileAt(col: Int, row: Int) { _hiddenTile = Some(tileAt(col, row)) }
 
   def hiddenTile: Tile = _hiddenTile.get
 
