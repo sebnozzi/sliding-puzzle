@@ -90,7 +90,16 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(tile2.currentPosition === Position(3,3))
   }
   
-  ignore("asking if tile can be moved to empty slot"){
+  test("moving to empty slot when not adjacent to it should do nothing"){
+    val tile1 = game.tileAt(1, 1)
+    val tile2 = game.tileAt(4, 3)
+    game.setHiddenTileAt(4, 3)
+    tile1.moveToEmptySlot
+    assert(tile1.currentPosition === Position(1,1))
+    assert(tile2.currentPosition === Position(4,3))
+  }
+  
+  test("asking if tile can be moved to empty slot"){
     val tile1 = game.tileAt(1, 1)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)

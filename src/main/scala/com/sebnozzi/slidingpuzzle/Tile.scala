@@ -19,11 +19,12 @@ class Tile(val game: Game, val initialPosition: Position) {
   def isAdjacentTo(other:Tile) = this.adjacentTiles.contains(other)
   
   def canMoveToEmptySlot = {
-    true
+    this.isAdjacentTo(game.hiddenTile)
   }
 
   def moveToEmptySlot() {
-    swapPositionWith(game.hiddenTile)
+    if(canMoveToEmptySlot)
+      swapPositionWith(game.hiddenTile)
   }  
   
   def adjacentTiles: List[Tile] = {
