@@ -1,9 +1,9 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.javafx
 
 import org.scalatest.FunSuite
-import javafx.scene.image.Image
 import org.scalatest.BeforeAndAfter
 import javafx.scene.canvas.Canvas
+import javafx.scene.image.Image
 
 class SlicerSuite extends FunSuite with BeforeAndAfter {
 

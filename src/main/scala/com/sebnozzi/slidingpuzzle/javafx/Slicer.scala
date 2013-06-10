@@ -1,7 +1,7 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.javafx
 
-import javafx.scene.image.Image
 import javafx.scene.canvas.Canvas
+import javafx.scene.image.Image
 
 class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
 
