@@ -22,8 +22,8 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
   }
   
   test("a tile has an original position"){
-    assert(game.tiles.head.originalPosition === (1,1))
-    assert(game.tiles.last.originalPosition === (4,3))
+    assert(game.tiles.head.initialPosition === (1,1))
+    assert(game.tiles.last.initialPosition === (4,3))
   }
 
   test("initially, game is in solved state") {

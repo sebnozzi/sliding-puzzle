@@ -1,7 +1,5 @@
 package com.sebnozzi.slidingpuzzle
 
-class Tile {
-
-  val originalPosition = (1,1)
+class Tile(val initialPosition:(Int,Int)) {
   
 }
