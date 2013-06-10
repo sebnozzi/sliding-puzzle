@@ -161,6 +161,12 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     (1 to 100).foreach{ _ => assert(possibleTiles.contains(tile.randomAdjacentTile)) }
   }
   
+  test("asking for a random move"){
+    game.tileAt(4,3).makeHidden
+    game.makeRandomMove
+    assert(game.isSolved === false)
+  }
+  
   // shuffle tiles
   // revert to initial state
   // count number of moves

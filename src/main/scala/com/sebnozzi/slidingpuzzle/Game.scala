@@ -13,6 +13,13 @@ class Game(val columns: Int, val rows: Int) {
 
   val positionsRect = Rect(Position(1, 1), Position(columns, rows))
 
+  def makeRandomMove() {
+    if (hasHiddenTile) {
+      val tileToMove = hiddenTile.randomAdjacentTile
+      tileToMove.moveToEmptySlot()
+    }
+  }
+  
   def isSolved = {
     tiles.forall { tile => tile.isAtInitialPosition }
   }
