@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle
 
-class SlidingPuzzleGame(columns: Int, rows: Int) {
+class Game(columns: Int, rows: Int) {
 
   private var _hiddenTile: Option[Tile] = None
 

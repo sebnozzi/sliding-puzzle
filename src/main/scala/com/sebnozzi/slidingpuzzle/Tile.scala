@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle
 
-class Tile(val game: SlidingPuzzleGame, val initialPosition: Position) {
+class Tile(val game: Game, val initialPosition: Position) {
 
   private var _currentPosition = initialPosition
 
@@ -17,9 +17,12 @@ class Tile(val game: SlidingPuzzleGame, val initialPosition: Position) {
   }
 
   def adjacentTiles: List[Tile] = {
-    List(
-      new Tile(game, Position(2, 1)),
-      new Tile(game, Position(1, 2)))
+    _currentPosition.adjacentIn(???)
+    ???
   }
-
+  
+  override def toString() = {
+    val positionStr = "(%d, %d)".format(_currentPosition.col, _currentPosition.row)
+    s"Tile$positionStr"
+  }
 }
