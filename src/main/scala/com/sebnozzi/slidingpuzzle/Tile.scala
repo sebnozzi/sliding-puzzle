@@ -16,6 +16,10 @@ class Tile(val game: Game, val initialPosition: Position) {
     other.currentPosition = previousPosition
   }
 
+  def moveToEmptyPosition() {
+    swapPositionWith(game.hiddenTile)
+  }  
+  
   def adjacentTiles: List[Tile] = {
     _currentPosition.adjacentIn(game.positionsRect).map{pos => game.tileAt(pos)}
   }
