@@ -3,7 +3,7 @@ package com.sebnozzi.slidingpuzzle
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 
-class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
+class GameSuite extends FunSuite with BeforeAndAfter {
 
   var game: Game = _
 
@@ -49,7 +49,7 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     game.tiles.foreach { tile => assert(tile.game === game) }
   }
 
-  test("a tile knows its adjacent tiles") {
+  ignore("a tile knows its adjacent tiles") {
     val game = new Game(columns = 2, rows = 2)
     val topLeft = game.tileAt(1, 1)
     val topRight = game.tileAt(2, 1)
