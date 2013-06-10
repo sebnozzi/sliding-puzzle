@@ -17,8 +17,7 @@ class Tile(val game: Game, val initialPosition: Position) {
   }
 
   def adjacentTiles: List[Tile] = {
-    //_currentPosition.adjacentIn(game.gameRect)
-    ???
+    _currentPosition.adjacentIn(game.positionsRect).map{pos => game.tileAt(pos)}
   }
    
   override def toString() = {

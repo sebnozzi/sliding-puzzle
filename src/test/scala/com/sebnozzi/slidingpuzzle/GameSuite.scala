@@ -3,6 +3,8 @@ package com.sebnozzi.slidingpuzzle
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 
+import PositionConversions._
+
 class GameSuite extends FunSuite with BeforeAndAfter {
 
   var game: Game = _
@@ -33,7 +35,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
 
   test("changing a tile's current position") {
     val tile = game.tiles.head
-    tile.currentPosition = Position(2, 2)
+    tile.currentPosition = (2, 2)
     assert(tile.currentPosition != tile.initialPosition)
   }
 
@@ -52,11 +54,11 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("a game can return a rect for valid positions") {
      val game4x3 = new Game(columns = 4, rows = 3)
      val game2x2 = new Game(columns = 2, rows = 2)
-     assert(game4x3.positionsRect === Rect(Position(1, 1), Position(4, 3)))
-     assert(game2x2.positionsRect === Rect(Position(1, 1), Position(2, 2)))
+     assert(game4x3.positionsRect === Rect((1, 1), (4, 3)))
+     assert(game2x2.positionsRect === Rect((1, 1), (2, 2)))
   }
 
-  ignore("a tile knows its adjacent tiles") {
+  test("a tile knows its adjacent tiles") {
     val game = new Game(columns = 2, rows = 2)
     val topLeft = game.tileAt(1, 1)
     val topRight = game.tileAt(2, 1)

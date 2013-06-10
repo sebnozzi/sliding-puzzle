@@ -1,5 +1,9 @@
 package com.sebnozzi.slidingpuzzle
 
+package object PositionConversions {
+  implicit def tupleToPosition(tuple: Pair[Int, Int]): Position = Position(tuple._1, tuple._2)
+}
+
 case class Position(col: Int, row: Int) {
 
   def adjacentIn(rect: Rect): List[Position] = {
