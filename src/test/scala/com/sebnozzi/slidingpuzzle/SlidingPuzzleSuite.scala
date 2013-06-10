@@ -16,20 +16,6 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     assert(game.tiles.size === 12)
   }
 
-  test("a Position consists of column and row") {
-    val pos1 = Position(col = 1, row = 1)
-    val pos2 = Position(col = 2, row = 3)
-    assert(pos1.col === 1)
-    assert(pos1.row === 1)
-    assert(pos2.col === 2)
-    assert(pos2.row === 3)
-  }
-  
-  test("a Position knows adjacent positions to itself") {
-    val pos1 = Position(col = 1, row = 1)
-    assert(pos1.adjacent === List(Position(2,1), Position(1,2)))
-  }
-
   test("a game of dimensions 3x2 should have 9 tiles") {
     val game = new SlidingPuzzleGame(columns = 3, rows = 3)
     assert(game.tiles.size === 9)
