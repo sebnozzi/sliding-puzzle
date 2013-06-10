@@ -8,7 +8,7 @@ class SlidingPuzzleGame(columns: Int, rows: Int) {
     (for (
       rowNr <- 1 to rows;
       colNr <- 1 to columns
-    ) yield new Tile(Position(colNr, rowNr))).toList
+    ) yield new Tile(game = this, initialPosition = Position(colNr, rowNr))).toList
   }
 
   val isSolved = true

@@ -53,9 +53,9 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     assert(tile1.currentPosition === tile2.initialPosition)
     assert(tile2.currentPosition === tile1.initialPosition)
   }
-
-  test("initially, game is in solved state") {
-    assert(game.isSolved)
+  
+  test("a tile knows its game"){
+    game.tiles.foreach{ tile => assert(tile.game === game) }
   }
 
   test("it is possible to define a hidden tile") {
@@ -69,10 +69,11 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     game.setHiddenTileAt(1, 1)
     assert(game.hiddenTile === tile)
   }
-
-  ignore("it is possible to get all tile positions") {
-    fail("pending")
+  
+  test("initially, game is in solved state") {
+    assert(game.isSolved)
   }
+
 
   // move tile to hidden slot
   // re-show hidden tile
