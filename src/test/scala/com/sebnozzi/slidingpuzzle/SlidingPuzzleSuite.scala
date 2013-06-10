@@ -20,6 +20,11 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     val game = new SlidingPuzzleGame(columns = 3, rows = 3)
     assert(game.tiles.size === 9)
   }
+  
+  test("a tile has an original position"){
+    assert(game.tiles.head.originalPosition === (1,1))
+    assert(game.tiles.last.originalPosition === (4,3))
+  }
 
   test("initially, game is in solved state") {
     assert(game.isSolved)
@@ -36,5 +41,17 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     game.setHiddenTileAt(1, 1)
     assert(game.hiddenTile === tile)
   }
+  
+  ignore("it is possible to get all tile positions"){
+    fail("pending")
+  }
+  
+  // move tile to hidden slot
+  // re-show hidden tile
+  // detect solved state after some moves
+  // shuffle tiles
+  // revert to initial state
+  // count number of moves
+  // make sure number of moves is reset
 
 }
