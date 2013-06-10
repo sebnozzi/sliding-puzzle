@@ -16,4 +16,10 @@ class Tile(val game: SlidingPuzzleGame, val initialPosition: Position) {
     other.currentPosition = previousPosition
   }
 
+  def adjacentTiles: List[Tile] = {
+    List(
+      new Tile(game, Position(2, 1)),
+      new Tile(game, Position(1, 2)))
+  }
+
 }

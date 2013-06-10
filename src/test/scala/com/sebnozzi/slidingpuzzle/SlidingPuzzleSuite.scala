@@ -24,6 +24,11 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     assert(pos2.col === 2)
     assert(pos2.row === 3)
   }
+  
+  test("a Position knows adjacent positions to itself") {
+    val pos1 = Position(col = 1, row = 1)
+    assert(pos1.adjacent === List(Position(2,1), Position(1,2)))
+  }
 
   test("a game of dimensions 3x2 should have 9 tiles") {
     val game = new SlidingPuzzleGame(columns = 3, rows = 3)
@@ -58,6 +63,15 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     game.tiles.foreach{ tile => assert(tile.game === game) }
   }
 
+  ignore("a tile knows its adjacent tiles"){
+    val firstTile = game.tileAt(1, 1)
+    val adjacentTilesOfFirst:List[Tile] = firstTile.adjacentTiles
+    adjacentTilesOfFirst.map{_.currentPosition}.containsSlice(List(
+        Position(2,1),
+        Position(1,2)
+    ))
+  }
+  
   test("it is possible to define a hidden tile") {
     val tile = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
