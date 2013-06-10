@@ -39,6 +39,12 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     val tile = game.tiles.head
     assert(tile.currentPosition === tile.initialPosition)
   }
+  
+  test("changing a tile's current position"){
+    val tile = game.tiles.head
+    tile.currentPosition = Position(2,2)
+    assert(tile.currentPosition != tile.initialPosition)
+  }
 
   test("initially, game is in solved state") {
     assert(game.isSolved)

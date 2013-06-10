@@ -2,6 +2,12 @@ package com.sebnozzi.slidingpuzzle
 
 class Tile(val initialPosition:Position) {
   
-  val currentPosition = initialPosition
+  private var _currentPosition = initialPosition
+  
+  def currentPosition = _currentPosition
+  
+  def currentPosition_=(newPosition:Position){
+    _currentPosition = newPosition
+  }
   
 }
