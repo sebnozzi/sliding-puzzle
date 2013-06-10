@@ -136,8 +136,19 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("initially, game is in solved state") {
     assert(game.isSolved)
   }
+  
+  test("ask tile if in initial position"){
+    assert(game.tileAt(1,1).isAtInitialPosition)
+    game.tileAt(2,2).swapPositionWith(game.tileAt(3,2))
+    assert(game.tileAt(2,2).isAtInitialPosition === false)
+  }
 
-  // re-show hidden tile
+  ignore("as soon as one move is made, the game is not in solved state") {
+    game.tileAt(4,3).makeHidden
+    game.tileAt(3,3).moveToEmptySlot
+    assert(game.isSolved === false)
+  }  
+  
   // detect solved state after some moves
   // shuffle tiles
   // revert to initial state

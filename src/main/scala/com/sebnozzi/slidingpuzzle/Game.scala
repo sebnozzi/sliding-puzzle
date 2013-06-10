@@ -13,7 +13,9 @@ class Game(val columns: Int, val rows: Int) {
 
   val positionsRect = Rect(Position(1, 1), Position(columns, rows))
 
-  val isSolved = true
+  val isSolved = {
+    true
+  }
 
   def tileAt(position: Position) = tiles((position.col - 1) + (position.row - 1) * columns)
 
