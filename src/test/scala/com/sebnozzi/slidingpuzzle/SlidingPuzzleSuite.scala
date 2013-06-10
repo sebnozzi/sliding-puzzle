@@ -49,7 +49,7 @@ class SlidingpuzzleSuite extends FunSuite with BeforeAndAfter {
     game.tiles.foreach { tile => assert(tile.game === game) }
   }
 
-  ignore("a tile knows its adjacent tiles") {
+  test("a tile knows its adjacent tiles") {
     val game = new Game(columns = 2, rows = 2)
     val topLeft = game.tileAt(1, 1)
     val topRight = game.tileAt(2, 1)
