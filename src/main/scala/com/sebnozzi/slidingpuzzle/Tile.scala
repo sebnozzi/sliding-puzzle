@@ -15,26 +15,29 @@ class Tile(val game: Game, val initialPosition: Position) {
     this.currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
-  
+
   def makeHidden {
     game.setHiddenTileAt(this.currentPosition)
   }
-  
-  def isAdjacentTo(other:Tile) = this.adjacentTiles.contains(other)
-  
+
+  def isAdjacentTo(other: Tile) = this.adjacentTiles.contains(other)
+
   def canMoveToEmptySlot = {
-    this.isAdjacentTo(game.hiddenTile)
+    if (game.hasHiddenTile)
+      this.isAdjacentTo(game.hiddenTile)
+    else
+      false
   }
 
   def moveToEmptySlot() {
-    if(canMoveToEmptySlot)
+    if (canMoveToEmptySlot)
       swapPositionWith(game.hiddenTile)
-  }  
-  
-  def adjacentTiles: List[Tile] = {
-    _currentPosition.adjacentIn(game.positionsRect).map{pos => game.tileAt(pos)}
   }
-   
+
+  def adjacentTiles: List[Tile] = {
+    _currentPosition.adjacentIn(game.positionsRect).map { pos => game.tileAt(pos) }
+  }
+
   override def toString() = {
     val positionStr = "(%d, %d)".format(_currentPosition.col, _currentPosition.row)
     s"Tile$positionStr"
