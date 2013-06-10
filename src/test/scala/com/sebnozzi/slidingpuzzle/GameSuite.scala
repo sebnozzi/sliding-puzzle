@@ -123,6 +123,15 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile1.makeHidden
     assert(game.hiddenTile === tile1)
   }
+  
+  test("unhiding the tile"){
+    assert(game.hasHiddenTile === false)
+    val tile = game.tileAt(1, 1)
+    tile.makeHidden
+    assert(game.hasHiddenTile)
+    tile.makeVisible
+    assert(game.hasHiddenTile === false)
+  }
 
   test("initially, game is in solved state") {
     assert(game.isSolved)

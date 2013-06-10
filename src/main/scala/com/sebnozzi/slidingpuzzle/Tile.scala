@@ -19,6 +19,10 @@ class Tile(val game: Game, val initialPosition: Position) {
   def makeHidden {
     game.setHiddenTileAt(this.currentPosition)
   }
+  
+  def makeVisible {
+    game.clearHiddenTile
+  }
 
   def isAdjacentTo(other: Tile) = this.adjacentTiles.contains(other)
 

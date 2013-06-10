@@ -15,12 +15,13 @@ class Game(val columns: Int, val rows: Int) {
 
   val isSolved = true
 
-  def tileAt(position:Position) = tiles((position.col - 1) + (position.row - 1) * columns)
+  def tileAt(position: Position) = tiles((position.col - 1) + (position.row - 1) * columns)
 
   def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }
+  def clearHiddenTile { _hiddenTile = None }
 
   def hasHiddenTile = _hiddenTile.isDefined
-  
+
   def hiddenTile: Tile = _hiddenTile.getOrElse(throw new java.util.NoSuchElementException("Does not have a hidden tile"))
 
 }
