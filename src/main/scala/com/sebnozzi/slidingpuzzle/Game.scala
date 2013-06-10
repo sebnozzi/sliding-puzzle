@@ -13,13 +13,20 @@ class Game(val columns: Int, val rows: Int) {
 
   val positionsRect = Rect(Position(1, 1), Position(columns, rows))
 
-  def makeRandomMove() {
+  def makeRandomMove(times: Int = 1) {
     if (hasHiddenTile) {
-      val tileToMove = hiddenTile.randomAdjacentTile
-      tileToMove.moveToEmptySlot()
+      for (_ <- (1 to times)) {
+        val tileToMove = hiddenTile.randomAdjacentTile
+        tileToMove.moveToEmptySlot()
+      }
     }
   }
   
+  def resetState() {
+    //tiles.foreach(_.backToInitialPosition)
+    clearHiddenTile()
+  }
+
   def isSolved = {
     tiles.forall { tile => tile.isAtInitialPosition }
   }
@@ -27,7 +34,7 @@ class Game(val columns: Int, val rows: Int) {
   def tileAt(position: Position) = tiles((position.col - 1) + (position.row - 1) * columns)
 
   def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }
-  def clearHiddenTile { _hiddenTile = None }
+  def clearHiddenTile() { _hiddenTile = None }
 
   def hasHiddenTile = _hiddenTile.isDefined
 

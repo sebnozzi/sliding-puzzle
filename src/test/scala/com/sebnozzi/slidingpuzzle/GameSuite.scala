@@ -163,13 +163,32 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   
   test("asking for a random move"){
     game.tileAt(4,3).makeHidden
-    game.makeRandomMove
+    game.makeRandomMove()
     assert(game.isSolved === false)
   }
   
-  // shuffle tiles
-  // revert to initial state
-  // count number of moves
-  // make sure number of moves is reset
+  test("shuffling tiles"){
+    game.tileAt(4,3).makeHidden
+    game.makeRandomMove(times=50)
+    assume(game.isSolved === false)
+  }
+  
+  test("ask tile to go back to initial position"){
+    val tile1 = game.tiles(0)
+    val tile2 = game.tiles(1)
+    tile1.swapPositionWith(tile2)
+    tile1.moveToInitialPosition()
+    tile2.moveToInitialPosition()
+    
+    assert(tile1.isAtInitialPosition)
+    assert(tile2.isAtInitialPosition)    
+  }
+
+  ignore("revert to initial state"){
+    game.tileAt(4,3).makeHidden
+    game.makeRandomMove()
+    game.resetState()
+    assert(game.isSolved)
+  }
 
 }
