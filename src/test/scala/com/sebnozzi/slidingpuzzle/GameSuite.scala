@@ -133,7 +133,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.hasHiddenTile === false)
   }
 
-  test("initially, game is in solved state") {
+  test("initially, game is in a solved state") {
     assert(game.isSolved)
   }
   
@@ -143,9 +143,11 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.tileAt(2,2).isAtInitialPosition === false)
   }
 
-  ignore("as soon as one move is made, the game is not in solved state") {
-    game.tileAt(4,3).makeHidden
-    game.tileAt(3,3).moveToEmptySlot
+  test("as soon as one move is made, the game is not in solved state") {
+    val tile1 = game.tileAt(4,2)
+    val tile2 = game.tileAt(4,3)
+    tile2.makeHidden
+    tile1.moveToEmptySlot
     assert(game.isSolved === false)
   }  
   

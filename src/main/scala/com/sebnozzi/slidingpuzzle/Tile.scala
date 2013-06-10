@@ -19,13 +19,13 @@ class Tile(val game: Game, val initialPosition: Position) {
   def makeHidden {
     game.setHiddenTileAt(this.currentPosition)
   }
-  
+
   def makeVisible {
     game.clearHiddenTile
   }
 
   def isAtInitialPosition = (currentPosition == initialPosition)
-  
+
   def isAdjacentTo(other: Tile) = this.adjacentTiles.contains(other)
 
   def canMoveToEmptySlot = {
@@ -45,7 +45,11 @@ class Tile(val game: Game, val initialPosition: Position) {
   }
 
   override def toString() = {
-    val positionStr = "(%d, %d)".format(_currentPosition.col, _currentPosition.row)
-    s"Tile$positionStr"
+    val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
+      initialPosition.col,
+      initialPosition.row,
+      _currentPosition.col,
+      _currentPosition.row)
+    s"Tile($positionStr)"
   }
 }
