@@ -19,6 +19,6 @@ class Game(val columns: Int, val rows: Int) {
 
   def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }
 
-  def hiddenTile: Tile = _hiddenTile.get
+  def hiddenTile: Tile = _hiddenTile.getOrElse(throw new java.util.NoSuchElementException("Does not have a hidden tile"))
 
 }

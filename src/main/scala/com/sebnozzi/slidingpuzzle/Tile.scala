@@ -16,6 +16,10 @@ class Tile(val game: Game, val initialPosition: Position) {
     other.currentPosition = previousPosition
   }
   
+  def makeHidden {
+    game.setHiddenTileAt(this.currentPosition)
+  }
+  
   def isAdjacentTo(other:Tile) = this.adjacentTiles.contains(other)
   
   def canMoveToEmptySlot = {
