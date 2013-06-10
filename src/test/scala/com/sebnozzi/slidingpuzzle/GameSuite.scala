@@ -49,14 +49,21 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     game.tiles.foreach { tile => assert(tile.game === game) }
   }
 
+  test("a game can return a rect for valid positions") {
+     val game4x3 = new Game(columns = 4, rows = 3)
+     val game2x2 = new Game(columns = 2, rows = 2)
+     assert(game4x3.positionsRect === Rect(Position(1, 1), Position(4, 3)))
+     assert(game2x2.positionsRect === Rect(Position(1, 1), Position(2, 2)))
+  }
+
   ignore("a tile knows its adjacent tiles") {
     val game = new Game(columns = 2, rows = 2)
     val topLeft = game.tileAt(1, 1)
     val topRight = game.tileAt(2, 1)
     val bottomLeft = game.tileAt(1, 2)
     val bottomRight = game.tileAt(2, 2)
-    assert(topLeft.adjacentTiles === List(topRight,bottomLeft))
-    assert(topRight.adjacentTiles === List(topLeft,bottomRight))
+    assert(topLeft.adjacentTiles === List(topRight, bottomLeft))
+    assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
 
   test("it is possible to define a hidden tile") {

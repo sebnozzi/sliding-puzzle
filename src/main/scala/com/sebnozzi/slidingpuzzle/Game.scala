@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle
 
-class Game(columns: Int, rows: Int) {
+class Game(val columns: Int, val rows: Int) {
 
   private var _hiddenTile: Option[Tile] = None
 
@@ -10,6 +10,8 @@ class Game(columns: Int, rows: Int) {
       colNr <- 1 to columns
     ) yield new Tile(game = this, initialPosition = Position(colNr, rowNr))).toList
   }
+
+  val positionsRect = Rect(Position(1, 1), Position(columns, rows))
 
   val isSolved = true
 
