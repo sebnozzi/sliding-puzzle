@@ -10,4 +10,10 @@ class Tile(val initialPosition:Position) {
     _currentPosition = newPosition
   }
   
+  def swapPositionWith(other:Tile){
+    val previousPosition = this.currentPosition
+    this.currentPosition = other.currentPosition
+    other.currentPosition = previousPosition
+  }
+  
 }
