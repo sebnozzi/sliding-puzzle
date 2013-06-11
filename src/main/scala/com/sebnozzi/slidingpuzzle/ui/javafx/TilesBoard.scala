@@ -7,10 +7,14 @@ import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
 import com.sebnozzi.slidingpuzzle.model.Position
+import javafx.animation.TranslateTransitionBuilder
+import javafx.util.Duration
+import javafx.animation.Timeline
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
 
   type TilePressingCallback = Canvas => Unit
+  private val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
 
   private var onTilePressedCallback: Option[TilePressingCallback] = None
 
@@ -20,8 +24,24 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
     onTilePressedCallback = Some(callback)
   }
 
-  def moveTile(tile:Canvas, destination: Position) {
+  def moveTile(tile: Canvas, destination: Position, animate: Boolean = true) {
+    val destinationX = (destination.col - 1) * slicer.sliceWidth
+    val destinationY = (destination.row - 1) * slicer.sliceHeight
     
+    if (animate) {
+
+      val translateTransition = TranslateTransitionBuilder.create()
+        .duration(Duration.seconds(0.3))
+        .node(tile)
+        .toX(destinationX)
+        .toY(destinationY)
+        .build()
+
+      translateTransition.play()
+    } else {
+      tile.setTranslateX(destinationX)
+      tile.setTranslateX(destinationY)
+    }
   }
 
   private def addSliceNodes() {
@@ -42,8 +62,8 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
         val xCoord = (col - 1) * slicer.sliceWidth
         val yCoord = (row - 1) * slicer.sliceHeight
         val slice = slicer.sliceAt(col, row)
-        slice.setLayoutX(xCoord)
-        slice.setLayoutY(yCoord)
+        slice.setTranslateX(xCoord)
+        slice.setTranslateY(yCoord)
         drawBorders(slice)
         onMousePressedOnSlice(slice) {
           tilePressed(slice)
