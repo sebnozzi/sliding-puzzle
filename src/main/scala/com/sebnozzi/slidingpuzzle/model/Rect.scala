@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.model
 
 case class Rect(topLeft: Position, bottomRight: Position) {
 

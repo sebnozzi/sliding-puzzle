@@ -1,9 +1,9 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.model
 
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
-
 import PositionConversions._
+import org.scalatest.Finders
 
 class GameSuite extends FunSuite with BeforeAndAfter {
 

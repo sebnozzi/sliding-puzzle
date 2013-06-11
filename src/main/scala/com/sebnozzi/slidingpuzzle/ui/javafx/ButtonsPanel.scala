@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.javafx
+package com.sebnozzi.slidingpuzzle.ui.javafx
 
 import javafx.scene.control.Button
 import javafx.scene.layout.VBox

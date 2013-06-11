@@ -1,6 +1,7 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.model
 
 import org.scalatest.FunSuite
+import org.scalatest.Finders
 
 class PositionSuite extends FunSuite  {
 

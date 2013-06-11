@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.model
 
 class Game(val columns: Int, val rows: Int) {
 

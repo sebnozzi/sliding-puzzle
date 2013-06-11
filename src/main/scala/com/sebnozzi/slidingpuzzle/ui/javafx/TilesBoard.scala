@@ -1,10 +1,11 @@
-package com.sebnozzi.slidingpuzzle.javafx
+package com.sebnozzi.slidingpuzzle.ui.javafx
 
 import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
+import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
 

@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.javafx
+package com.sebnozzi.slidingpuzzle.ui.javafx.utils
 
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image

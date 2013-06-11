@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle
 
 import _root_.javafx.application.Application
-import javafx.SlidingPuzzleJFXApp
+import com.sebnozzi.slidingpuzzle.ui.javafx.SlidingPuzzleJFXApp
 
 object SlidingPuzzleApp extends App {
 

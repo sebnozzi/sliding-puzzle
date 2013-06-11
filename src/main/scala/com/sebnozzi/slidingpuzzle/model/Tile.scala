@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle
+package com.sebnozzi.slidingpuzzle.model
 
 import scala.util.Random
 

@@ -1,10 +1,10 @@
-package com.sebnozzi.slidingpuzzle.javafx
+package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import _root_.javafx.application.Application
-import Implicits._
+import javafx.application.Application
+import javafx.scene.image.Image
 import javafx.scene.layout.HBox
 import javafx.stage.Stage
-import javafx.scene.image.Image
+import Implicits._
 
 class SlidingPuzzleJFXApp extends Application {
 
