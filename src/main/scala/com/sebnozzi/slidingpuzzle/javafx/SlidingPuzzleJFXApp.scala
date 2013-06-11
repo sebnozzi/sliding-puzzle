@@ -10,6 +10,11 @@ import javafx.scene.canvas.Canvas
 import javafx.event.EventHandler
 import javafx.stage.WindowEvent
 import javafx.application.Platform
+import javafx.scene.layout.HBox
+import javafx.scene.Parent
+import javafx.scene.layout.VBox
+import javafx.scene.control.Button
+import javafx.geometry.Insets
 
 class SlidingPuzzleJFXApp extends Application {
 
@@ -23,36 +28,25 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    val mainNodeGroup = {
-      val slicesGroup = new Group();
-      val sliceNodes = {
-        def drawBorders(slice: Canvas) {
-          val gc = slice.getGraphicsContext2D()
-          gc.beginPath()
-          gc.rect(0, 0, slice.getWidth(), slice.getHeight())
-          gc.closePath()
-          gc.stroke()
-        }
-        val slicer = new Slicer(img, xAmount = 4, yAmount = 3)
-        slicer.slicePositions.map {
-          case (x, y) =>
-            val xCoord = (x - 1) * slicer.sliceWidth
-            val yCoord = (y - 1) * slicer.sliceHeight
-            val slice = slicer.sliceAt(x, y)
-            slice.setLayoutX(xCoord)
-            slice.setLayoutY(yCoord)
-            drawBorders(slice)
-            slice
-        }
-      }
-      sliceNodes.foreach { slicesGroup.getChildren().add(_) }
-      slicesGroup
-    }
-
-    setupWindow(mainWindow, mainNodeGroup)
+    val uiGroup = new HBox()
+    val buttonsGroup = new VBox()
+    
+    List(
+        new Button("Click me "),
+        new Button("Click me ")
+    ).foreach{buttonsGroup.getChildren().add(_)}
+    
+    buttonsGroup.setSpacing(20.0)
+    buttonsGroup.setPadding(new Insets(20.0))
+    //buttonsGroup.setStyle("-fx-background-color: red;")
+    
+    uiGroup.getChildren().add(slicesGroup())
+    uiGroup.getChildren().add(buttonsGroup)
+    
+    setupWindow(mainWindow, uiGroup)
   }
 
-  private def setupWindow(mainWindow: Stage, mainGroup: Group) {
+  private def setupWindow(mainWindow: Stage, mainGroup: Parent) {
     val scene = new Scene(mainGroup)
     mainWindow.setScene(scene)
 
@@ -70,5 +64,32 @@ class SlidingPuzzleJFXApp extends Application {
         Platform.exit()
       }
     })
+  }
+
+  def slicesGroup() = {
+    val group = new Group();
+    sliceNodes(img).foreach { group.getChildren().add(_) }
+    group
+  }
+
+  def sliceNodes(img: Image): List[Canvas] = {
+    def drawBorders(slice: Canvas) {
+      val gc = slice.getGraphicsContext2D()
+      gc.beginPath()
+      gc.rect(0, 0, slice.getWidth(), slice.getHeight())
+      gc.closePath()
+      gc.stroke()
+    }
+    val slicer = new Slicer(img, xAmount = 4, yAmount = 3)
+    slicer.slicePositions.map {
+      case (x, y) =>
+        val xCoord = (x - 1) * slicer.sliceWidth
+        val yCoord = (y - 1) * slicer.sliceHeight
+        val slice = slicer.sliceAt(x, y)
+        slice.setLayoutX(xCoord)
+        slice.setLayoutY(yCoord)
+        drawBorders(slice)
+        slice
+    }
   }
 }
