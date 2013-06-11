@@ -41,6 +41,14 @@ class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends 
       translateTo(destX, destY)
     }
   }
+  
+  def makeHidden() {
+    this.setOpacity(0.0)
+  }
+
+  def makeVisible() {
+    this.setOpacity(1.0)
+  }
 
   def animateTo(x: Double, y: Double) {
     val translateTransition = TranslateTransitionBuilder.create()

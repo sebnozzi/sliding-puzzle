@@ -6,6 +6,8 @@ import javafx.scene.Scene
 import javafx.event.EventHandler
 import javafx.stage.WindowEvent
 import javafx.application.Platform
+import javafx.scene.paint.Paint
+import javafx.scene.paint.Color
 
 object Implicits {
 
@@ -13,6 +15,7 @@ object Implicits {
 
     def setupWithGroup(mainGroup: Parent) {
       val scene = new Scene(mainGroup)
+      scene.setFill(Color.BLACK)
       window.setScene(scene)
 
       window.setTitle("Sliding Puzzle")
