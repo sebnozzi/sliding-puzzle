@@ -4,7 +4,6 @@ import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
-import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
 
 class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
 

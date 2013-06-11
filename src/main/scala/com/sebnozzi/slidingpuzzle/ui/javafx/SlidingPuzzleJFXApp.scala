@@ -5,6 +5,8 @@ import javafx.scene.image.Image
 import javafx.scene.layout.HBox
 import javafx.stage.Stage
 import Implicits._
+import com.sebnozzi.slidingpuzzle.model.Position
+import javafx.scene.canvas.Canvas
 
 class SlidingPuzzleJFXApp extends Application {
 
@@ -15,12 +17,13 @@ class SlidingPuzzleJFXApp extends Application {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
+  
+  val tilesBoard = new TilesBoard(img, columns, rows)
 
   override def start(mainWindow: Stage) {
     val mainGroup = new HBox()
     val buttonsPanel = new ButtonsPanel()
-    val tilesBoard = new TilesBoard(img, columns, rows)
-
+ 
     buttonsPanel.onResetPressed(resetPressed)
     buttonsPanel.onShufflePressed(shufflePressed)
     tilesBoard.onTilePressed(tilePressed)
@@ -32,8 +35,8 @@ class SlidingPuzzleJFXApp extends Application {
     mainWindow.show()
   }
 
-  private def tilePressed(col:Int, row:Int) {
-    println(s"Tile pressed at $col@$row")
+  private def tilePressed(tile:Canvas) {
+    tilesBoard.moveTile(tile, destination = Position(1, 1))
   }
 
   private def shufflePressed() {

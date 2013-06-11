@@ -6,19 +6,24 @@ import javafx.scene.image.Image
 import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
+import com.sebnozzi.slidingpuzzle.model.Position
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
 
-  type TilePressingCallback = (Int, Int) => Unit
-  
+  type TilePressingCallback = Canvas => Unit
+
   private var onTilePressedCallback: Option[TilePressingCallback] = None
 
   addSliceNodes()
 
-  def onTilePressed(callback: TilePressingCallback){
+  def onTilePressed(callback: TilePressingCallback) {
     onTilePressedCallback = Some(callback)
   }
-  
+
+  def moveTile(tile:Canvas, destination: Position) {
+    
+  }
+
   private def addSliceNodes() {
     sliceNodes.foreach { this.getChildren().add(_) }
   }
@@ -41,15 +46,15 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
         slice.setLayoutY(yCoord)
         drawBorders(slice)
         onMousePressedOnSlice(slice) {
-          tilePressed(col, row)
+          tilePressed(slice)
         }
         slice
     }
   }
 
-  private def tilePressed(initialCol: Int, initialRow: Int) {
+  private def tilePressed(tile: Canvas) {
     if (onTilePressedCallback.isDefined)
-      onTilePressedCallback.get(initialCol, initialRow)
+      onTilePressedCallback.get(tile)
   }
 
   private def onMousePressedOnSlice(sliceNode: Canvas)(callback: => Unit) {
