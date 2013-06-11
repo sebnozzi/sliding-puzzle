@@ -15,8 +15,12 @@ import javafx.scene.Parent
 import javafx.scene.layout.VBox
 import javafx.scene.control.Button
 import javafx.geometry.Insets
+import javafx.geometry.Pos
 
 class SlidingPuzzleJFXApp extends Application {
+
+  val shuffleButton = new Button("Shuffle")
+  val resetButton = new Button("Reset")
 
   val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
@@ -30,17 +34,18 @@ class SlidingPuzzleJFXApp extends Application {
   override def start(mainWindow: Stage) {
     val uiGroup = new HBox()
     val buttonsGroup = new VBox()
-
+    
     List(
-      new Button("Shuffle"),
-      new Button("Reset")).foreach { button =>
+      shuffleButton,
+      resetButton).foreach { button =>
         button.setMaxWidth(Double.MaxValue)
         buttonsGroup.getChildren().add(button)
       }
-
+    
     buttonsGroup.setSpacing(20.0)
     buttonsGroup.setPadding(new Insets(20.0))
-    //buttonsGroup.setStyle("-fx-background-color: red;")
+    buttonsGroup.setAlignment(Pos.BOTTOM_CENTER)
+    //buttonsGroup.setStyle("-fx-background-color: rgba(0.5,0.5,0.5,1.0);")
 
     uiGroup.getChildren().add(slicesGroup())
     uiGroup.getChildren().add(buttonsGroup)
