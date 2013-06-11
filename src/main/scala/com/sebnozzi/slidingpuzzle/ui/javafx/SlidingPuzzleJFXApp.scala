@@ -17,26 +17,30 @@ class SlidingPuzzleJFXApp extends Application {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
-  
+
   val tilesBoard = new TilesBoard(img, columns, rows)
 
   override def start(mainWindow: Stage) {
     val mainGroup = new HBox()
     val buttonsPanel = new ButtonsPanel()
- 
+
     buttonsPanel.onResetPressed(resetPressed)
     buttonsPanel.onShufflePressed(shufflePressed)
-    tilesBoard.onTilePressed(tilePressed)
+    tilesBoard.tiles.foreach { tile =>
+      tile.onMousePressed { () =>
+        tilePressed(tile)
+      }
+    }
 
     mainGroup.getChildren().add(tilesBoard)
     mainGroup.getChildren().add(buttonsPanel)
-    
+
     mainWindow.setupWithGroup(mainGroup)
     mainWindow.show()
   }
 
-  private def tilePressed(tile:Canvas) {
-    tilesBoard.moveTile(tile, destination = Position(1, 1))
+  private def tilePressed(tile: TileNode) {
+    tile.moveTile(destination = Position(1, 1))
   }
 
   private def shufflePressed() {
@@ -45,7 +49,7 @@ class SlidingPuzzleJFXApp extends Application {
 
   private def resetPressed() {
     println("Reset pressed")
-    tilesBoard.tiles.foreach(tilesBoard.moveToInitialPosition(_))
+    tilesBoard.tiles.foreach(_.moveToInitialPosition())
   }
 
 }
