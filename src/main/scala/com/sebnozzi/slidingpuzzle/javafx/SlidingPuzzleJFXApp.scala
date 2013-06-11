@@ -22,10 +22,10 @@ class SlidingPuzzleJFXApp extends Application {
     new ImageView(img)
   }
 
-  override def start(primaryStage: Stage) {
-    val group = {
-      val group = new Group();
-      val nodesToAdd = {
+  override def start(mainWindow: Stage) {
+    val mainNodeGroup = {
+      val slicesGroup = new Group();
+      val sliceNodes = {
         def drawBorders(slice: Canvas) {
           val gc = slice.getGraphicsContext2D()
           gc.beginPath()
@@ -45,27 +45,27 @@ class SlidingPuzzleJFXApp extends Application {
             slice
         }
       }
-      nodesToAdd.foreach { group.getChildren().add(_) }
-      group
+      sliceNodes.foreach { slicesGroup.getChildren().add(_) }
+      slicesGroup
     }
 
-    setupStage(primaryStage, group)
+    setupWindow(mainWindow, mainNodeGroup)
   }
 
-  private def setupStage(stage: Stage, mainGroup: Group) {
+  private def setupWindow(mainWindow: Stage, mainGroup: Group) {
     val scene = new Scene(mainGroup)
-    stage.setScene(scene)
+    mainWindow.setScene(scene)
 
-    stage.setTitle("Sliding Puzzle")
-    stage.setX(100)
-    stage.setY(100)
-    stage.setMinWidth(840)
-    stage.setMinHeight(560)
-    stage.setResizable(false)
-    stage.setFullScreen(false)
-    stage.show()
+    mainWindow.setTitle("Sliding Puzzle")
+    mainWindow.setX(100)
+    mainWindow.setY(100)
+    mainWindow.setMinWidth(840)
+    mainWindow.setMinHeight(560)
+    mainWindow.setResizable(false)
+    mainWindow.setFullScreen(false)
+    mainWindow.show()
 
-    stage.setOnCloseRequest(new EventHandler[WindowEvent] {
+    mainWindow.setOnCloseRequest(new EventHandler[WindowEvent] {
       def handle(event: WindowEvent) {
         Platform.exit()
       }
