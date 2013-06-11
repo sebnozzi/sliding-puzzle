@@ -45,6 +45,7 @@ class SlidingPuzzleJFXApp extends Application {
 
   private def resetPressed() {
     println("Reset pressed")
+    tilesBoard.tiles.foreach(tilesBoard.moveToInitialPosition(_))
   }
 
 }

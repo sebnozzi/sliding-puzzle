@@ -18,26 +18,32 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
   private type TilePressingCallback = Canvas => Unit
   private val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
   private var onTilePressedCallback: Option[TilePressingCallback] = None
+  private val initialPositionMap = mutable.Map[Canvas, Position]()
+
+  lazy val tiles: List[Canvas] = makeTiles()
 
   val tileWidth = slicer.sliceWidth
   val tileHeight = slicer.sliceHeight
-  
-  private val initialPositionMap = mutable.Map[Canvas, Position]()
-  
+
   addSliceNodes()
 
   def onTilePressed(callback: TilePressingCallback) {
     onTilePressedCallback = Some(callback)
   }
-  
-  def initialPositionOf(tile:Canvas):Position = {
-    ???
+
+  def initialPositionOf(tile: Canvas): Position = {
+    initialPositionMap.get(tile).get
+  }
+
+  def moveToInitialPosition(tile: Canvas) {
+    val initialPosition = initialPositionOf(tile)
+    moveTile(tile, initialPosition, animate = false)
   }
 
   def moveTile(tile: Canvas, destination: Position, animate: Boolean = true) {
     val destX = (destination.col - 1) * tileWidth
     val destY = (destination.row - 1) * tileHeight
-    
+
     if (animate) {
       val translateTransition = TranslateTransitionBuilder.create()
         .duration(Duration.seconds(0.3))
@@ -48,15 +54,15 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
       translateTransition.play()
     } else {
       tile.setTranslateX(destX)
-      tile.setTranslateX(destY)
+      tile.setTranslateY(destY)
     }
   }
 
   private def addSliceNodes() {
-    sliceNodes.foreach { this.getChildren().add(_) }
+    tiles.foreach { this.getChildren().add(_) }
   }
 
-  private lazy val sliceNodes: List[Canvas] = {
+  private def makeTiles() :List[Canvas] = {
     def drawBorders(slice: Canvas) {
       val gc = slice.getGraphicsContext2D()
       gc.beginPath()
@@ -73,7 +79,7 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
         slice.setTranslateX(xCoord)
         slice.setTranslateY(yCoord)
         drawBorders(slice)
-        initialPositionMap.put(slice, Position(col,row))
+        initialPositionMap.put(slice, Position(col, row))
         onMousePressedOnSlice(slice) {
           tilePressed(slice)
         }
