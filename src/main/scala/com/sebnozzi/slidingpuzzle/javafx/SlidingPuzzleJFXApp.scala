@@ -2,7 +2,6 @@ package com.sebnozzi.slidingpuzzle.javafx
 
 import _root_.javafx.application.Application
 import javafx.stage.Stage
-import javafx.scene.image.ImageView
 import javafx.scene.Scene
 import javafx.scene.Group
 import javafx.scene.image.Image
@@ -19,16 +18,15 @@ import javafx.geometry.Pos
 
 class SlidingPuzzleJFXApp extends Application {
 
-  val shuffleButton = new Button("Shuffle")
-  val resetButton = new Button("Reset")
+  val columns = 4
+  val rows = 3
+  
+  private val shuffleButton = new Button("Shuffle")
+  private val resetButton = new Button("Reset")
 
   val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
-  }
-
-  lazy val imageView = {
-    new ImageView(img)
   }
 
   override def start(mainWindow: Stage) {
@@ -45,7 +43,7 @@ class SlidingPuzzleJFXApp extends Application {
     buttonsGroup.setSpacing(20.0)
     buttonsGroup.setPadding(new Insets(20.0))
     buttonsGroup.setAlignment(Pos.BOTTOM_CENTER)
-    //buttonsGroup.setStyle("-fx-background-color: rgba(0.5,0.5,0.5,1.0);")
+    buttonsGroup.setStyle("-fx-background-color: gray;")
 
     uiGroup.getChildren().add(slicesGroup())
     uiGroup.getChildren().add(buttonsGroup)
@@ -73,13 +71,13 @@ class SlidingPuzzleJFXApp extends Application {
     })
   }
 
-  def slicesGroup() = {
+  private def slicesGroup() = {
     val group = new Group();
     sliceNodes(img).foreach { group.getChildren().add(_) }
     group
   }
 
-  def sliceNodes(img: Image): List[Canvas] = {
+  private def sliceNodes(img: Image): List[Canvas] = {
     def drawBorders(slice: Canvas) {
       val gc = slice.getGraphicsContext2D()
       gc.beginPath()
@@ -87,7 +85,7 @@ class SlidingPuzzleJFXApp extends Application {
       gc.closePath()
       gc.stroke()
     }
-    val slicer = new Slicer(img, xAmount = 4, yAmount = 3)
+    val slicer = new Slicer(img, xAmount = columns, yAmount = rows)
     slicer.slicePositions.map {
       case (x, y) =>
         val xCoord = (x - 1) * slicer.sliceWidth
