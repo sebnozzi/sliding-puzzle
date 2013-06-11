@@ -8,8 +8,16 @@ import javafx.scene.input.MouseEvent
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
 
+  type TilePressingCallback = (Int, Int) => Unit
+  
+  private var onTilePressedCallback: Option[TilePressingCallback] = None
+
   addSliceNodes()
 
+  def onTilePressed(callback: TilePressingCallback){
+    onTilePressedCallback = Some(callback)
+  }
+  
   private def addSliceNodes() {
     sliceNodes.foreach { this.getChildren().add(_) }
   }
@@ -31,14 +39,19 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
         slice.setLayoutX(xCoord)
         slice.setLayoutY(yCoord)
         drawBorders(slice)
-        onMousePressed(slice){
-          println(s"Pressed on slice (col: $col, row: $row)")
+        onMousePressedOnSlice(slice) {
+          tilePressed(col, row)
         }
         slice
     }
   }
 
-  private def onMousePressed(sliceNode: Canvas)(callback:  => Unit) {
+  private def tilePressed(initialCol: Int, initialRow: Int) {
+    if (onTilePressedCallback.isDefined)
+      onTilePressedCallback.get(initialCol, initialRow)
+  }
+
+  private def onMousePressedOnSlice(sliceNode: Canvas)(callback: => Unit) {
     sliceNode.setOnMousePressed(new EventHandler[MouseEvent]() {
       def handle(event: MouseEvent) {
         callback

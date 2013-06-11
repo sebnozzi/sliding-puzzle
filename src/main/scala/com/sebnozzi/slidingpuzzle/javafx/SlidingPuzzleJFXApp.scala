@@ -23,6 +23,7 @@ class SlidingPuzzleJFXApp extends Application {
 
     buttonsPanel.onResetPressed(resetPressed)
     buttonsPanel.onShufflePressed(shufflePressed)
+    tilesBoard.onTilePressed(tilePressed)
 
     mainGroup.getChildren().add(tilesBoard)
     mainGroup.getChildren().add(buttonsPanel)
@@ -31,6 +32,9 @@ class SlidingPuzzleJFXApp extends Application {
     mainWindow.show()
   }
 
+  private def tilePressed(col:Int, row:Int) {
+    println(s"Tile pressed at $col@$row")
+  }
 
   private def shufflePressed() {
     println("Shuffle pressed")

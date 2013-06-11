@@ -14,11 +14,11 @@ class ButtonsPanel extends VBox {
 
   setup()
 
-  def onShufflePressed(action: () => Unit) =
-    addButtonHandler(shuffleButton) { action() }
+  def onShufflePressed(callback:  => Unit) =
+    addButtonHandler(shuffleButton) { callback }
 
-  def onResetPressed(action: () => Unit) =
-    addButtonHandler(resetButton) { action() }
+  def onResetPressed(callback:  => Unit) =
+    addButtonHandler(resetButton) { callback }
 
   private def setup() {
     this.setSpacing(20.0)
