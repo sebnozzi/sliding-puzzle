@@ -30,19 +30,21 @@ class SlidingPuzzleJFXApp extends Application {
   override def start(mainWindow: Stage) {
     val uiGroup = new HBox()
     val buttonsGroup = new VBox()
-    
+
     List(
-        new Button("Click me "),
-        new Button("Click me ")
-    ).foreach{buttonsGroup.getChildren().add(_)}
-    
+      new Button("Shuffle"),
+      new Button("Reset")).foreach { button =>
+        button.setMaxWidth(Double.MaxValue)
+        buttonsGroup.getChildren().add(button)
+      }
+
     buttonsGroup.setSpacing(20.0)
     buttonsGroup.setPadding(new Insets(20.0))
     //buttonsGroup.setStyle("-fx-background-color: red;")
-    
+
     uiGroup.getChildren().add(slicesGroup())
     uiGroup.getChildren().add(buttonsGroup)
-    
+
     setupWindow(mainWindow, uiGroup)
   }
 
