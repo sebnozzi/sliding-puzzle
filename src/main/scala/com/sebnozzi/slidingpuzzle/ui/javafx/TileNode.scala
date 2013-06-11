@@ -28,25 +28,33 @@ class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends 
   }
 
   def moveToInitialPosition() {
-    moveTile(initialPosition, animate = false)
+    moveTileTo(initialPosition, animate = false)
   }
 
-  def moveTile(destination: Position, animate: Boolean = true) {
-    val destX = (destination.col - 1) * tileWidth
-    val destY = (destination.row - 1) * tileHeight
+  def moveTileTo(pos: Position, animate: Boolean = true) {
+    val destX = (pos.col - 1) * tileWidth
+    val destY = (pos.row - 1) * tileHeight
 
     if (animate) {
-      val translateTransition = TranslateTransitionBuilder.create()
-        .duration(Duration.seconds(0.3))
-        .node(this)
-        .toX(destX)
-        .toY(destY)
-        .build()
-      translateTransition.play()
+      animateTo(destX, destY)
     } else {
-      setTranslateX(destX)
-      setTranslateY(destY)
+      translateTo(destX, destY)
     }
+  }
+
+  def animateTo(x: Double, y: Double) {
+    val translateTransition = TranslateTransitionBuilder.create()
+      .duration(Duration.seconds(0.3))
+      .node(this)
+      .toX(x)
+      .toY(y)
+      .build()
+    translateTransition.play()
+  }
+
+  def translateTo(x: Double, y: Double) {
+    setTranslateX(x)
+    setTranslateY(y)
   }
 
   private def setupEventHandler() {

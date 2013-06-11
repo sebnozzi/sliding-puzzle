@@ -40,7 +40,7 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def tilePressed(tile: TileNode) {
-    tile.moveTile(destination = Position(1, 1))
+    tile.moveTileTo(Position(1, 1))
   }
 
   private def shufflePressed() {
