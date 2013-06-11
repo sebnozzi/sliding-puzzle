@@ -3,7 +3,7 @@ package com.sebnozzi.slidingpuzzle.javafx
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
 
-class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
+class ImageSlicer(val img: Image, val xAmount: Int, val yAmount: Int) {
 
   val sliceWidth = img.getWidth() / xAmount
   val sliceHeight = img.getHeight() / yAmount
@@ -14,7 +14,7 @@ class Slicer(val img: Image, val xAmount: Int, val yAmount: Int) {
       xPos <- 1 to xAmount
     ) yield (xPos, yPos)).toList
   }
-
+  
   lazy val allSlices: Seq[Canvas] = {
     slicePositions.map { case (xPos, yPos) => makeSliceAt(xPos, yPos) }
   }

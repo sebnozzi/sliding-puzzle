@@ -83,7 +83,7 @@ class SlidingPuzzleJFXApp extends Application {
       gc.closePath()
       gc.stroke()
     }
-    val slicer = new Slicer(img, xAmount = columns, yAmount = rows)
+    val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
     slicer.slicePositions.map {
       case (x, y) =>
         val xCoord = (x - 1) * slicer.sliceWidth

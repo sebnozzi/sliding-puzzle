@@ -5,7 +5,7 @@ import org.scalatest.BeforeAndAfter
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
 
-class SlicerSuite extends FunSuite with BeforeAndAfter {
+class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
 
   val img: Image = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
@@ -13,10 +13,10 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
     new Image(inputStream)
   }
 
-  var slicer: Slicer = _
+  var slicer: ImageSlicer = _
 
   before {
-    slicer = new Slicer(img, xAmount = 2, yAmount = 2)
+    slicer = new ImageSlicer(img, xAmount = 2, yAmount = 2)
   }
 
   test("dimensions") {
@@ -60,7 +60,7 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("all slices are different instances") {
-    val slicer = new Slicer(img, xAmount = 4, yAmount = 2)
+    val slicer = new ImageSlicer(img, xAmount = 4, yAmount = 2)
     slicer.allSlices.combinations(2).foreach {
       case Seq(left, right) =>
         assert(left != right)
@@ -68,7 +68,7 @@ class SlicerSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("slice number for position") {
-    val slicer = new Slicer(img, xAmount = 4, yAmount = 2)
+    val slicer = new ImageSlicer(img, xAmount = 4, yAmount = 2)
     assert(slicer.sliceIndexFor(1, 1) === 0)
     assert(slicer.sliceIndexFor(2, 1) === 1)
     assert(slicer.sliceIndexFor(3, 1) === 2)
