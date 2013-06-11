@@ -1,21 +1,10 @@
 package com.sebnozzi.slidingpuzzle.javafx
 
 import _root_.javafx.application.Application
-import javafx.stage.Stage
-import javafx.scene.Scene
-import javafx.scene.Group
-import javafx.scene.image.Image
-import javafx.scene.canvas.Canvas
-import javafx.event.EventHandler
-import javafx.stage.WindowEvent
-import javafx.application.Platform
+import Implicits._
 import javafx.scene.layout.HBox
-import javafx.scene.Parent
-import javafx.scene.layout.VBox
-import javafx.scene.control.Button
-import javafx.geometry.Insets
-import javafx.geometry.Pos
-import javafx.event.ActionEvent
+import javafx.stage.Stage
+import javafx.scene.image.Image
 
 class SlidingPuzzleJFXApp extends Application {
 
@@ -28,19 +17,20 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    val uiGroup = new HBox()
+    val mainGroup = new HBox()
     val buttonsPanel = new ButtonsPanel()
     val tilesBoard = new TilesBoard(img, columns, rows)
-    
+
     buttonsPanel.onResetPressed(resetPressed)
     buttonsPanel.onShufflePressed(shufflePressed)
 
-    uiGroup.getChildren().add(tilesBoard)
-    uiGroup.getChildren().add(buttonsPanel)
-
-    val mainWindow = new MainWindow(uiGroup)
+    mainGroup.getChildren().add(tilesBoard)
+    mainGroup.getChildren().add(buttonsPanel)
+    
+    mainWindow.setupWithGroup(mainGroup)
     mainWindow.show()
   }
+
 
   private def shufflePressed() {
     println("Shuffle pressed")
@@ -49,6 +39,5 @@ class SlidingPuzzleJFXApp extends Application {
   private def resetPressed() {
     println("Reset pressed")
   }
-
 
 }
