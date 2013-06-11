@@ -38,7 +38,8 @@ class SlidingPuzzleJFXApp extends Application {
     uiGroup.getChildren().add(tilesBoard)
     uiGroup.getChildren().add(buttonsPanel)
 
-    setupWindow(mainWindow, uiGroup)
+    val mainWindow = new MainWindow(uiGroup)
+    mainWindow.show()
   }
 
   private def shufflePressed() {
@@ -47,26 +48,6 @@ class SlidingPuzzleJFXApp extends Application {
 
   private def resetPressed() {
     println("Reset pressed")
-  }
-
-  private def setupWindow(mainWindow: Stage, mainGroup: Parent) {
-    val scene = new Scene(mainGroup)
-    mainWindow.setScene(scene)
-
-    mainWindow.setTitle("Sliding Puzzle")
-    mainWindow.setX(100)
-    mainWindow.setY(100)
-    mainWindow.setMinWidth(840)
-    mainWindow.setMinHeight(560)
-    mainWindow.setResizable(false)
-    mainWindow.setFullScreen(false)
-    mainWindow.show()
-
-    mainWindow.setOnCloseRequest(new EventHandler[WindowEvent] {
-      def handle(event: WindowEvent) {
-        Platform.exit()
-      }
-    })
   }
 
 
