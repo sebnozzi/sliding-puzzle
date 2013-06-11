@@ -18,7 +18,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.tiles.size === 12)
   }
 
-  test("a game of dimensions 3x2 should have 9 tiles") {
+  test("a game of dimensions 3x3 should have 9 tiles") {
     val game = new Game(columns = 3, rows = 3)
     assert(game.tiles.size === 9)
   }

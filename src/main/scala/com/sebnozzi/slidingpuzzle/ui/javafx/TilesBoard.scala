@@ -1,5 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
+import scala.collection._
+
 import javafx.scene.Group
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
@@ -13,34 +15,40 @@ import javafx.animation.Timeline
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
 
-  type TilePressingCallback = Canvas => Unit
+  private type TilePressingCallback = Canvas => Unit
   private val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
-
   private var onTilePressedCallback: Option[TilePressingCallback] = None
 
+  val tileWidth = slicer.sliceWidth
+  val tileHeight = slicer.sliceHeight
+  
+  private val initialPositionMap = mutable.Map[Canvas, Position]()
+  
   addSliceNodes()
 
   def onTilePressed(callback: TilePressingCallback) {
     onTilePressedCallback = Some(callback)
   }
+  
+  def initialPositionOf(tile:Canvas):Position = {
+    ???
+  }
 
   def moveTile(tile: Canvas, destination: Position, animate: Boolean = true) {
-    val destinationX = (destination.col - 1) * slicer.sliceWidth
-    val destinationY = (destination.row - 1) * slicer.sliceHeight
+    val destX = (destination.col - 1) * tileWidth
+    val destY = (destination.row - 1) * tileHeight
     
     if (animate) {
-
       val translateTransition = TranslateTransitionBuilder.create()
         .duration(Duration.seconds(0.3))
         .node(tile)
-        .toX(destinationX)
-        .toY(destinationY)
+        .toX(destX)
+        .toY(destY)
         .build()
-
       translateTransition.play()
     } else {
-      tile.setTranslateX(destinationX)
-      tile.setTranslateX(destinationY)
+      tile.setTranslateX(destX)
+      tile.setTranslateX(destY)
     }
   }
 
@@ -59,12 +67,13 @@ class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
     val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
     slicer.slicePositions.map {
       case (col, row) =>
-        val xCoord = (col - 1) * slicer.sliceWidth
-        val yCoord = (row - 1) * slicer.sliceHeight
+        val xCoord = (col - 1) * tileWidth
+        val yCoord = (row - 1) * tileHeight
         val slice = slicer.sliceAt(col, row)
         slice.setTranslateX(xCoord)
         slice.setTranslateY(yCoord)
         drawBorders(slice)
+        initialPositionMap.put(slice, Position(col,row))
         onMousePressedOnSlice(slice) {
           tilePressed(slice)
         }
