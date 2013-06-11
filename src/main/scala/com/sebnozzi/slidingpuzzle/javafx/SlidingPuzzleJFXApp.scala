@@ -22,7 +22,6 @@ class SlidingPuzzleJFXApp extends Application {
   val columns = 4
   val rows = 3
 
-
   val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
@@ -31,11 +30,12 @@ class SlidingPuzzleJFXApp extends Application {
   override def start(mainWindow: Stage) {
     val uiGroup = new HBox()
     val buttonsPanel = new ButtonsPanel()
+    val tilesBoard = new TilesBoard(img, columns, rows)
     
     buttonsPanel.onResetPressed(resetPressed)
     buttonsPanel.onShufflePressed(shufflePressed)
 
-    uiGroup.getChildren().add(slicesGroup())
+    uiGroup.getChildren().add(tilesBoard)
     uiGroup.getChildren().add(buttonsPanel)
 
     setupWindow(mainWindow, uiGroup)
@@ -69,30 +69,5 @@ class SlidingPuzzleJFXApp extends Application {
     })
   }
 
-  private def slicesGroup() = {
-    val group = new Group();
-    sliceNodes(img).foreach { group.getChildren().add(_) }
-    group
-  }
 
-  private def sliceNodes(img: Image): List[Canvas] = {
-    def drawBorders(slice: Canvas) {
-      val gc = slice.getGraphicsContext2D()
-      gc.beginPath()
-      gc.rect(0, 0, slice.getWidth(), slice.getHeight())
-      gc.closePath()
-      gc.stroke()
-    }
-    val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
-    slicer.slicePositions.map {
-      case (x, y) =>
-        val xCoord = (x - 1) * slicer.sliceWidth
-        val yCoord = (y - 1) * slicer.sliceHeight
-        val slice = slicer.sliceAt(x, y)
-        slice.setLayoutX(xCoord)
-        slice.setLayoutY(yCoord)
-        drawBorders(slice)
-        slice
-    }
-  }
 }
