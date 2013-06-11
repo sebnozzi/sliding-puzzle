@@ -15,12 +15,13 @@ import javafx.scene.layout.VBox
 import javafx.scene.control.Button
 import javafx.geometry.Insets
 import javafx.geometry.Pos
+import javafx.event.ActionEvent
 
 class SlidingPuzzleJFXApp extends Application {
 
   val columns = 4
   val rows = 3
-  
+
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
 
@@ -32,14 +33,23 @@ class SlidingPuzzleJFXApp extends Application {
   override def start(mainWindow: Stage) {
     val uiGroup = new HBox()
     val buttonsGroup = new VBox()
-    
-    List(
-      shuffleButton,
-      resetButton).foreach { button =>
-        button.setMaxWidth(Double.MaxValue)
-        buttonsGroup.getChildren().add(button)
-      }
-    
+
+    def addButtonHandler(button: Button)(block: => Unit) {
+      button.setOnAction(new EventHandler[ActionEvent]() {
+        override def handle(event: ActionEvent) {
+          block
+        }
+      })
+    }
+
+    addButtonHandler(shuffleButton) { shufflePressed() }
+    addButtonHandler(resetButton) { resetPressed() }
+
+    List(shuffleButton, resetButton).foreach { button =>
+      button.setMaxWidth(Double.MaxValue)
+      buttonsGroup.getChildren().add(button)
+    }
+
     buttonsGroup.setSpacing(20.0)
     buttonsGroup.setPadding(new Insets(20.0))
     buttonsGroup.setAlignment(Pos.BOTTOM_CENTER)
@@ -49,6 +59,14 @@ class SlidingPuzzleJFXApp extends Application {
     uiGroup.getChildren().add(buttonsGroup)
 
     setupWindow(mainWindow, uiGroup)
+  }
+
+  private def shufflePressed() {
+    println("Shuffle pressed")
+  }
+
+  private def resetPressed() {
+    println("Reset pressed")
   }
 
   private def setupWindow(mainWindow: Stage, mainGroup: Parent) {
