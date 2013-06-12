@@ -4,53 +4,31 @@ import javafx.application.Application
 import javafx.scene.image.Image
 import javafx.scene.layout.HBox
 import javafx.stage.Stage
-import Implicits._
 import com.sebnozzi.slidingpuzzle.model.Position
 import javafx.scene.canvas.Canvas
 import javafx.scene.layout.VBox
+import com.sebnozzi.slidingpuzzle.model.Game
 
 class SlidingPuzzleJFXApp extends Application {
 
   val columns = 4
   val rows = 3
+  val game = new Game(columns, rows)
 
   val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
 
-  val tilesBoard = new TilesBoard(img, columns, rows)
-
   override def start(mainWindow: Stage) {
-    val mainGroup = new VBox()
-    val buttonsPanel = new ButtonsPanel()
+    val gameWindow = new GameWindowWrapper(mainWindow, img, columns, rows)
+    
+    val controlPanel = gameWindow.controlPanel
+    val tilesBoard = gameWindow.tilesBoard
+    
+    controlPanel.setMovesCount(game.movesDone)
 
-    buttonsPanel.onResetPressed(resetPressed)
-    buttonsPanel.onShufflePressed(shufflePressed)
-    tilesBoard.tiles.foreach { tile =>
-      tile.onMousePressed {
-        tilePressed(tile)
-      }
-    }
-
-    mainGroup.getChildren().add(buttonsPanel)
-    mainGroup.getChildren().add(tilesBoard)
-
-    mainWindow.setupWithGroup(mainGroup)
     mainWindow.show()
-  }
-
-  private def tilePressed(tile: TileNode) {
-    tile.moveTileTo(Position(1, 1))
-  }
-
-  private def shufflePressed() {
-    println("Shuffle pressed")
-  }
-
-  private def resetPressed() {
-    println("Reset pressed")
-    tilesBoard.tiles.foreach(_.moveToInitialPosition())
   }
 
 }

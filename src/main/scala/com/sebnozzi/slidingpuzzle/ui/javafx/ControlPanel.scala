@@ -9,10 +9,11 @@ import javafx.geometry.Insets
 import javafx.scene.control.ToolBar
 import javafx.scene.control.Label
 
-class ButtonsPanel extends ToolBar {
+class ControlPanel extends ToolBar {
 
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
+  private val movesLabel = new Label(movesMsg(23))
 
   setup()
 
@@ -22,18 +23,16 @@ class ButtonsPanel extends ToolBar {
   def onResetPressed(callback:  => Unit) =
     addButtonHandler(resetButton) { callback }
 
+  def setMovesCount(count:Int) {
+    movesLabel.setText(movesMsg(count))
+  }
+  
+  private def movesMsg(count:Int) = s"Moves: $count"
+  
   private def setup() {
-    //this.setSpacing(20.0)
-    //this.setPadding(new Insets(20.0))
-    //this.setAlignment(Pos.BOTTOM_CENTER)
-    //this.setStyle("-fx-background-color: gray;")
-
-    this.getItems().add(shuffleButton)
-    this.getItems().add(resetButton)
-    this.getItems().add(new Label("Moves: 23"))
-
-    //shuffleButton.setMaxWidth(Double.MaxValue)
-    //resetButton.setMaxWidth(Double.MaxValue)
+    ControlPanel.this.getItems().add(shuffleButton)
+    ControlPanel.this.getItems().add(resetButton)
+    ControlPanel.this.getItems().add(movesLabel)
   }
 
   private def addButtonHandler(button: Button)(block: => Unit) {

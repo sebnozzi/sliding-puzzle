@@ -6,7 +6,7 @@ import javafx.scene.Group
 import com.sebnozzi.slidingpuzzle.model.Position
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
-
+  
   private val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
 
   lazy val tiles: List[TileNode] = makeTiles()
