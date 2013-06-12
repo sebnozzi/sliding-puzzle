@@ -7,6 +7,7 @@ import javafx.stage.Stage
 import Implicits._
 import com.sebnozzi.slidingpuzzle.model.Position
 import javafx.scene.canvas.Canvas
+import javafx.scene.layout.VBox
 
 class SlidingPuzzleJFXApp extends Application {
 
@@ -21,19 +22,19 @@ class SlidingPuzzleJFXApp extends Application {
   val tilesBoard = new TilesBoard(img, columns, rows)
 
   override def start(mainWindow: Stage) {
-    val mainGroup = new HBox()
+    val mainGroup = new VBox()
     val buttonsPanel = new ButtonsPanel()
 
     buttonsPanel.onResetPressed(resetPressed)
     buttonsPanel.onShufflePressed(shufflePressed)
     tilesBoard.tiles.foreach { tile =>
-      tile.onMousePressed { () =>
+      tile.onMousePressed {
         tilePressed(tile)
       }
     }
 
-    mainGroup.getChildren().add(tilesBoard)
     mainGroup.getChildren().add(buttonsPanel)
+    mainGroup.getChildren().add(tilesBoard)
 
     mainWindow.setupWithGroup(mainGroup)
     mainWindow.show()

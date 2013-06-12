@@ -6,8 +6,10 @@ import javafx.event.EventHandler
 import javafx.event.ActionEvent
 import javafx.geometry.Pos
 import javafx.geometry.Insets
+import javafx.scene.control.ToolBar
+import javafx.scene.control.Label
 
-class ButtonsPanel extends VBox {
+class ButtonsPanel extends ToolBar {
 
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
@@ -21,16 +23,17 @@ class ButtonsPanel extends VBox {
     addButtonHandler(resetButton) { callback }
 
   private def setup() {
-    this.setSpacing(20.0)
-    this.setPadding(new Insets(20.0))
-    this.setAlignment(Pos.BOTTOM_CENTER)
-    this.setStyle("-fx-background-color: gray;")
+    //this.setSpacing(20.0)
+    //this.setPadding(new Insets(20.0))
+    //this.setAlignment(Pos.BOTTOM_CENTER)
+    //this.setStyle("-fx-background-color: gray;")
 
-    this.getChildren().add(shuffleButton)
-    this.getChildren().add(resetButton)
+    this.getItems().add(shuffleButton)
+    this.getItems().add(resetButton)
+    this.getItems().add(new Label("Moves: 23"))
 
-    shuffleButton.setMaxWidth(Double.MaxValue)
-    resetButton.setMaxWidth(Double.MaxValue)
+    //shuffleButton.setMaxWidth(Double.MaxValue)
+    //resetButton.setMaxWidth(Double.MaxValue)
   }
 
   private def addButtonHandler(button: Button)(block: => Unit) {

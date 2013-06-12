@@ -23,8 +23,8 @@ class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends 
   drawBorders(imgSlice)
   setupEventHandler()
 
-  def onMousePressed(callback: () => Unit) {
-    onTilePressedCallback = Some(callback)
+  def onMousePressed(callback: => Unit) {
+    onTilePressedCallback = Some(callback _)
   }
 
   def moveToInitialPosition() {

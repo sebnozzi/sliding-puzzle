@@ -52,10 +52,10 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("a game can return a rect for valid positions") {
-     val game4x3 = new Game(columns = 4, rows = 3)
-     val game2x2 = new Game(columns = 2, rows = 2)
-     assert(game4x3.positionsRect === Rect((1, 1), (4, 3)))
-     assert(game2x2.positionsRect === Rect((1, 1), (2, 2)))
+    val game4x3 = new Game(columns = 4, rows = 3)
+    val game2x2 = new Game(columns = 2, rows = 2)
+    assert(game4x3.positionsRect === Rect((1, 1), (4, 3)))
+    assert(game2x2.positionsRect === Rect((1, 1), (2, 2)))
   }
 
   test("a tile knows its adjacent tiles") {
@@ -67,12 +67,11 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(topLeft.adjacentTiles === List(topRight, bottomLeft))
     assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
-  
-  
-  test("asking if one tile is adjacent to another"){
+
+  test("asking if one tile is adjacent to another") {
     val game = new Game(columns = 3, rows = 3)
-    assert(game.tileAt(1,1).isAdjacentTo(game.tileAt(2,1)))
-    assert(!game.tileAt(1,1).isAdjacentTo(game.tileAt(3,2)))
+    assert(game.tileAt(1, 1).isAdjacentTo(game.tileAt(2, 1)))
+    assert(!game.tileAt(1, 1).isAdjacentTo(game.tileAt(3, 2)))
   }
 
   test("it is possible to define a hidden tile") {
@@ -80,51 +79,51 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     game.setHiddenTileAt(4, 3)
     assert(game.hiddenTile === tile)
   }
-  
-  test("moving to empty slot"){
+
+  test("moving to empty slot") {
     val tile1 = game.tileAt(3, 3)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
     tile1.moveToEmptySlot
-    assert(tile1.currentPosition === Position(4,3))
-    assert(tile2.currentPosition === Position(3,3))
+    assert(tile1.currentPosition === Position(4, 3))
+    assert(tile2.currentPosition === Position(3, 3))
   }
-  
-  test("moving to empty slot when not adjacent to it should do nothing"){
+
+  test("moving to empty slot when not adjacent to it should do nothing") {
     val tile1 = game.tileAt(1, 1)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
     tile1.moveToEmptySlot
-    assert(tile1.currentPosition === Position(1,1))
-    assert(tile2.currentPosition === Position(4,3))
+    assert(tile1.currentPosition === Position(1, 1))
+    assert(tile2.currentPosition === Position(4, 3))
   }
-  
-  test("asking if tile can be moved to empty slot"){
+
+  test("asking if tile can be moved to empty slot") {
     val tile1 = game.tileAt(1, 1)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
     assert(tile1.canMoveToEmptySlot === false)
   }
-  
-  test("asking if a game has a hidden tile"){
+
+  test("asking if a game has a hidden tile") {
     assert(game.hasHiddenTile === false)
     game.setHiddenTileAt(4, 3)
     assert(game.hasHiddenTile === true)
   }
-  
-  test("asking if tile can be moved to empty slot, when no tile is hidden"){
+
+  test("asking if tile can be moved to empty slot, when no tile is hidden") {
     val tile1 = game.tileAt(3, 3)
     val tile2 = game.tileAt(4, 3)
     assert(tile1.canMoveToEmptySlot === false)
   }
-  
-  test("making a tile hidden"){
+
+  test("making a tile hidden") {
     val tile1 = game.tileAt(1, 1)
     tile1.makeHidden
     assert(game.hiddenTile === tile1)
   }
-  
-  test("unhiding the tile"){
+
+  test("unhiding the tile") {
     assert(game.hasHiddenTile === false)
     val tile = game.tileAt(1, 1)
     tile.makeHidden
@@ -136,59 +135,95 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("initially, game is in a solved state") {
     assert(game.isSolved)
   }
-  
-  test("ask tile if in initial position"){
-    assert(game.tileAt(1,1).isAtInitialPosition)
-    game.tileAt(2,2).swapPositionWith(game.tileAt(3,2))
-    assert(game.tileAt(2,2).isAtInitialPosition === false)
+
+  test("ask tile if in initial position") {
+    assert(game.tileAt(1, 1).isAtInitialPosition)
+    game.tileAt(2, 2).swapPositionWith(game.tileAt(3, 2))
+    assert(game.tileAt(2, 2).isAtInitialPosition === false)
   }
 
   test("as soon as one move is made, the game is not in solved state") {
-    val tile1 = game.tileAt(4,2)
-    val tile2 = game.tileAt(4,3)
+    val tile1 = game.tileAt(4, 2)
+    val tile2 = game.tileAt(4, 3)
     tile2.makeHidden
     tile1.moveToEmptySlot
     assert(game.isSolved === false)
-  }  
-  
-  test("asking for a random adjacent tile"){
-    val tile = game.tileAt(2,2)
-    val possibleTiles = List(
-        game.tileAt(3,2),
-        game.tileAt(1,2),
-        game.tileAt(2,1),
-        game.tileAt(2,3))
-    (1 to 100).foreach{ _ => assert(possibleTiles.contains(tile.randomAdjacentTile)) }
   }
-  
-  test("asking for a random move"){
-    game.tileAt(4,3).makeHidden
+
+  test("asking for a random adjacent tile") {
+    val tile = game.tileAt(2, 2)
+    val possibleTiles = List(
+      game.tileAt(3, 2),
+      game.tileAt(1, 2),
+      game.tileAt(2, 1),
+      game.tileAt(2, 3))
+    (1 to 100).foreach { _ => assert(possibleTiles.contains(tile.randomAdjacentTile)) }
+  }
+
+  test("asking for a random move") {
+    game.tileAt(4, 3).makeHidden
     game.makeRandomMove()
     assert(game.isSolved === false)
   }
-  
-  test("shuffling tiles"){
-    game.tileAt(4,3).makeHidden
-    game.makeRandomMove(times=50)
+
+  test("shuffling tiles") {
+    game.tileAt(4, 3).makeHidden
+    game.makeRandomMove(times = 50)
     assume(game.isSolved === false)
   }
-  
-  test("ask tile to go back to initial position"){
+
+  test("ask tile to go back to initial position") {
     val tile1 = game.tiles(0)
     val tile2 = game.tiles(1)
     tile1.swapPositionWith(tile2)
     tile1.moveToInitialPosition()
     tile2.moveToInitialPosition()
-    
+
     assert(tile1.isAtInitialPosition)
-    assert(tile2.isAtInitialPosition)    
+    assert(tile2.isAtInitialPosition)
   }
 
-  test("revert to initial state"){
-    game.tileAt(4,3).makeHidden
+  test("revert to initial state") {
+    game.tileAt(4, 3).makeHidden
     game.makeRandomMove()
     game.reset()
     assert(game.isSolved)
+  }
+
+  test("callback called when tile swapped") {
+    val tile = game.tileAt(4, 2)
+    var tileModed = false
+    game.tileAt(4, 3).makeHidden
+    tile.onTileMoved {  
+      tileModed = true
+    }
+    tile.moveToEmptySlot
+    assert(tileModed)
+  }
+  
+  test("callback called when tile moved to initial position") {
+    val tile = game.tileAt(4, 2)
+    var tileModed = false
+    game.tileAt(4, 3).makeHidden
+    tile.onTileMoved {  
+      tileModed = true
+    }
+    tile.moveToEmptySlot
+    tileModed = false
+    tile.moveToInitialPosition
+    assert(tileModed)
+  }  
+
+  ignore("callback when game state changed") {
+    fail("pending")
+  }
+
+  ignore("count moves") {
+    fail("pending")
+  }
+
+  ignore("moves go back to 0 after reset") {
+    fail("pending")
   }
 
 }
