@@ -15,8 +15,7 @@ class SlidingPuzzleJFXApp extends Application {
   val columns = 4
   val rows = 3
   val game = new Game(columns, rows)
-  val hiddenModelTile = game.tiles.last
-  lazy val hiddenUiTile = tilesBoard.tiles.last
+  val hiddenTile = game.tiles.last
   var controlPanel: ControlPanel = _
   var tilesBoard: TilesBoard = _
 
@@ -32,11 +31,12 @@ class SlidingPuzzleJFXApp extends Application {
     tilesBoard = gameWindow.tilesBoard
 
     controlPanel.onShufflePressed {
-      game.makeRandomMove(times = 50)
+      game.reset()
+      hiddenTile.makeHidden()
+      game.makeRandomMove(times = 300)
     }
     controlPanel.onResetPressed {
       game.reset()
-      hiddenModelTile.makeHidden()
     }
 
     game.onMovesCountChange {
@@ -44,7 +44,7 @@ class SlidingPuzzleJFXApp extends Application {
     }
 
     game.onGameSolved {
-      hiddenModelTile.makeVisible()
+      hiddenTile.makeVisible()
     }
 
     game.tiles.zip(tilesBoard.tiles).foreach {
@@ -65,8 +65,7 @@ class SlidingPuzzleJFXApp extends Application {
       }
     }
 
-    hiddenModelTile.makeHidden()
-
+    updateMovesCount()
     mainWindow.show()
   }
 
