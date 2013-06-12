@@ -9,17 +9,21 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.layout.VBox
 import com.sebnozzi.slidingpuzzle.model.Game
 import com.sebnozzi.slidingpuzzle.model.Tile
+import javafx.scene.input.KeyCode
+import javafx.scene.input.KeyEvent
 
 class SlidingPuzzleJFXApp extends Application {
 
-  val columns = 4
-  val rows = 3
+  val columns = 3
+  val rows = 2
+
   val game = new Game(columns, rows)
   val hiddenTile = game.tiles.last
+
   var controlPanel: ControlPanel = _
   var tilesBoard: TilesBoard = _
 
-  val img = {
+  lazy val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
@@ -30,11 +34,16 @@ class SlidingPuzzleJFXApp extends Application {
     controlPanel = gameWindow.controlPanel
     tilesBoard = gameWindow.tilesBoard
 
+    gameWindow.onKeyPressed { keyEvent =>
+      keyPressed(keyEvent)
+    }
+
     controlPanel.onShufflePressed {
       game.reset()
       hiddenTile.makeHidden()
       game.makeRandomMove(times = 300)
     }
+
     controlPanel.onResetPressed {
       game.reset()
     }
@@ -60,7 +69,6 @@ class SlidingPuzzleJFXApp extends Application {
         }
         uiTile.onMousePressed {
           modelTile.moveToEmptySlot()
-
         }
       }
     }
@@ -72,5 +80,19 @@ class SlidingPuzzleJFXApp extends Application {
   def updateMovesCount() {
     controlPanel.setMovesCount(game.movesDone)
   }
+  
+  def keyPressed(keyEvent: KeyEvent) {
+    var matchFound = true
+    keyEvent.getCode() match {
+      case KeyCode.UP => {}
+      case KeyCode.DOWN => {}
+      case KeyCode.LEFT => {}
+      case KeyCode.RIGHT => {}
+      case _ => { matchFound = false }
+    }
+    if (matchFound)
+      keyEvent.consume()
+  }  
+  
 
 }

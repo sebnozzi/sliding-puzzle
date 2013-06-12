@@ -10,6 +10,7 @@ import javafx.scene.paint.Paint
 import javafx.scene.paint.Color
 import javafx.scene.layout.VBox
 import javafx.scene.image.Image
+import javafx.scene.input.KeyEvent
 
 class GameWindowWrapper(window: Stage, img: Image, val columns: Int, val rows: Int) {
 
@@ -31,6 +32,14 @@ class GameWindowWrapper(window: Stage, img: Image, val columns: Int, val rows: I
     mainGroup.getChildren().add(_tilesBoard)
 
     setupWithGroup(mainGroup)
+  }
+  
+  def onKeyPressed(callback: (KeyEvent) => Unit) {
+    window.getScene().setOnKeyPressed(new EventHandler[KeyEvent](){
+      def handle(event:KeyEvent){
+        callback(event)
+      }
+    })
   }
 
   private def setupWithGroup(mainGroup: Parent) {

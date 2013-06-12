@@ -4,9 +4,11 @@ import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
 import javafx.scene.image.Image
 import javafx.scene.Group
 import com.sebnozzi.slidingpuzzle.model.Position
+import javafx.scene.input.KeyEvent
+import javafx.scene.input.KeyCode
 
 class TilesBoard(img: Image, val columns: Int, val rows: Int) extends Group {
-  
+
   private val slicer = new ImageSlicer(img, xAmount = columns, yAmount = rows)
 
   lazy val tiles: List[TileNode] = makeTiles()
