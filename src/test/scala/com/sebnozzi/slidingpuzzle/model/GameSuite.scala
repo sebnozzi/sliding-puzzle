@@ -67,6 +67,8 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(topLeft.adjacentTiles === List(topRight, bottomLeft))
     assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
+  
+
 
   test("asking if one tile is adjacent to another") {
     val game = new Game(columns = 3, rows = 3)
@@ -81,19 +83,22 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("moving to empty slot") {
-    val tile1 = game.tileAt(3, 3)
+    val tile1 = game.tileAt(4, 2)
     val tile2 = game.tileAt(4, 3)
-    game.setHiddenTileAt(4, 3)
+    tile2.makeHidden()
     tile1.moveToEmptySlot
     assert(tile1.currentPosition === Position(4, 3))
-    assert(tile2.currentPosition === Position(3, 3))
+    assert(tile2.currentPosition === Position(4, 2))
+    assert(game.tileAt(4,2) === tile2)
+    assert(game.tileAt(4,3) === tile1)
   }
 
   test("moving to empty slot when not adjacent to it should do nothing") {
     val tile1 = game.tileAt(1, 1)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
-    tile1.moveToEmptySlot
+    val result = tile1.moveToEmptySlot
+    assert(result === false)
     assert(tile1.currentPosition === Position(1, 1))
     assert(tile2.currentPosition === Position(4, 3))
   }
@@ -111,7 +116,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.hasHiddenTile === true)
   }
 
-  test("asking if tile can be moved to empty slot, when no tile is hidden") {
+  test("moving to empty slot, when no tile is hidden, should be false") {
     val tile1 = game.tileAt(3, 3)
     val tile2 = game.tileAt(4, 3)
     assert(tile1.canMoveToEmptySlot === false)
@@ -148,6 +153,17 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile2.makeHidden
     tile1.moveToEmptySlot
     assert(game.isSolved === false)
+  }
+  
+  ignore("game solved after putting back the tile") {
+    val tile = game.tileAt(4, 2)
+    val hiddenTile = game.tileAt(4, 3)
+    hiddenTile.makeHidden
+    val firstMoveDone = tile.moveToEmptySlot
+    val secondMoveDone = tile.moveToEmptySlot
+    assert(firstMoveDone)
+    assert(secondMoveDone)
+    assert(game.isSolved)
   }
 
   test("asking for a random adjacent tile") {
@@ -229,10 +245,10 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   
   ignore("callback when game solved") {
     var called = false
-    val tile1 = game.tileAt(4, 2)
-    val tile2 = game.tileAt(4, 3)
-    tile2.makeHidden
-    tile1.moveToEmptySlot
+    val tile = game.tileAt(4, 2)
+    game.tileAt(4, 3).makeHidden
+    tile.moveToEmptySlot
+    tile.moveToEmptySlot
     game.onGameSolved { 
       called = true
     }

@@ -24,7 +24,8 @@ class Game(val columns: Int, val rows: Int) {
   }
   
   protected[model] def tileDidMove(tile:Tile) {
-    
+    if(this.isSolved && _solvedCallback.isDefined)
+      _solvedCallback.get()
   }
   
   def onGameSolved(callback: => Unit){
@@ -40,7 +41,9 @@ class Game(val columns: Int, val rows: Int) {
     tiles.forall { tile => tile.isAtInitialPosition }
   }
 
-  def tileAt(position: Position) = tiles((position.col - 1) + (position.row - 1) * columns)
+  def tileAt(position: Position):Tile = {
+    tiles.find( tile => tile.currentPosition == position).get
+  }
 
   def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }
   def clearHiddenTile() { _hiddenTile = None }
