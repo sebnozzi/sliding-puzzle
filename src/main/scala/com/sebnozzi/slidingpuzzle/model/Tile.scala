@@ -6,6 +6,7 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
+  private var _visibilityCallback: Option[() => Unit] = None
 
   def currentPosition = _currentPosition
 
@@ -17,6 +18,10 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   def onTileMoved(callback: => Unit) {
     _tileMovedCallback = Some(callback _)
+  }
+
+  def onVisibilityChange(callback: => Unit) {
+    _visibilityCallback = Some(callback _)
   }
 
   def swapPositionWith(other: Tile) {
@@ -33,6 +38,11 @@ class Tile(val game: Game, val initialPosition: Position) {
     game.clearHiddenTile
   }
 
+  def visibilityChanged() {
+    if (_visibilityCallback.isDefined)
+      _visibilityCallback.get()
+  }
+
   def isAtInitialPosition = (currentPosition == initialPosition)
 
   def isAdjacentTo(other: Tile) = this.adjacentTiles.contains(other)
@@ -40,7 +50,7 @@ class Tile(val game: Game, val initialPosition: Position) {
   def canMoveToEmptySlot = {
     if (game.hasHiddenTile) {
       val isAdjacentToHiddenTile = this.isAdjacentTo(game.hiddenTile)
-      if(!isAdjacentToHiddenTile) println("Not adjacent to hidden tile")
+      if (!isAdjacentToHiddenTile) println("Not adjacent to hidden tile")
       isAdjacentToHiddenTile
     } else {
       println("Game does not have a hidden tile")

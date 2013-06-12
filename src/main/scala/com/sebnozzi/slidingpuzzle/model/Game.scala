@@ -62,8 +62,26 @@ class Game(val columns: Int, val rows: Int) {
     tiles.find(tile => tile.currentPosition == position).get
   }
 
-  def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }
-  def clearHiddenTile() { _hiddenTile = None }
+  def setHiddenTileAt(position: Position) {
+    val newTile = tileAt(position)
+    _hiddenTile match {
+      case Some(currentTile) if newTile != currentTile => {
+        currentTile.visibilityChanged()
+        _hiddenTile = Some(newTile)
+        newTile.visibilityChanged()
+      }
+      case None => {
+        _hiddenTile = Some(newTile)
+        newTile.visibilityChanged()
+      }
+      case _ => {}
+    }
+  }
+
+  def clearHiddenTile() {
+    _hiddenTile.map(_.visibilityChanged())
+    _hiddenTile = None
+  }
 
   def hasHiddenTile = _hiddenTile.isDefined
 

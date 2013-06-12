@@ -240,7 +240,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     game.tileAt(4, 2).moveToEmptySlot()
     assert(called)
   }
-  
+
   test("tile notifies game on every move to empty slot") {
     var calls = 0
     val game = new Game(columns = 4, rows = 3) {
@@ -296,6 +296,27 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile.moveToEmptySlot
     game.reset()
     assert(game.movesDone === 0)
+  }
+  
+  test("setting another tile as hidden unsets the previous one"){
+    game.tileAt(4, 2).makeHidden()
+    game.tileAt(4, 3).makeHidden()
+    assert(game.hiddenTile === game.tileAt(4, 3))
+    assert(game.hiddenTile != game.tileAt(4, 2))
+  }
+
+  test("tile informs on visibility change (only real changes)") {
+    var calls = 0
+    val tile = game.tileAt(4, 2)
+    tile.onVisibilityChange {
+      calls += 1
+    }
+    tile.makeHidden()
+    tile.makeHidden()
+    tile.makeVisible()
+    tile.makeVisible()
+    
+    assert(calls === 2)
   }
 
 }
