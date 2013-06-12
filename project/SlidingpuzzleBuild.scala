@@ -1,5 +1,7 @@
 import sbt._
 import sbt.Keys._
+import sbtassembly.Plugin._
+import AssemblyKeys._
 
 object SlidingpuzzleBuild extends Build {
 
@@ -9,7 +11,7 @@ object SlidingpuzzleBuild extends Build {
   lazy val slidingpuzzle = Project(
     id = "slidingpuzzle",
     base = file("."),
-    settings = Project.defaultSettings ++ Seq(
+    settings = Project.defaultSettings ++ assemblySettings ++ Seq(
       name := "SlidingPuzzle",
       organization := "com.sebnozzi",
       version := "0.1-SNAPSHOT",
