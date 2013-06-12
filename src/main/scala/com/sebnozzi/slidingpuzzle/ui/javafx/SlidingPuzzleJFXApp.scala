@@ -36,7 +36,7 @@ class SlidingPuzzleJFXApp extends Application {
     }
     controlPanel.onResetPressed {
       game.reset()
-      initHiddenTile()
+      hiddenModelTile.makeHidden()
     }
 
     game.onMovesCountChange {
@@ -45,13 +45,18 @@ class SlidingPuzzleJFXApp extends Application {
 
     game.onGameSolved {
       hiddenModelTile.makeVisible()
-      hiddenUiTile.makeVisible()
     }
 
     game.tiles.zip(tilesBoard.tiles).foreach {
       case (modelTile: Tile, uiTile: TileNode) => {
         modelTile.onTileMoved {
           uiTile.moveTileTo(modelTile.currentPosition, animate = true)
+        }
+        modelTile.onVisibilityChange { toVisible =>
+          if (toVisible)
+            uiTile.makeVisible()
+          else
+            uiTile.makeHidden()
         }
         uiTile.onMousePressed {
           modelTile.moveToEmptySlot()
@@ -60,14 +65,9 @@ class SlidingPuzzleJFXApp extends Application {
       }
     }
 
-    initHiddenTile()
+    hiddenModelTile.makeHidden()
 
     mainWindow.show()
-  }
-
-  def initHiddenTile() {
-    hiddenModelTile.makeHidden()
-    hiddenUiTile.makeHidden()
   }
 
   def updateMovesCount() {

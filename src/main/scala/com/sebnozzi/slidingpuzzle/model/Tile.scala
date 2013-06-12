@@ -6,7 +6,7 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
-  private var _visibilityCallback: Option[() => Unit] = None
+  private var _visibilityCallback: Option[(Boolean) => Unit] = None
 
   def currentPosition = _currentPosition
 
@@ -20,8 +20,8 @@ class Tile(val game: Game, val initialPosition: Position) {
     _tileMovedCallback = Some(callback _)
   }
 
-  def onVisibilityChange(callback: => Unit) {
-    _visibilityCallback = Some(callback _)
+  def onVisibilityChange(callback: (Boolean) => Unit) {
+    _visibilityCallback = Some(callback)
   }
 
   def swapPositionWith(other: Tile) {
@@ -38,9 +38,9 @@ class Tile(val game: Game, val initialPosition: Position) {
     game.clearHiddenTile
   }
 
-  def visibilityChanged() {
+  def visibilityChanged(toVisible: Boolean) {
     if (_visibilityCallback.isDefined)
-      _visibilityCallback.get()
+      _visibilityCallback.get(toVisible)
   }
 
   def isAtInitialPosition = (currentPosition == initialPosition)
@@ -58,10 +58,11 @@ class Tile(val game: Game, val initialPosition: Position) {
     }
   }
 
-  def moveToEmptySlot() = {
+  def moveToEmptySlot(shuffling: Boolean = false) = {
     if (canMoveToEmptySlot) {
       swapPositionWith(game.hiddenTile)
-      game.didMoveToEmptySlot(this)
+      if (!shuffling)
+        game.didMoveToEmptySlot(this)
       true
     } else {
       false
