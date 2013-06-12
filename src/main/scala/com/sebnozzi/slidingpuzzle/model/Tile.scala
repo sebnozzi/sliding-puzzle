@@ -11,7 +11,6 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   def currentPosition_=(newPosition: Position) {
     _currentPosition = newPosition
-    game.tileDidMove(this)
     if (_tileMovedCallback.isDefined)
       _tileMovedCallback.get()
   }
@@ -52,6 +51,7 @@ class Tile(val game: Game, val initialPosition: Position) {
   def moveToEmptySlot() = {
     if (canMoveToEmptySlot) {
       swapPositionWith(game.hiddenTile)
+      game.didMoveToEmptySlot(this)
       true
     } else {
       false

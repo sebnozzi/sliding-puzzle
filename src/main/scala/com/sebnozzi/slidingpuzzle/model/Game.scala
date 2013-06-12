@@ -4,6 +4,7 @@ class Game(val columns: Int, val rows: Int) {
 
   private var _movesDone = 0
   private var _solvedCallback: Option[() => Unit] = None
+  private var _movesCountCallback: Option[() => Unit] = None
   private var _hiddenTile: Option[Tile] = None
 
   val tiles: List[Tile] = {
@@ -23,13 +24,17 @@ class Game(val columns: Int, val rows: Int) {
       }
     }
   }
-  
+
   def movesDone = _movesDone
 
-  protected[model] def tileDidMove(tile: Tile) {
-    if(Some(tile) == _hiddenTile) 
-      _movesDone += 1
-      
+  private def movesDone_=(newCount: Int) {
+    println("updating to " + newCount)
+    _movesDone = newCount
+    if (_movesCountCallback.isDefined)
+      _movesCountCallback.get()
+  }
+
+  def didMoveToEmptySlot(tile: Tile) {
     if (this.isSolved && _solvedCallback.isDefined)
       _solvedCallback.get()
   }
@@ -38,9 +43,13 @@ class Game(val columns: Int, val rows: Int) {
     _solvedCallback = Some(callback _)
   }
 
+  def onMovesCountChange(callback: => Unit) {
+    _movesCountCallback = Some(callback _)
+  }
+
   def reset() {
     tiles.foreach(_.moveToInitialPosition())
-    _movesDone = 0
+    movesDone = 0
     clearHiddenTile()
   }
 

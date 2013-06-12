@@ -231,14 +231,28 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("tile notifies game on every move") {
     var called = false
     val game = new Game(columns = 4, rows = 3) {
-      override def tileDidMove(tile: Tile) {
-        super.tileDidMove(tile)
+      override def didMoveToEmptySlot(tile: Tile) {
+        super.didMoveToEmptySlot(tile)
         called = true
       }
     }
     game.tileAt(4, 3).makeHidden()
     game.tileAt(4, 2).moveToEmptySlot()
     assert(called)
+  }
+  
+  test("tile notifies game on every move to empty slot") {
+    var calls = 0
+    val game = new Game(columns = 4, rows = 3) {
+      override def didMoveToEmptySlot(tile: Tile) {
+        super.didMoveToEmptySlot(tile)
+        calls += 1
+      }
+    }
+    game.tileAt(4, 3).makeHidden()
+    game.tileAt(4, 2).moveToEmptySlot()
+    game.reset()
+    assert(calls === 1)
   }
 
   test("callback when game solved") {
@@ -257,11 +271,23 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.movesDone === 0)
   }
 
-  test("one move") {
+  ignore("one move") {
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot
     assert(game.movesDone === 1)
+  }
+
+  ignore("callback when move-count changes") {
+    var calls = 0
+    val tile = game.tileAt(4, 2)
+    game.tileAt(4, 3).makeHidden
+    game.onMovesCountChange {
+      calls += 1
+    }
+    tile.moveToEmptySlot
+    game.reset()
+    assert(calls === 2)
   }
 
   test("moves go back to 0 after reset") {
