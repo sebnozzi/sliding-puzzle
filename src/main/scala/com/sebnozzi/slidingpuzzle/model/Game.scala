@@ -22,16 +22,16 @@ class Game(val columns: Int, val rows: Int) {
       }
     }
   }
-  
-  protected[model] def tileDidMove(tile:Tile) {
-    if(this.isSolved && _solvedCallback.isDefined)
+
+  protected[model] def tileDidMove(tile: Tile) {
+    if (this.isSolved && _solvedCallback.isDefined)
       _solvedCallback.get()
   }
-  
-  def onGameSolved(callback: => Unit){
+
+  def onGameSolved(callback: => Unit) {
     _solvedCallback = Some(callback _)
   }
-  
+
   def reset() {
     tiles.foreach(_.moveToInitialPosition())
     clearHiddenTile()
@@ -41,8 +41,8 @@ class Game(val columns: Int, val rows: Int) {
     tiles.forall { tile => tile.isAtInitialPosition }
   }
 
-  def tileAt(position: Position):Tile = {
-    tiles.find( tile => tile.currentPosition == position).get
+  def tileAt(position: Position): Tile = {
+    tiles.find(tile => tile.currentPosition == position).get
   }
 
   def setHiddenTileAt(position: Position) { _hiddenTile = Some(tileAt(position)) }

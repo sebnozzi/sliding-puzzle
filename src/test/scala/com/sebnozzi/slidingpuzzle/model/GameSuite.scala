@@ -155,7 +155,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.isSolved === false)
   }
   
-  ignore("game solved after putting back the tile") {
+  test("game solved after putting back the tile") {
     val tile = game.tileAt(4, 2)
     val hiddenTile = game.tileAt(4, 3)
     hiddenTile.makeHidden
@@ -243,15 +243,15 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(called)
   }
   
-  ignore("callback when game solved") {
+  test("callback when game solved") {
     var called = false
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot
-    tile.moveToEmptySlot
     game.onGameSolved { 
       called = true
     }
+    tile.moveToEmptySlot // make the winning move
     assert(called)
   }
 
