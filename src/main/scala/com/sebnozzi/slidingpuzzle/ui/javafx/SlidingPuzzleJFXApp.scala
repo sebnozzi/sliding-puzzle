@@ -42,10 +42,12 @@ class SlidingPuzzleJFXApp extends Application {
       game.reset()
       hiddenTile.makeHidden()
       game.makeRandomMove(times = 300)
+      tilesBoard.requestFocus()
     }
 
     controlPanel.onResetPressed {
       game.reset()
+      tilesBoard.requestFocus()
     }
 
     game.onMovesCountChange {
@@ -80,19 +82,22 @@ class SlidingPuzzleJFXApp extends Application {
   def updateMovesCount() {
     controlPanel.setMovesCount(game.movesDone)
   }
-  
+
   def keyPressed(keyEvent: KeyEvent) {
     var matchFound = true
-    keyEvent.getCode() match {
-      case KeyCode.UP => {}
-      case KeyCode.DOWN => {}
-      case KeyCode.LEFT => {}
-      case KeyCode.RIGHT => {}
-      case _ => { matchFound = false }
-    }
-    if (matchFound)
+    val tileToMove: Option[Tile] = (keyEvent.getCode() match {
+      case KeyCode.UP => { hiddenTile.tileBelow }
+      case KeyCode.DOWN => { hiddenTile.tileAbove }
+      case KeyCode.LEFT => { hiddenTile.tileRight }
+      case KeyCode.RIGHT => { hiddenTile.tileLeft }
+      case _ => { matchFound = false; None }
+    })
+
+    tileToMove.map { _.moveToEmptySlot() }
+
+    if (matchFound) {
       keyEvent.consume()
-  }  
-  
+    }
+  }
 
 }

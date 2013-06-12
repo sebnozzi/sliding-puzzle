@@ -50,10 +50,8 @@ class Tile(val game: Game, val initialPosition: Position) {
   def canMoveToEmptySlot = {
     if (game.hasHiddenTile) {
       val isAdjacentToHiddenTile = this.isAdjacentTo(game.hiddenTile)
-      if (!isAdjacentToHiddenTile) println("Not adjacent to hidden tile")
       isAdjacentToHiddenTile
     } else {
-      println("Game does not have a hidden tile")
       false
     }
   }

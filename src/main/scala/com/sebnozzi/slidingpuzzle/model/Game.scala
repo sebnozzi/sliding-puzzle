@@ -28,7 +28,6 @@ class Game(val columns: Int, val rows: Int) {
   def movesDone = _movesDone
 
   private def movesDone_=(newCount: Int) {
-    println("updating to " + newCount)
     _movesDone = newCount
     if (_movesCountCallback.isDefined)
       _movesCountCallback.get()
