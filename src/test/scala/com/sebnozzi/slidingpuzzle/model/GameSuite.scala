@@ -271,14 +271,14 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.movesDone === 0)
   }
 
-  ignore("one move") {
+  test("one move") {
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot
     assert(game.movesDone === 1)
   }
 
-  ignore("callback when move-count changes") {
+  test("callback when move-count changes") {
     var calls = 0
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden

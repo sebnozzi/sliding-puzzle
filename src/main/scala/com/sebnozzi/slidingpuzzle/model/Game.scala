@@ -35,6 +35,7 @@ class Game(val columns: Int, val rows: Int) {
   }
 
   def didMoveToEmptySlot(tile: Tile) {
+    movesDone = movesDone + 1
     if (this.isSolved && _solvedCallback.isDefined)
       _solvedCallback.get()
   }
