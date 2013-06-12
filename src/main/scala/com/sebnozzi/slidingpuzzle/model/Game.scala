@@ -27,6 +27,9 @@ class Game(val columns: Int, val rows: Int) {
   def movesDone = _movesDone
 
   protected[model] def tileDidMove(tile: Tile) {
+    if(Some(tile) == _hiddenTile) 
+      _movesDone += 1
+      
     if (this.isSolved && _solvedCallback.isDefined)
       _solvedCallback.get()
   }
