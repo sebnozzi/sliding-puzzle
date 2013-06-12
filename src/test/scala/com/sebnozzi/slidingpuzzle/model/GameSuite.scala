@@ -194,28 +194,49 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     val tile = game.tileAt(4, 2)
     var tileModed = false
     game.tileAt(4, 3).makeHidden
-    tile.onTileMoved {  
+    tile.onTileMoved {
       tileModed = true
     }
     tile.moveToEmptySlot
     assert(tileModed)
   }
-  
+
   test("callback called when tile moved to initial position") {
     val tile = game.tileAt(4, 2)
     var tileModed = false
     game.tileAt(4, 3).makeHidden
-    tile.onTileMoved {  
+    tile.onTileMoved {
       tileModed = true
     }
     tile.moveToEmptySlot
     tileModed = false
     tile.moveToInitialPosition
     assert(tileModed)
-  }  
-
-  ignore("callback when game state changed") {
-    fail("pending")
+  }
+ 
+  test("tile notifies game on every move"){
+    var called = false
+    val game = new Game(columns=4, rows=3){
+      override def tileDidMove(tile:Tile){
+        super.tileDidMove(tile)
+        called = true
+      }
+    }
+    game.tileAt(4, 3).makeHidden()
+    game.tileAt(4, 2).moveToEmptySlot()
+    assert(called)
+  }
+  
+  ignore("callback when game solved") {
+    var called = false
+    val tile1 = game.tileAt(4, 2)
+    val tile2 = game.tileAt(4, 3)
+    tile2.makeHidden
+    tile1.moveToEmptySlot
+    game.onGameSolved { 
+      called = true
+    }
+    assert(called)
   }
 
   ignore("count moves") {

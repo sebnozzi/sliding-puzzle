@@ -11,6 +11,7 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   def currentPosition_=(newPosition: Position) {
     _currentPosition = newPosition
+    game.tileDidMove(this)
     if(_tileMovedCallback.isDefined)
       _tileMovedCallback.get()
   }
@@ -25,11 +26,11 @@ class Tile(val game: Game, val initialPosition: Position) {
     other.currentPosition = previousPosition
   }
 
-  def makeHidden {
+  def makeHidden() {
     game.setHiddenTileAt(this.currentPosition)
   }
 
-  def makeVisible {
+  def makeVisible() {
     game.clearHiddenTile
   }
 

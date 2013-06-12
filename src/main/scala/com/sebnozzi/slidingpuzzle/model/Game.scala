@@ -2,6 +2,7 @@ package com.sebnozzi.slidingpuzzle.model
 
 class Game(val columns: Int, val rows: Int) {
 
+  private var _solvedCallback: Option[() => Unit] = None
   private var _hiddenTile: Option[Tile] = None
 
   val tiles: List[Tile] = {
@@ -20,6 +21,14 @@ class Game(val columns: Int, val rows: Int) {
         tileToMove.moveToEmptySlot()
       }
     }
+  }
+  
+  protected[model] def tileDidMove(tile:Tile) {
+    
+  }
+  
+  def onGameSolved(callback: => Unit){
+    _solvedCallback = Some(callback _)
   }
   
   def reset() {
