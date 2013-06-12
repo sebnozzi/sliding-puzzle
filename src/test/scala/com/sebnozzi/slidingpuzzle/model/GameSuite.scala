@@ -68,6 +68,15 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
 
+  test("a tile knows directional adjacent tiles"){
+    val game = new Game(columns = 3, rows = 3)
+    val tile = game.tileAt(1, 2)
+    assert(tile.tileAbove.get.initialPosition === Position(1,1))
+    assert(tile.tileRight.get.initialPosition === Position(2,2))
+    assert(tile.tileBelow.get.initialPosition === Position(1,3))
+    assert(tile.tileLeft === None)
+  }
+  
   test("asking if one tile is adjacent to another") {
     val game = new Game(columns = 3, rows = 3)
     assert(game.tileAt(1, 1).isAdjacentTo(game.tileAt(2, 1)))
