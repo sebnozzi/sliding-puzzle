@@ -11,6 +11,8 @@ import javafx.util.Duration
 
 class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends Group {
 
+  val animationDurationMs = 200
+  
   private var onTilePressedCallback: Option[() => Unit] = None
 
   val initialPosition = pos
@@ -52,7 +54,7 @@ class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends 
 
   def animateTo(x: Double, y: Double) {
     val translateTransition = TranslateTransitionBuilder.create()
-      .duration(Duration.seconds(0.3))
+      .duration(Duration.millis(animationDurationMs))
       .node(this)
       .toX(x)
       .toY(y)

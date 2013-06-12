@@ -49,8 +49,7 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   def canMoveToEmptySlot = {
     if (game.hasHiddenTile) {
-      val isAdjacentToHiddenTile = this.isAdjacentTo(game.hiddenTile)
-      isAdjacentToHiddenTile
+      this.isAdjacentTo(game.hiddenTile)
     } else {
       false
     }
@@ -71,25 +70,23 @@ class Tile(val game: Game, val initialPosition: Position) {
     currentPosition = initialPosition
   }
 
-  def adjacentTiles: List[Tile] = {
-    List(
-      tileAbove,
-      tileLeft,
-      tileRight,
-      tileBelow).flatten
-  }
+  def adjacentTiles: List[Tile] = List(
+    tileAbove,
+    tileLeft,
+    tileRight,
+    tileBelow).flatten
 
-  def tileAbove: Option[Tile] = 
-    currentPosition.aboveIn(game.positionsRect).map{ game.tileAt }
-  
-  def tileBelow: Option[Tile] = 
-        currentPosition.belowIn(game.positionsRect).map{ game.tileAt }
+  def tileAbove: Option[Tile] =
+    currentPosition.aboveIn(game.positionsRect).map { game.tileAt }
 
-  def tileLeft: Option[Tile] = 
-        currentPosition.leftIn(game.positionsRect).map{ game.tileAt }
+  def tileBelow: Option[Tile] =
+    currentPosition.belowIn(game.positionsRect).map { game.tileAt }
 
-  def tileRight: Option[Tile] = 
-        currentPosition.rightIn(game.positionsRect).map{ game.tileAt }
+  def tileLeft: Option[Tile] =
+    currentPosition.leftIn(game.positionsRect).map { game.tileAt }
+
+  def tileRight: Option[Tile] =
+    currentPosition.rightIn(game.positionsRect).map { game.tileAt }
 
   def randomAdjacentTile: Tile = {
     val tiles = adjacentTiles

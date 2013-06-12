@@ -14,7 +14,7 @@ import javafx.scene.input.KeyEvent
 
 class SlidingPuzzleJFXApp extends Application {
 
-  val columns = 3
+  val columns = 4
   val rows = 2
 
   val game = new Game(columns, rows)
