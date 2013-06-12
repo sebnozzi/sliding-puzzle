@@ -20,7 +20,7 @@ class Game(val columns: Int, val rows: Int) {
     if (hasHiddenTile) {
       for (_ <- (1 to times)) {
         val tileToMove = hiddenTile.randomAdjacentTile
-        tileToMove.moveToEmptySlot()
+        tileToMove.moveToEmptySlot(shuffling=true)
       }
     }
   }
@@ -66,20 +66,20 @@ class Game(val columns: Int, val rows: Int) {
     val newTile = tileAt(position)
     _hiddenTile match {
       case Some(currentTile) if newTile != currentTile => {
-        currentTile.visibilityChanged()
+        currentTile.visibilityChanged(toVisible = true)
         _hiddenTile = Some(newTile)
-        newTile.visibilityChanged()
+        newTile.visibilityChanged(toVisible = false)
       }
       case None => {
         _hiddenTile = Some(newTile)
-        newTile.visibilityChanged()
+        newTile.visibilityChanged(toVisible = false)
       }
       case _ => {}
     }
   }
 
   def clearHiddenTile() {
-    _hiddenTile.map(_.visibilityChanged())
+    _hiddenTile.map(_.visibilityChanged(toVisible = true))
     _hiddenTile = None
   }
 

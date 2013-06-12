@@ -84,7 +84,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     val tile1 = game.tileAt(4, 2)
     val tile2 = game.tileAt(4, 3)
     tile2.makeHidden()
-    tile1.moveToEmptySlot
+    tile1.moveToEmptySlot()
     assert(tile1.currentPosition === Position(4, 3))
     assert(tile2.currentPosition === Position(4, 2))
     assert(game.tileAt(4, 2) === tile2)
@@ -95,7 +95,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     val tile1 = game.tileAt(1, 1)
     val tile2 = game.tileAt(4, 3)
     game.setHiddenTileAt(4, 3)
-    val result = tile1.moveToEmptySlot
+    val result = tile1.moveToEmptySlot()
     assert(result === false)
     assert(tile1.currentPosition === Position(1, 1))
     assert(tile2.currentPosition === Position(4, 3))
@@ -149,7 +149,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     val tile1 = game.tileAt(4, 2)
     val tile2 = game.tileAt(4, 3)
     tile2.makeHidden
-    tile1.moveToEmptySlot
+    tile1.moveToEmptySlot()
     assert(game.isSolved === false)
   }
 
@@ -157,8 +157,8 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     val tile = game.tileAt(4, 2)
     val hiddenTile = game.tileAt(4, 3)
     hiddenTile.makeHidden
-    val firstMoveDone = tile.moveToEmptySlot
-    val secondMoveDone = tile.moveToEmptySlot
+    val firstMoveDone = tile.moveToEmptySlot()
+    val secondMoveDone = tile.moveToEmptySlot()
     assert(firstMoveDone)
     assert(secondMoveDone)
     assert(game.isSolved)
@@ -211,7 +211,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile.onTileMoved {
       tileModed = true
     }
-    tile.moveToEmptySlot
+    tile.moveToEmptySlot()
     assert(tileModed)
   }
 
@@ -222,7 +222,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile.onTileMoved {
       tileModed = true
     }
-    tile.moveToEmptySlot
+    tile.moveToEmptySlot()
     tileModed = false
     tile.moveToInitialPosition
     assert(tileModed)
@@ -259,11 +259,11 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     var called = false
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
-    tile.moveToEmptySlot
+    tile.moveToEmptySlot()
     game.onGameSolved {
       called = true
     }
-    tile.moveToEmptySlot // make the winning move
+    tile.moveToEmptySlot() // make the winning move
     assert(called)
   }
 
@@ -274,10 +274,17 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("one move") {
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
-    tile.moveToEmptySlot
+    tile.moveToEmptySlot()
     assert(game.movesDone === 1)
   }
 
+  test("shuffling does not change the amount of moves") {
+    val tile = game.tileAt(4, 2)
+    game.tileAt(4, 3).makeHidden
+    game.makeRandomMove(times=300)
+    assert(game.movesDone === 0)
+  }  
+  
   test("callback when move-count changes") {
     var calls = 0
     val tile = game.tileAt(4, 2)
@@ -285,7 +292,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     game.onMovesCountChange {
       calls += 1
     }
-    tile.moveToEmptySlot
+    tile.moveToEmptySlot()
     game.reset()
     assert(calls === 2)
   }
@@ -293,7 +300,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("moves go back to 0 after reset") {
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
-    tile.moveToEmptySlot
+    tile.moveToEmptySlot()
     game.reset()
     assert(game.movesDone === 0)
   }
@@ -308,7 +315,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("tile informs on visibility change (only real changes)") {
     var calls = 0
     val tile = game.tileAt(4, 2)
-    tile.onVisibilityChange {
+    tile.onVisibilityChange { toVisible => 
       calls += 1
     }
     tile.makeHidden()
