@@ -264,8 +264,12 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.movesDone === 1)
   }
 
-  ignore("moves go back to 0 after reset") {
-    fail("pending")
+  test("moves go back to 0 after reset") {
+    val tile = game.tileAt(4, 2)
+    game.tileAt(4, 3).makeHidden
+    tile.moveToEmptySlot
+    game.reset()
+    assert(game.movesDone === 0)
   }
 
 }
