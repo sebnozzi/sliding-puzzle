@@ -2,6 +2,7 @@ package com.sebnozzi.slidingpuzzle.model
 
 class Game(val columns: Int, val rows: Int) {
 
+  private var _movesDone = 0
   private var _solvedCallback: Option[() => Unit] = None
   private var _hiddenTile: Option[Tile] = None
 
@@ -22,6 +23,8 @@ class Game(val columns: Int, val rows: Int) {
       }
     }
   }
+  
+  def movesDone = _movesDone
 
   protected[model] def tileDidMove(tile: Tile) {
     if (this.isSolved && _solvedCallback.isDefined)

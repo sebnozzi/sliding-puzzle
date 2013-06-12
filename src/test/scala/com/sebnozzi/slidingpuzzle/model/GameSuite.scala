@@ -67,8 +67,6 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(topLeft.adjacentTiles === List(topRight, bottomLeft))
     assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
-  
-
 
   test("asking if one tile is adjacent to another") {
     val game = new Game(columns = 3, rows = 3)
@@ -89,8 +87,8 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile1.moveToEmptySlot
     assert(tile1.currentPosition === Position(4, 3))
     assert(tile2.currentPosition === Position(4, 2))
-    assert(game.tileAt(4,2) === tile2)
-    assert(game.tileAt(4,3) === tile1)
+    assert(game.tileAt(4, 2) === tile2)
+    assert(game.tileAt(4, 3) === tile1)
   }
 
   test("moving to empty slot when not adjacent to it should do nothing") {
@@ -154,7 +152,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile1.moveToEmptySlot
     assert(game.isSolved === false)
   }
-  
+
   test("game solved after putting back the tile") {
     val tile = game.tileAt(4, 2)
     val hiddenTile = game.tileAt(4, 3)
@@ -229,11 +227,11 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile.moveToInitialPosition
     assert(tileModed)
   }
- 
-  test("tile notifies game on every move"){
+
+  test("tile notifies game on every move") {
     var called = false
-    val game = new Game(columns=4, rows=3){
-      override def tileDidMove(tile:Tile){
+    val game = new Game(columns = 4, rows = 3) {
+      override def tileDidMove(tile: Tile) {
         super.tileDidMove(tile)
         called = true
       }
@@ -242,20 +240,24 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     game.tileAt(4, 2).moveToEmptySlot()
     assert(called)
   }
-  
+
   test("callback when game solved") {
     var called = false
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot
-    game.onGameSolved { 
+    game.onGameSolved {
       called = true
     }
     tile.moveToEmptySlot // make the winning move
     assert(called)
   }
 
-  ignore("count moves") {
+  test("initially, moves are 0") {
+    assert(game.movesDone === 0)
+  }
+
+  ignore("one move") {
     fail("pending")
   }
 
