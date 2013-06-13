@@ -14,11 +14,8 @@ import javafx.scene.input.KeyEvent
 
 class SlidingPuzzleJFXApp extends Application {
 
-  val columns = 4
-  val rows = 2
-
-  val game = new Game(columns, rows)
-  val hiddenTile = game.tiles.last
+  var game: Game = _
+  def hiddenTile = game.tiles.last
 
   var gameWindow: GameWindowWrapper = _
   var controlPanel: ControlPanel = _
@@ -30,18 +27,33 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
+    val columns = 4
+    val rows = 3
+
     gameWindow = new GameWindowWrapper(mainWindow)
 
-    controlPanel = gameWindow.controlPanel
-    tilesBoard = new TilesBoard(img, columns, rows)
-    gameWindow.setTilesBoard(tilesBoard)
+    setupGame(columns, rows)
 
     doBindings()
 
     mainWindow.show()
   }
 
+  private def setupGame(columns: Int, rows: Int) {
+    game = new Game(columns, rows)
+
+    tilesBoard = new TilesBoard(img, columns, rows)
+    gameWindow.setTilesBoard(tilesBoard)
+
+    game.tiles.zip(tilesBoard.tiles).foreach {
+      case (modelTile: Tile, uiTile: TileNode) => {
+        bindUiAndModelTiles(uiTile, modelTile)
+      }
+    }
+  }
+
   private def doBindings() {
+    controlPanel = gameWindow.controlPanel
 
     gameWindow.onKeyPressed { keyEvent =>
       keyPressed(keyEvent)
@@ -65,12 +77,6 @@ class SlidingPuzzleJFXApp extends Application {
 
     game.onGameSolved {
       hiddenTile.makeVisible()
-    }
-
-    game.tiles.zip(tilesBoard.tiles).foreach {
-      case (modelTile: Tile, uiTile: TileNode) => {
-        bindUiAndModelTiles(uiTile, modelTile)
-      }
     }
   }
 
