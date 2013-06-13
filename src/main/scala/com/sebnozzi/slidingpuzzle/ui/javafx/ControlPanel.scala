@@ -13,7 +13,7 @@ class ControlPanel extends ToolBar {
 
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
-  private val movesLabel = new Label(movesMsg(23))
+  private val movesLabel = new Label(movesMsg(0))
 
   setup()
 
