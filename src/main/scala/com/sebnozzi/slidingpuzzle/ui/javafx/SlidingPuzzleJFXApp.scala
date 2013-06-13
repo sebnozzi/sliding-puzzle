@@ -28,11 +28,11 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    val initialSize = GridSize(3,2)
+    val initialSize = GridSize(3, 2)
 
     gameWindow = new GameWindowWrapper(mainWindow)
     gameWindow.selectGridSize(initialSize)
-    
+
     setupGame(initialSize)
 
     doBindings()
@@ -41,8 +41,8 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def tilesBoard = _tilesBoard
-  
-  private def setupGame(gridSize:GridSize) {
+
+  private def setupGame(gridSize: GridSize) {
     game = new Game(gridSize.columns, gridSize.rows)
 
     _tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
@@ -73,7 +73,7 @@ class SlidingPuzzleJFXApp extends Application {
       game.reset()
       tilesBoard.requestFocus()
     }
-    
+
     controlPanel.onSizeChange { newSize =>
       setupGame(newSize)
     }
@@ -96,10 +96,11 @@ class SlidingPuzzleJFXApp extends Application {
       uiTile.moveTileTo(modelTile.currentPosition, animate = true)
     }
     modelTile.onVisibilityChange { toVisible =>
-      if (toVisible)
-        uiTile.makeVisible()
-      else
+      if (toVisible) {
+        uiTile.makeVisible(animate = modelTile.game.isSolved)
+      } else {
         uiTile.makeHidden()
+      }
     }
     uiTile.onMousePressed {
       modelTile.moveToEmptySlot()

@@ -8,11 +8,12 @@ import javafx.event.EventHandler
 import javafx.scene.input.MouseEvent
 import javafx.animation.TranslateTransitionBuilder
 import javafx.util.Duration
+import javafx.animation.FadeTransitionBuilder
 
 class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends Group {
 
   val animationDurationMs = 200
-  
+
   private var onTilePressedCallback: Option[() => Unit] = None
 
   val initialPosition = pos
@@ -43,13 +44,24 @@ class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends 
       translateTo(destX, destY)
     }
   }
-  
+
   def makeHidden() {
     this.setOpacity(0.0)
   }
 
-  def makeVisible() {
-    this.setOpacity(1.0)
+  def makeVisible(animate: Boolean = false) {
+    if (animate) {
+      val toVisibleTransition = FadeTransitionBuilder.create()
+        .duration(Duration.seconds(0.3))
+        .delay(Duration.seconds(0.4))
+        .node(this)
+        .fromValue(0.0)
+        .toValue(1.0)
+        .build();
+      toVisibleTransition.play()
+    } else {
+      setOpacity(1.0)
+    }
   }
 
   def animateTo(x: Double, y: Double) {
