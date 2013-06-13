@@ -60,18 +60,7 @@ class SlidingPuzzleJFXApp extends Application {
 
     game.tiles.zip(tilesBoard.tiles).foreach {
       case (modelTile: Tile, uiTile: TileNode) => {
-        modelTile.onTileMoved {
-          uiTile.moveTileTo(modelTile.currentPosition, animate = true)
-        }
-        modelTile.onVisibilityChange { toVisible =>
-          if (toVisible)
-            uiTile.makeVisible()
-          else
-            uiTile.makeHidden()
-        }
-        uiTile.onMousePressed {
-          modelTile.moveToEmptySlot()
-        }
+        bindUiAndModelTiles(uiTile, modelTile)
       }
     }
 
@@ -81,6 +70,21 @@ class SlidingPuzzleJFXApp extends Application {
 
   def updateMovesCount() {
     controlPanel.setMovesCount(game.movesDone)
+  }
+
+  def bindUiAndModelTiles(uiTile: TileNode, modelTile: Tile) {
+    modelTile.onTileMoved {
+      uiTile.moveTileTo(modelTile.currentPosition, animate = true)
+    }
+    modelTile.onVisibilityChange { toVisible =>
+      if (toVisible)
+        uiTile.makeVisible()
+      else
+        uiTile.makeHidden()
+    }
+    uiTile.onMousePressed {
+      modelTile.moveToEmptySlot()
+    }
   }
 
   def keyPressed(keyEvent: KeyEvent) {
