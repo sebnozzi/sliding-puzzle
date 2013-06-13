@@ -17,6 +17,13 @@ import javafx.util.StringConverter
 
 class ControlPanel extends ToolBar {
 
+  val gridSizes = List(
+    GridSize(3, 2),
+    GridSize(3, 3),
+    GridSize(4, 3),
+    GridSize(6, 4)
+    )
+
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
   private val movesLabel = new Label(movesMsg(0))
@@ -31,16 +38,16 @@ class ControlPanel extends ToolBar {
 
   def onResetPressed(callback: => Unit) =
     addButtonHandler(resetButton) { callback }
-  
-  def onSizeChange(callback: (GridSize) => Unit){
+
+  def onSizeChange(callback: (GridSize) => Unit) {
     sizeChangeCallback = Some(callback)
   }
 
   def setMovesCount(count: Int) {
     movesLabel.setText(movesMsg(count))
   }
-  
-  def selectGridSize(gridSize:GridSize){
+
+  def selectGridSize(gridSize: GridSize) {
     val selectionModel = sizeSelector.getSelectionModel()
     selectionModel.select(gridSize)
   }
@@ -53,10 +60,7 @@ class ControlPanel extends ToolBar {
     ControlPanel.this.getItems().add(resetButton)
     ControlPanel.this.getItems().add(movesLabel)
 
-    sizeSelector.setItems(FXCollections.observableArrayList[GridSize](
-      GridSize(3, 2),
-      GridSize(3, 3),
-      GridSize(4, 3)))
+    sizeSelector.setItems(FXCollections.observableArrayList[GridSize](gridSizes:_*))
     val selectionModel = sizeSelector.getSelectionModel()
     selectionModel.selectedIndexProperty().addListener(new ChangeListener[Number]() {
       def changed(ov: ObservableValue[_ <: Number],
@@ -72,7 +76,7 @@ class ControlPanel extends ToolBar {
   }
 
   private def sizeChanged(newSize: GridSize) {
-    if(sizeChangeCallback.isDefined)
+    if (sizeChangeCallback.isDefined)
       (sizeChangeCallback.get)(newSize)
   }
 

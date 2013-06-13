@@ -28,7 +28,7 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    val initialSize = GridSize(4,3)
+    val initialSize = GridSize(3,2)
 
     gameWindow = new GameWindowWrapper(mainWindow)
     gameWindow.selectGridSize(initialSize)
