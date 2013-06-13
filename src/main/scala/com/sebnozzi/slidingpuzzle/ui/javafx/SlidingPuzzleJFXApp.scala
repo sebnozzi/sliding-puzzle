@@ -30,10 +30,11 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    gameWindow = new GameWindowWrapper(mainWindow, img, columns, rows)
+    gameWindow = new GameWindowWrapper(mainWindow)
 
     controlPanel = gameWindow.controlPanel
-    tilesBoard = gameWindow.tilesBoard
+    tilesBoard = new TilesBoard(img, columns, rows)
+    gameWindow.setTilesBoard(tilesBoard)
 
     doBindings()
 

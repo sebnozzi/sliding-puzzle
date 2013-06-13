@@ -11,32 +11,36 @@ import javafx.scene.paint.Color
 import javafx.scene.layout.VBox
 import javafx.scene.image.Image
 import javafx.scene.input.KeyEvent
+import javafx.scene.Group
 
-class GameWindowWrapper(window: Stage, img: Image, val columns: Int, val rows: Int) {
+class GameWindowWrapper(window: Stage) {
 
-  private var _tilesBoard: TilesBoard = _
+  private val tilesBoardContainer = new Group
   private var _controlPanel: ControlPanel = _
 
-  def tilesBoard = { _tilesBoard }
   def controlPanel = { _controlPanel }
 
-  init(img, columns, rows)
+  init()
 
-  def init(img: Image, columns: Int, rows: Int) {
-    _tilesBoard = new TilesBoard(img, columns, rows)
-
+  private def init() {
     val mainGroup = new VBox()
     _controlPanel = new ControlPanel()
 
     mainGroup.getChildren().add(_controlPanel)
-    mainGroup.getChildren().add(_tilesBoard)
+    mainGroup.getChildren().add(tilesBoardContainer)
 
     setupWithGroup(mainGroup)
   }
-  
+
+  def setTilesBoard(tilesBoard: TilesBoard) {
+    val grpChildren = tilesBoardContainer.getChildren()
+    grpChildren.clear()
+    grpChildren.add(tilesBoard)
+  }
+
   def onKeyPressed(callback: (KeyEvent) => Unit) {
-    window.getScene().setOnKeyPressed(new EventHandler[KeyEvent](){
-      def handle(event:KeyEvent){
+    window.getScene().setOnKeyPressed(new EventHandler[KeyEvent]() {
+      def handle(event: KeyEvent) {
         callback(event)
       }
     })
