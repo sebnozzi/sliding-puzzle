@@ -20,7 +20,7 @@ class SlidingPuzzleJFXApp extends Application {
 
   var gameWindow: GameWindowWrapper = _
   var controlPanel: ControlPanel = _
-  var tilesBoard: TilesBoard = _
+  var _tilesBoard: TilesBoard = _
 
   lazy val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
@@ -40,11 +40,13 @@ class SlidingPuzzleJFXApp extends Application {
     mainWindow.show()
   }
 
+  private def tilesBoard = _tilesBoard
+  
   private def setupGame(gridSize:GridSize) {
     game = new Game(gridSize.columns, gridSize.rows)
 
-    tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
-    gameWindow.setTilesBoard(tilesBoard)
+    _tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
+    gameWindow.setTilesBoard(_tilesBoard)
 
     game.tiles.zip(tilesBoard.tiles).foreach {
       case (modelTile: Tile, uiTile: TileNode) => {
