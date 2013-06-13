@@ -20,6 +20,7 @@ class SlidingPuzzleJFXApp extends Application {
   val game = new Game(columns, rows)
   val hiddenTile = game.tiles.last
 
+  var gameWindow: GameWindowWrapper = _
   var controlPanel: ControlPanel = _
   var tilesBoard: TilesBoard = _
 
@@ -29,10 +30,17 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    val gameWindow = new GameWindowWrapper(mainWindow, img, columns, rows)
+    gameWindow = new GameWindowWrapper(mainWindow, img, columns, rows)
 
     controlPanel = gameWindow.controlPanel
     tilesBoard = gameWindow.tilesBoard
+
+    doBindings()
+
+    mainWindow.show()
+  }
+
+  private def doBindings() {
 
     gameWindow.onKeyPressed { keyEvent =>
       keyPressed(keyEvent)
@@ -63,16 +71,13 @@ class SlidingPuzzleJFXApp extends Application {
         bindUiAndModelTiles(uiTile, modelTile)
       }
     }
-
-    updateMovesCount()
-    mainWindow.show()
   }
 
-  def updateMovesCount() {
+  private def updateMovesCount() {
     controlPanel.setMovesCount(game.movesDone)
   }
 
-  def bindUiAndModelTiles(uiTile: TileNode, modelTile: Tile) {
+  private def bindUiAndModelTiles(uiTile: TileNode, modelTile: Tile) {
     modelTile.onTileMoved {
       uiTile.moveTileTo(modelTile.currentPosition, animate = true)
     }
@@ -87,7 +92,7 @@ class SlidingPuzzleJFXApp extends Application {
     }
   }
 
-  def keyPressed(keyEvent: KeyEvent) {
+  private def keyPressed(keyEvent: KeyEvent) {
     var matchFound = true
     val tileToMove: Option[Tile] = (keyEvent.getCode() match {
       case KeyCode.UP => { hiddenTile.tileBelow }
