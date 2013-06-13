@@ -12,6 +12,7 @@ import javafx.scene.layout.VBox
 import javafx.scene.image.Image
 import javafx.scene.input.KeyEvent
 import javafx.scene.Group
+import com.sebnozzi.slidingpuzzle.model.GridSize
 
 class GameWindowWrapper(window: Stage) {
 
@@ -30,6 +31,10 @@ class GameWindowWrapper(window: Stage) {
     mainGroup.getChildren().add(tilesBoardContainer)
 
     setupWithGroup(mainGroup)
+  }
+  
+  def selectGridSize(gridSize:GridSize){
+    _controlPanel.selectGridSize(gridSize)
   }
 
   def setTilesBoard(tilesBoard: TilesBoard) {

@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox
 import javafx.collections.FXCollections
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import com.sebnozzi.slidingpuzzle.model.Size
+import com.sebnozzi.slidingpuzzle.model.GridSize
 import javafx.util.StringConverter
 
 class ControlPanel extends ToolBar {
@@ -20,9 +20,9 @@ class ControlPanel extends ToolBar {
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
   private val movesLabel = new Label(movesMsg(0))
-  private val sizeSelector = new ChoiceBox[Size]()
+  private val sizeSelector = new ChoiceBox[GridSize]()
 
-  private var sizeChangeCallback: Option[(Size) => Unit] = None
+  private var sizeChangeCallback: Option[(GridSize) => Unit] = None
 
   setup()
 
@@ -32,12 +32,17 @@ class ControlPanel extends ToolBar {
   def onResetPressed(callback: => Unit) =
     addButtonHandler(resetButton) { callback }
   
-  def onSizeChange(callback: (Size) => Unit){
+  def onSizeChange(callback: (GridSize) => Unit){
     sizeChangeCallback = Some(callback)
   }
 
   def setMovesCount(count: Int) {
     movesLabel.setText(movesMsg(count))
+  }
+  
+  def selectGridSize(gridSize:GridSize){
+    val selectionModel = sizeSelector.getSelectionModel()
+    selectionModel.select(gridSize)
   }
 
   private def movesMsg(count: Int) = s"Moves: $count"
@@ -48,27 +53,27 @@ class ControlPanel extends ToolBar {
     ControlPanel.this.getItems().add(resetButton)
     ControlPanel.this.getItems().add(movesLabel)
 
-    sizeSelector.setItems(FXCollections.observableArrayList[Size](
-      Size(3, 2),
-      Size(3, 3),
-      Size(4, 3)))
+    sizeSelector.setItems(FXCollections.observableArrayList[GridSize](
+      GridSize(3, 2),
+      GridSize(3, 3),
+      GridSize(4, 3)))
     val selectionModel = sizeSelector.getSelectionModel()
     selectionModel.selectedIndexProperty().addListener(new ChangeListener[Number]() {
       def changed(ov: ObservableValue[_ <: Number],
         oldValue: Number, newValue: Number) {
-        val newSize: Size = sizeSelector.getItems().get(newValue.intValue())
+        val newSize: GridSize = sizeSelector.getItems().get(newValue.intValue())
         sizeChanged(newSize)
       }
     });
-    sizeSelector.setConverter(new StringConverter[Size]() {
-      def fromString(str: String) = null
-      def toString(size: Size) = "%dx%d".format(size.width, size.height)
+    sizeSelector.setConverter(new StringConverter[GridSize]() {
+      def fromString(str: String) = ???
+      def toString(size: GridSize) = "%dx%d".format(size.columns, size.rows)
     })
-    selectionModel.selectFirst()
   }
 
-  private def sizeChanged(newSize: Size) {
-    (sizeChangeCallback.get)(newSize)
+  private def sizeChanged(newSize: GridSize) {
+    if(sizeChangeCallback.isDefined)
+      (sizeChangeCallback.get)(newSize)
   }
 
   private def addButtonHandler(button: Button)(block: => Unit) {

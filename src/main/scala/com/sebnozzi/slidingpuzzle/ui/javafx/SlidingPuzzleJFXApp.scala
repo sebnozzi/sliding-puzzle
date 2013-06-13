@@ -11,6 +11,7 @@ import com.sebnozzi.slidingpuzzle.model.Game
 import com.sebnozzi.slidingpuzzle.model.Tile
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
+import com.sebnozzi.slidingpuzzle.model.GridSize
 
 class SlidingPuzzleJFXApp extends Application {
 
@@ -27,22 +28,22 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   override def start(mainWindow: Stage) {
-    val columns = 4
-    val rows = 3
+    val initialSize = GridSize(4,3)
 
     gameWindow = new GameWindowWrapper(mainWindow)
-
-    setupGame(columns, rows)
+    gameWindow.selectGridSize(initialSize)
+    
+    setupGame(initialSize)
 
     doBindings()
 
     mainWindow.show()
   }
 
-  private def setupGame(columns: Int, rows: Int) {
-    game = new Game(columns, rows)
+  private def setupGame(gridSize:GridSize) {
+    game = new Game(gridSize.columns, gridSize.rows)
 
-    tilesBoard = new TilesBoard(img, columns, rows)
+    tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
     gameWindow.setTilesBoard(tilesBoard)
 
     game.tiles.zip(tilesBoard.tiles).foreach {
@@ -69,6 +70,10 @@ class SlidingPuzzleJFXApp extends Application {
     controlPanel.onResetPressed {
       game.reset()
       tilesBoard.requestFocus()
+    }
+    
+    controlPanel.onSizeChange { newSize =>
+      setupGame(newSize)
     }
 
     game.onMovesCountChange {
