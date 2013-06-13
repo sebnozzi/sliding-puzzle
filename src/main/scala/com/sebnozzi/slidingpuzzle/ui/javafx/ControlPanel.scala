@@ -22,6 +22,8 @@ class ControlPanel extends ToolBar {
   private val movesLabel = new Label(movesMsg(0))
   private val sizeSelector = new ChoiceBox[Size]()
 
+  private var sizeChangeCallback: Option[(Size) => Unit] = None
+
   setup()
 
   def onShufflePressed(callback: => Unit) =
@@ -29,6 +31,10 @@ class ControlPanel extends ToolBar {
 
   def onResetPressed(callback: => Unit) =
     addButtonHandler(resetButton) { callback }
+  
+  def onSizeChange(callback: (Size) => Unit){
+    sizeChangeCallback = Some(callback)
+  }
 
   def setMovesCount(count: Int) {
     movesLabel.setText(movesMsg(count))
@@ -62,7 +68,7 @@ class ControlPanel extends ToolBar {
   }
 
   private def sizeChanged(newSize: Size) {
-    println(s"Selected index changed to: $newSize")
+    (sizeChangeCallback.get)(newSize)
   }
 
   private def addButtonHandler(button: Button)(block: => Unit) {
