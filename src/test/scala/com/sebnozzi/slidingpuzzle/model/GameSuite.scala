@@ -183,15 +183,9 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     (1 to 100).foreach { _ => assert(possibleTiles.contains(tile.randomAdjacentTile)) }
   }
 
-  test("asking for a random move") {
-    game.tileAt(4, 3).makeHidden
-    game.makeRandomMove()
-    assert(game.isSolved === false)
-  }
-
   test("shuffling tiles") {
     game.tileAt(4, 3).makeHidden
-    game.makeRandomMove(times = 50)
+    game.shuffle()
     assume(game.isSolved === false)
   }
 
@@ -208,7 +202,7 @@ class GameSuite extends FunSuite with BeforeAndAfter {
 
   test("revert to initial state") {
     game.tileAt(4, 3).makeHidden
-    game.makeRandomMove()
+    game.shuffle()
     game.reset()
     assert(game.isSolved)
   }
@@ -287,10 +281,11 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(game.movesDone === 1)
   }
 
-  test("shuffling does not change the amount of moves") {
+  test("shuffling resets the amount of moves") {
     val tile = game.tileAt(4, 2)
     game.tileAt(4, 3).makeHidden
-    game.makeRandomMove(times=300)
+    tile.moveToEmptySlot()
+    game.shuffle()
     assert(game.movesDone === 0)
   }  
   

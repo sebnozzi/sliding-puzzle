@@ -15,7 +15,7 @@ import com.sebnozzi.slidingpuzzle.model.GridSize
 
 class SlidingPuzzleJFXApp extends Application {
 
-  var game: Game = _
+  var _game: Game = _
   def hiddenTile = game.tiles.last
 
   var gameWindow: GameWindowWrapper = _
@@ -41,9 +41,11 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def tilesBoard = _tilesBoard
+  
+  private def game = _game
 
   private def setupGame(gridSize: GridSize) {
-    game = new Game(gridSize.columns, gridSize.rows)
+    _game = new Game(gridSize.columns, gridSize.rows)
 
     _tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
     gameWindow.setTilesBoard(_tilesBoard)
@@ -63,9 +65,8 @@ class SlidingPuzzleJFXApp extends Application {
     }
 
     controlPanel.onShufflePressed {
-      game.reset()
       hiddenTile.makeHidden()
-      game.makeRandomMove(times = 300)
+      game.shuffle()
       tilesBoard.requestFocus()
     }
 

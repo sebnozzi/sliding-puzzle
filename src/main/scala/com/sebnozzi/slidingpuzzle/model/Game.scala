@@ -16,13 +16,18 @@ class Game(val columns: Int, val rows: Int) {
 
   val positionsRect = Rect(Position(1, 1), Position(columns, rows))
 
-  def makeRandomMove(times: Int = 1) {
+  private def makeRandomMove(times: Int = 1) {
     if (hasHiddenTile) {
       for (_ <- (1 to times)) {
         val tileToMove = hiddenTile.randomAdjacentTile
         tileToMove.moveToEmptySlot(shuffling=true)
       }
     }
+  }
+  
+  def shuffle() {
+    makeRandomMove(times=300)
+    movesDone = 0
   }
 
   def movesDone = _movesDone
