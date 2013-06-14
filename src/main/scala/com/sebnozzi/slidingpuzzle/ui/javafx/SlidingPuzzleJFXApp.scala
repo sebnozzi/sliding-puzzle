@@ -33,6 +33,8 @@ class SlidingPuzzleJFXApp extends Application {
     gameWindow = new GameWindowWrapper(mainWindow)
     gameWindow.selectGridSize(initialSize)
 
+    controlPanel = gameWindow.controlPanel
+
     setupGame(initialSize)
 
     doBindings()
@@ -55,10 +57,15 @@ class SlidingPuzzleJFXApp extends Application {
         bindUiAndModelTiles(uiTile, modelTile)
       }
     }
+    
+    game.onMovesCountChange {
+      updateMovesCount()
+    }    
+    
+    updateMovesCount()
   }
 
   private def doBindings() {
-    controlPanel = gameWindow.controlPanel
 
     gameWindow.onKeyPressed { keyEvent =>
       keyPressed(keyEvent)
@@ -77,10 +84,6 @@ class SlidingPuzzleJFXApp extends Application {
 
     controlPanel.onSizeChange { newSize =>
       setupGame(newSize)
-    }
-
-    game.onMovesCountChange {
-      updateMovesCount()
     }
 
     game.onGameSolved {
