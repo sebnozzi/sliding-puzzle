@@ -7,6 +7,7 @@ trait AppView {
   private var shuffleCallback: Option[() => Unit] = None
   private var resetCallback: Option[() => Unit] = None
   private var newSizeCallback: Option[(GridSize) => Unit] = None
+  private var arrowKeyCallback: Option[(ArrowKey) => Unit] = None
 
   def shuffleClicked() {
     if (shuffleCallback.isDefined)
@@ -31,8 +32,17 @@ trait AppView {
   }
 
   def newSizeSelected(newSize: GridSize) {
-    if(newSizeCallback.isDefined)
+    if (newSizeCallback.isDefined)
       newSizeCallback.get(newSize)
+  }
+
+  def onArrowKeyPressed(callback: (ArrowKey) => Unit) {
+    arrowKeyCallback = Some(callback)
+  }
+
+  def arrowKeyPressed(arrowKey: ArrowKey) {
+    if(arrowKeyCallback.isDefined)
+      arrowKeyCallback.get(arrowKey)
   }
 
 }
