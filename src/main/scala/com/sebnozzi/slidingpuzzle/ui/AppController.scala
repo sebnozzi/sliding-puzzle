@@ -8,13 +8,11 @@ import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppView
 
 abstract class AppController() {
 
-  private var _game: Game = _
+  private var game: Game = _
 
-  private var _appView: AppView = _
-  private var _puzzleView: PuzzleView = _
+  private var appView: AppView = _
+  private var puzzleView: PuzzleView = _
 
-  private def puzzleView = _puzzleView
-  private def game = _game
   private def hiddenTile = game.tiles.last
 
   def createAppView():AppView  
@@ -23,10 +21,10 @@ abstract class AppController() {
    
   def start() {
     val initialGridSize = GridSize(3,3)
-    _appView = createAppView()
-    setupAppView(_appView, initialGridSize)
+    appView = createAppView()
+    setupAppView(appView, initialGridSize)
     setupGame(initialGridSize)
-    _appView.show()
+    appView.show()
   }
   
   private def setupAppView(appView:AppView, gridSize: GridSize) = {
@@ -56,11 +54,11 @@ abstract class AppController() {
 
   private def setupGame(gridSize: GridSize) {
     val _gridSize = gridSize
-    _game = new Game(gridSize.columns, gridSize.rows)
+    game = new Game(gridSize.columns, gridSize.rows)
 
-    _puzzleView = createPuzzleView(gridSize)
+    puzzleView = createPuzzleView(gridSize)
     
-    _appView.setPuzzleView(_puzzleView)
+    appView.setPuzzleView(puzzleView)
 
     game.tiles.zip(puzzleView.tileViews).foreach {
       case (modelTile: Tile, uiTile: TileView) => {
@@ -80,7 +78,7 @@ abstract class AppController() {
   }
 
   private def updateMovesCount() {
-    _appView.setMovesCount(game.movesDone)
+    appView.setMovesCount(game.movesDone)
   }
 
   private def bindUiAndModelTiles(tileView: TileView, modelTile: Tile) {
