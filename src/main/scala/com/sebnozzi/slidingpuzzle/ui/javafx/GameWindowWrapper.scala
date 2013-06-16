@@ -19,8 +19,6 @@ class GameWindowWrapper(window: Stage) {
   private val tilesBoardContainer = new Group
   private var _controlPanel: ControlPanel = _
 
-  def controlPanel = { _controlPanel }
-
   init()
 
   private def init() {
@@ -43,6 +41,22 @@ class GameWindowWrapper(window: Stage) {
     grpChildren.add(tilesBoard)
   }
 
+  def onShufflePressed(callback: => Unit) {
+    _controlPanel.onShufflePressed(callback)
+  }
+  
+  def onResetPressed(callback: => Unit) {
+    _controlPanel.onResetPressed(callback)
+  }
+  
+  def onSizeSelectionChange(callback: (GridSize) => Unit){
+    _controlPanel.onSizeChange(callback)
+  }
+  
+  def setMovesCount(newCount:Int){
+    _controlPanel.setMovesCount(newCount)
+  }
+  
   def onKeyPressed(callback: (KeyEvent) => Unit) {
     window.getScene().setOnKeyPressed(new EventHandler[KeyEvent]() {
       def handle(event: KeyEvent) {

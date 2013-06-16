@@ -15,84 +15,81 @@ import com.sebnozzi.slidingpuzzle.model.GridSize
 
 class SlidingPuzzleJFXApp extends Application {
 
-  var _game: Game = _
-  def hiddenTile = game.tiles.last
+  private var _game: Game = _
 
-  var gameWindow: GameWindowWrapper = _
-  var controlPanel: ControlPanel = _
-  var _tilesBoard: TilesBoard = _
+  private var _gameWindow: GameWindowWrapper = _
+  private var _tilesBoard: TilesBoard = _
 
   lazy val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
 
+  private def tilesBoard = _tilesBoard
+  private def game = _game
+  private def hiddenTile = game.tiles.last
+  
   override def start(mainWindow: Stage) {
     val initialSize = GridSize(3, 2)
 
-    gameWindow = new GameWindowWrapper(mainWindow)
-    gameWindow.selectGridSize(initialSize)
-
-    controlPanel = gameWindow.controlPanel
+    _gameWindow = makeGameWindow(mainWindow, initialSize)
 
     setupGame(initialSize)
-
-    doBindings()
 
     mainWindow.show()
   }
 
-  private def tilesBoard = _tilesBoard
-  
-  private def game = _game
+  private def makeGameWindow(mainWindow: Stage, gridSize: GridSize) = {
+    val gameWindow = new GameWindowWrapper(mainWindow)
+    gameWindow.selectGridSize(gridSize)
+
+    gameWindow.onKeyPressed { keyEvent =>
+      keyPressed(keyEvent)
+    }
+
+    gameWindow.onShufflePressed {
+      hiddenTile.makeHidden()
+      game.shuffle()
+      tilesBoard.requestFocus()
+    }
+
+    gameWindow.onResetPressed {
+      game.reset()
+      tilesBoard.requestFocus()
+    }
+
+    gameWindow.onSizeSelectionChange { newSize =>
+      setupGame(newSize)
+    }
+
+    gameWindow
+  }
 
   private def setupGame(gridSize: GridSize) {
     _game = new Game(gridSize.columns, gridSize.rows)
 
     _tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
-    gameWindow.setTilesBoard(_tilesBoard)
+    _gameWindow.setTilesBoard(_tilesBoard)
 
     game.tiles.zip(tilesBoard.tiles).foreach {
       case (modelTile: Tile, uiTile: TileNode) => {
         bindUiAndModelTiles(uiTile, modelTile)
       }
     }
-    
+
     game.onMovesCountChange {
       updateMovesCount()
-    }    
-    
-    updateMovesCount()
-  }
-
-  private def doBindings() {
-
-    gameWindow.onKeyPressed { keyEvent =>
-      keyPressed(keyEvent)
-    }
-
-    controlPanel.onShufflePressed {
-      hiddenTile.makeHidden()
-      game.shuffle()
-      tilesBoard.requestFocus()
-    }
-
-    controlPanel.onResetPressed {
-      game.reset()
-      tilesBoard.requestFocus()
-    }
-
-    controlPanel.onSizeChange { newSize =>
-      setupGame(newSize)
     }
 
     game.onGameSolved {
       hiddenTile.makeVisible()
     }
+
+    updateMovesCount()
   }
 
   private def updateMovesCount() {
-    controlPanel.setMovesCount(game.movesDone)
+    _gameWindow.setMovesCount(game.movesDone)
   }
 
   private def bindUiAndModelTiles(uiTile: TileNode, modelTile: Tile) {
