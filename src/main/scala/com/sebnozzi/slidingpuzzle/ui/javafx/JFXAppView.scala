@@ -1,20 +1,20 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import javafx.scene.Parent
-import javafx.stage.Stage
-import javafx.scene.Scene
-import javafx.event.EventHandler
-import javafx.stage.WindowEvent
-import javafx.application.Platform
-import javafx.scene.paint.Paint
-import javafx.scene.paint.Color
-import javafx.scene.layout.VBox
-import javafx.scene.image.Image
-import javafx.scene.input.KeyEvent
-import javafx.scene.Group
 import com.sebnozzi.slidingpuzzle.model.GridSize
 import com.sebnozzi.slidingpuzzle.ui.AppView
 import com.sebnozzi.slidingpuzzle.ui.PuzzleView
+import javafx.application.Platform
+import javafx.event.EventHandler
+import javafx.scene.Group
+import javafx.scene.Parent
+import javafx.scene.Scene
+import javafx.scene.input.KeyEvent
+import javafx.scene.layout.VBox
+import javafx.scene.paint.Color
+import javafx.stage.Stage
+import javafx.stage.WindowEvent
+import javafx.scene.input.KeyCode
+import com.sebnozzi.slidingpuzzle.ui.{ Up, Down, Left, Right }
 
 class JFXAppView(window: Stage) extends AppView {
 
@@ -42,6 +42,22 @@ class JFXAppView(window: Stage) extends AppView {
     _controlPanel.onSizeChange { newSize =>
       this.newSizeSelected(newSize)
     }
+
+    tilesBoardContainer.setOnKeyPressed(new EventHandler[KeyEvent] {
+      def handle(event: KeyEvent) {
+        val maybeMatch = event.getCode() match {
+          case KeyCode.UP => Some(Up)
+          case KeyCode.DOWN => Some(Down)
+          case KeyCode.LEFT => Some(Left)
+          case KeyCode.RIGHT => Some(Right)
+          case _ => None
+        }
+        maybeMatch.map { arrowKey =>
+          arrowKeyPressed(arrowKey)
+          event.consume()
+        }
+      }
+    });
 
     setupWithGroup(mainGroup)
   }

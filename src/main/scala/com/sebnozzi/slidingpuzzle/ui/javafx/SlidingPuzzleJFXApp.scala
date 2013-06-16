@@ -114,7 +114,7 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def arrowKeyPressed(arrowKey: ArrowKey) {
-    import com.sebnozzi.slidingpuzzle.ui._
+    import com.sebnozzi.slidingpuzzle.ui.{Up,Down,Left,Right}
     val tileToMove: Option[Tile] = arrowKey match {
       case Up => { hiddenTile.tileBelow }
       case Down => { hiddenTile.tileAbove }
