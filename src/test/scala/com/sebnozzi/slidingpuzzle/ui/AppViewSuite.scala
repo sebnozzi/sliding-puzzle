@@ -12,6 +12,7 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
     }
     def selectGridSize(gridSize:GridSize){}
     def setMovesCount(newCount:Int){}
+    def show(){}
   }
 
   var appView: TestAppView = _

@@ -1,80 +1,66 @@
-package com.sebnozzi.slidingpuzzle.ui.javafx
+package com.sebnozzi.slidingpuzzle.ui
 
-import javafx.application.Application
-import javafx.scene.image.Image
-import javafx.scene.layout.HBox
-import javafx.stage.Stage
-import com.sebnozzi.slidingpuzzle.model.Position
-import javafx.scene.canvas.Canvas
-import javafx.scene.layout.VBox
-import com.sebnozzi.slidingpuzzle.model.Game
-import com.sebnozzi.slidingpuzzle.model.Tile
-import javafx.scene.input.KeyCode
-import javafx.scene.input.KeyEvent
 import com.sebnozzi.slidingpuzzle.model.GridSize
-import com.sebnozzi.slidingpuzzle.ui.ArrowKey
-import com.sebnozzi.slidingpuzzle.ui._
-import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
+import com.sebnozzi.slidingpuzzle.model.Tile
+import com.sebnozzi.slidingpuzzle.ui.javafx.JFXPuzzleView
+import com.sebnozzi.slidingpuzzle.model.Game
+import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppView
 
-class SlidingPuzzleJFXApp extends Application {
+abstract class AppController() {
 
   private var _game: Game = _
 
-  private var _gameWindow: JFXAppView = _
+  private var _appView: AppView = _
   private var _puzzleView: PuzzleView = _
-
-  lazy val img = {
-    val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
-    new Image(inputStream)
-  }
 
   private def puzzleView = _puzzleView
   private def game = _game
   private def hiddenTile = game.tiles.last
 
-  override def start(mainWindow: Stage) {
-    val initialSize = GridSize(3, 2)
-
-    _gameWindow = makeGameWindow(mainWindow, initialSize)
-
-    setupGame(initialSize)
-
-    mainWindow.show()
+  def createAppView():AppView  
+  
+  def createPuzzleView(gridSize:GridSize):PuzzleView
+   
+  def start() {
+    val initialGridSize = GridSize(3,3)
+    _appView = createAppView()
+    setupAppView(_appView, initialGridSize)
+    setupGame(initialGridSize)
+    _appView.show()
   }
+  
+  private def setupAppView(appView:AppView, gridSize: GridSize) = {
+    appView.selectGridSize(gridSize)
 
-  private def makeGameWindow(mainWindow: Stage, gridSize: GridSize) = {
-    val gameWindow = new JFXAppView(mainWindow)
-    gameWindow.selectGridSize(gridSize)
-
-    gameWindow.onArrowKeyPressed { arrowKey =>
+    appView.onArrowKeyPressed { arrowKey =>
       arrowKeyPressed(arrowKey)
     }
 
-    gameWindow.onShuffleClicked {
+    appView.onShuffleClicked {
       hiddenTile.makeHidden()
       game.shuffle()
       puzzleView.requestFocus()
     }
 
-    gameWindow.onResetClicked {
+    appView.onResetClicked {
       game.reset()
       puzzleView.requestFocus()
     }
 
-    gameWindow.onNewSizeSelected { newSize =>
+    appView.onNewSizeSelected { newSize =>
       setupGame(newSize)
     }
 
-    gameWindow
+    appView
   }
 
   private def setupGame(gridSize: GridSize) {
     val _gridSize = gridSize
     _game = new Game(gridSize.columns, gridSize.rows)
 
-    _puzzleView = new JFXPuzzleView(img, gridSize)
+    _puzzleView = createPuzzleView(gridSize)
     
-    _gameWindow.setPuzzleView(_puzzleView)
+    _appView.setPuzzleView(_puzzleView)
 
     game.tiles.zip(puzzleView.tileViews).foreach {
       case (modelTile: Tile, uiTile: TileView) => {
@@ -94,7 +80,7 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def updateMovesCount() {
-    _gameWindow.setMovesCount(game.movesDone)
+    _appView.setMovesCount(game.movesDone)
   }
 
   private def bindUiAndModelTiles(tileView: TileView, modelTile: Tile) {
@@ -124,5 +110,7 @@ class SlidingPuzzleJFXApp extends Application {
 
     tileToMove.map { _.moveToEmptySlot() }
   }
-
+  
+  
+  
 }

@@ -12,6 +12,8 @@ trait AppView {
   def setPuzzleView(puzzleView: PuzzleView)
   def setMovesCount(newCount:Int)
   def selectGridSize(newSize:GridSize)
+  
+  def show()
 
   def shuffleClicked() {
     if (shuffleCallback.isDefined)

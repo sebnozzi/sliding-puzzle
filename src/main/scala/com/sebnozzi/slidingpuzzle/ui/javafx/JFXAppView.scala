@@ -81,6 +81,10 @@ class JFXAppView(window: Stage) extends AppView {
     grpChildren.clear()
     grpChildren.add(puzzleView)
   }
+  
+  def show() {
+    window.show()
+  }
 
   private def setupWithGroup(mainGroup: Parent) {
     val scene = new Scene(mainGroup)
