@@ -82,7 +82,7 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("can be set a puzzle-view") {
-    val puzzleView = new PuzzleView() {}
+    val puzzleView = new PuzzleView(GridSize(3,3)) {}
     appView.setPuzzleView(puzzleView)
     assert(appView.hasPuzzleView)
   }
