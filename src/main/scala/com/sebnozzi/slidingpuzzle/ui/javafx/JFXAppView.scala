@@ -31,6 +31,18 @@ class JFXAppView(window: Stage) extends AppView {
     mainGroup.getChildren().add(_controlPanel)
     mainGroup.getChildren().add(tilesBoardContainer)
 
+    _controlPanel.onResetPressed {
+      this.resetClicked()
+    }
+
+    _controlPanel.onShufflePressed {
+      this.shuffleClicked()
+    }
+
+    _controlPanel.onSizeChange { newSize =>
+      this.newSizeSelected(newSize)
+    }
+
     setupWithGroup(mainGroup)
   }
 
@@ -43,11 +55,11 @@ class JFXAppView(window: Stage) extends AppView {
   }
 
   def setPuzzleView(puzzleView: PuzzleView) {
-    puzzleView match{
-      case jfxView : JFXPuzzleView => setPuzzleView(jfxView)
+    puzzleView match {
+      case jfxView: JFXPuzzleView => setPuzzleView(jfxView)
     }
-  }  
-  
+  }
+
   def setPuzzleView(puzzleView: JFXPuzzleView) {
     val grpChildren = tilesBoardContainer.getChildren()
     grpChildren.clear()
