@@ -4,9 +4,16 @@ import com.sebnozzi.slidingpuzzle.model.Position
 
 trait TileView {
 
-  def mousePressed() {}
+  private var onTilePressedCallback: Option[() => Unit] = None
 
-  def onMousePressed(callback: => Unit) {}
+  def mousePressed() {
+    if (onTilePressedCallback.isDefined)
+      onTilePressedCallback.get()
+  }
+
+  def onMousePressed(callback: => Unit) {
+    onTilePressedCallback = Some(callback _)
+  }
 
   def makeVisible(animate: Boolean)
 

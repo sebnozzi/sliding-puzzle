@@ -27,7 +27,7 @@ class PuzzleViewSuite extends FunSuite with BeforeAndAfter {
     val tiles: List[TileView] = view.tileViews
   }
 
-  test("amount of tiles") {
+  ignore("amount of tiles") {
     val tiles: List[TileView] = view.tileViews
     assert(tiles.size === 9)
   }

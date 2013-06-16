@@ -15,8 +15,6 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
 
   val animationDurationMs = 200
 
-  private var onTilePressedCallback: Option[() => Unit] = None
-
   val initialPosition = pos
   val tileWidth = imgSlice.getWidth()
   val tileHeight = imgSlice.getHeight()
@@ -26,10 +24,6 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
   setupTranslation()
   drawBorders(imgSlice)
   setupEventHandler()
-
-  override def onMousePressed(callback: => Unit) {
-    onTilePressedCallback = Some(callback _)
-  }
 
   def moveToInitialPosition() {
     moveTileTo(initialPosition, animate = false)
@@ -83,9 +77,7 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
   private def setupEventHandler() {
     imgSlice.setOnMousePressed(new EventHandler[MouseEvent]() {
       def handle(event: MouseEvent) {
-        if (onTilePressedCallback.isDefined) {
-          (onTilePressedCallback.get)()
-        }
+        mousePressed()
       }
     })
   }
