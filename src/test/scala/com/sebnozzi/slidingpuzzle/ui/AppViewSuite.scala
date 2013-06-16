@@ -5,10 +5,17 @@ import org.scalatest.BeforeAndAfter
 import com.sebnozzi.slidingpuzzle.model.GridSize
 class AppViewSuite extends FunSuite with BeforeAndAfter {
 
-  var appView: AppView = _
+  class TestAppView extends AppView {
+    var hasPuzzleView = false
+    def setPuzzleView(puzzleView: PuzzleView) {
+      hasPuzzleView = true
+    }
+  }
+
+  var appView: TestAppView = _
 
   before {
-    appView = new AppView() {}
+    appView = new TestAppView()
   }
 
   test("handles shuffle click") {
@@ -65,13 +72,19 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
 
   test("handles arrow keys, with no callback") {
     appView.arrowKeyPressed(Up)
-  }  
-  
+  }
+
   test("handles arrow keys") {
     assertKeyPressed(Up)
     assertKeyPressed(Down)
     assertKeyPressed(Left)
     assertKeyPressed(Right)
   }
-  
+
+  test("can be set a puzzle-view") {
+    val puzzleView = new PuzzleView() {}
+    appView.setPuzzleView(puzzleView)
+    assert(appView.hasPuzzleView)
+  }
+
 }

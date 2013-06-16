@@ -9,6 +9,8 @@ trait AppView {
   private var newSizeCallback: Option[(GridSize) => Unit] = None
   private var arrowKeyCallback: Option[(ArrowKey) => Unit] = None
 
+  def setPuzzleView(puzzleView: PuzzleView)
+
   def shuffleClicked() {
     if (shuffleCallback.isDefined)
       shuffleCallback.get()
@@ -41,7 +43,7 @@ trait AppView {
   }
 
   def arrowKeyPressed(arrowKey: ArrowKey) {
-    if(arrowKeyCallback.isDefined)
+    if (arrowKeyCallback.isDefined)
       arrowKeyCallback.get(arrowKey)
   }
 
