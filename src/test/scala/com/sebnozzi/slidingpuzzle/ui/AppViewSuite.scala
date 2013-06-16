@@ -2,6 +2,7 @@ package com.sebnozzi.slidingpuzzle.ui
 
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
+import com.sebnozzi.slidingpuzzle.model.GridSize
 
 class AppViewSuite extends FunSuite with BeforeAndAfter {
   
@@ -37,5 +38,20 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
     appView.resetClicked()
   } 
   
+  test("handles size change"){
+    var called = false
+    val newSize = GridSize(columns=4, rows=3)
+    appView.onNewSizeSelected { newSizeSelected => 
+      assert(newSizeSelected === newSize)
+      called = true
+    }
+    appView.newSizeSelected(newSize)
+    assert(called, "was not called")
+  }
+  
+  test("handles size change when no callback") {
+    val newSize = GridSize(columns=4, rows=3)
+    appView.newSizeSelected(newSize)
+  }   
 
 }
