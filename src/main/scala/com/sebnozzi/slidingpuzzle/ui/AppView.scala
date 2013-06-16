@@ -2,10 +2,11 @@ package com.sebnozzi.slidingpuzzle.ui
 
 trait AppView {
 
-  private var shuffleCallback: Option[() => Unit] = _
+  private var shuffleCallback: Option[() => Unit] = None
 
   def shuffleClicked() {
-    shuffleCallback.get()
+    if(shuffleCallback.isDefined)
+      shuffleCallback.get()
   }
 
   def onShuffleClicked(callback: => Unit) {
