@@ -12,23 +12,26 @@ import com.sebnozzi.slidingpuzzle.model.Tile
 import javafx.scene.input.KeyCode
 import javafx.scene.input.KeyEvent
 import com.sebnozzi.slidingpuzzle.model.GridSize
+import com.sebnozzi.slidingpuzzle.ui.ArrowKey
+import com.sebnozzi.slidingpuzzle.ui._
+import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
 
 class SlidingPuzzleJFXApp extends Application {
 
   private var _game: Game = _
 
-  private var _gameWindow: GameWindowWrapper = _
-  private var _tilesBoard: TilesBoard = _
+  private var _gameWindow: JFXAppView = _
+  private var _puzzleView: PuzzleView = _
 
   lazy val img = {
     val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
 
-  private def tilesBoard = _tilesBoard
+  private def puzzleView = _puzzleView
   private def game = _game
   private def hiddenTile = game.tiles.last
-  
+
   override def start(mainWindow: Stage) {
     val initialSize = GridSize(3, 2)
 
@@ -40,25 +43,25 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def makeGameWindow(mainWindow: Stage, gridSize: GridSize) = {
-    val gameWindow = new GameWindowWrapper(mainWindow)
+    val gameWindow = new JFXAppView(mainWindow)
     gameWindow.selectGridSize(gridSize)
 
-    gameWindow.onKeyPressed { keyEvent =>
-      keyPressed(keyEvent)
+    gameWindow.onArrowKeyPressed { arrowKey =>
+      arrowKeyPressed(arrowKey)
     }
 
-    gameWindow.onShufflePressed {
+    gameWindow.onShuffleClicked {
       hiddenTile.makeHidden()
       game.shuffle()
-      tilesBoard.requestFocus()
+      puzzleView.requestFocus()
     }
 
-    gameWindow.onResetPressed {
+    gameWindow.onResetClicked {
       game.reset()
-      tilesBoard.requestFocus()
+      puzzleView.requestFocus()
     }
 
-    gameWindow.onSizeSelectionChange { newSize =>
+    gameWindow.onNewSizeSelected { newSize =>
       setupGame(newSize)
     }
 
@@ -66,13 +69,15 @@ class SlidingPuzzleJFXApp extends Application {
   }
 
   private def setupGame(gridSize: GridSize) {
+    val _gridSize = gridSize
     _game = new Game(gridSize.columns, gridSize.rows)
 
-    _tilesBoard = new TilesBoard(img, gridSize.columns, gridSize.rows)
-    _gameWindow.setTilesBoard(_tilesBoard)
+    _puzzleView = new JFXPuzzleView(img, gridSize)
+    
+    _gameWindow.setPuzzleView(_puzzleView)
 
-    game.tiles.zip(tilesBoard.tiles).foreach {
-      case (modelTile: Tile, uiTile: TileNode) => {
+    game.tiles.zip(puzzleView.tileViews).foreach {
+      case (modelTile: Tile, uiTile: TileView) => {
         bindUiAndModelTiles(uiTile, modelTile)
       }
     }
@@ -92,37 +97,32 @@ class SlidingPuzzleJFXApp extends Application {
     _gameWindow.setMovesCount(game.movesDone)
   }
 
-  private def bindUiAndModelTiles(uiTile: TileNode, modelTile: Tile) {
+  private def bindUiAndModelTiles(tileView: TileView, modelTile: Tile) {
     modelTile.onTileMoved {
-      uiTile.moveTileTo(modelTile.currentPosition, animate = true)
+      tileView.moveTileTo(modelTile.currentPosition, animate = true)
     }
     modelTile.onVisibilityChange { toVisible =>
       if (toVisible) {
-        uiTile.makeVisible(animate = modelTile.game.isSolved)
+        tileView.makeVisible(animate = modelTile.game.isSolved)
       } else {
-        uiTile.makeHidden()
+        tileView.makeHidden()
       }
     }
-    uiTile.onMousePressed {
+    tileView.onMousePressed {
       modelTile.moveToEmptySlot()
     }
   }
 
-  private def keyPressed(keyEvent: KeyEvent) {
-    var matchFound = true
-    val tileToMove: Option[Tile] = (keyEvent.getCode() match {
-      case KeyCode.UP => { hiddenTile.tileBelow }
-      case KeyCode.DOWN => { hiddenTile.tileAbove }
-      case KeyCode.LEFT => { hiddenTile.tileRight }
-      case KeyCode.RIGHT => { hiddenTile.tileLeft }
-      case _ => { matchFound = false; None }
-    })
+  private def arrowKeyPressed(arrowKey: ArrowKey) {
+    import com.sebnozzi.slidingpuzzle.ui._
+    val tileToMove: Option[Tile] = arrowKey match {
+      case Up => { hiddenTile.tileBelow }
+      case Down => { hiddenTile.tileAbove }
+      case Left => { hiddenTile.tileRight }
+      case Right => { hiddenTile.tileLeft }
+    }
 
     tileToMove.map { _.moveToEmptySlot() }
-
-    if (matchFound) {
-      keyEvent.consume()
-    }
   }
 
 }

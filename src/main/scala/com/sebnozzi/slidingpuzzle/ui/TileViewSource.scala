@@ -2,10 +2,10 @@ package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.GridSize
 
-trait PuzzleView {
+trait TileViewSource {
 
-  def requestFocus() {}
+  val gridSize:GridSize
   
-  val tileViews: List[TileView]
-
+  def tileViews:List[TileView]
+  
 }

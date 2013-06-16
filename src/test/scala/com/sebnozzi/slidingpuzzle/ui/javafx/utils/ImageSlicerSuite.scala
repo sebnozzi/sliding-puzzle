@@ -4,6 +4,7 @@ import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
+import com.sebnozzi.slidingpuzzle.model.GridSize
 
 class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
 
@@ -16,7 +17,7 @@ class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
   var slicer: ImageSlicer = _
 
   before {
-    slicer = new ImageSlicer(img, xAmount = 2, yAmount = 2)
+    slicer = new ImageSlicer(img, GridSize(2,2))
   }
 
   test("dimensions") {
@@ -60,7 +61,7 @@ class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("all slices are different instances") {
-    val slicer = new ImageSlicer(img, xAmount = 4, yAmount = 2)
+    val slicer = new ImageSlicer(img, GridSize(4,2))
     slicer.allSlices.combinations(2).foreach {
       case Seq(left, right) =>
         assert(left != right)
@@ -68,7 +69,7 @@ class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("slice number for position") {
-    val slicer = new ImageSlicer(img, xAmount = 4, yAmount = 2)
+    val slicer = new ImageSlicer(img, GridSize(4,2))
     assert(slicer.sliceIndexFor(1, 1) === 0)
     assert(slicer.sliceIndexFor(2, 1) === 1)
     assert(slicer.sliceIndexFor(3, 1) === 2)

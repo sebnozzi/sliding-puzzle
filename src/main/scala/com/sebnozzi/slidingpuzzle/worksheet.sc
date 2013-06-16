@@ -2,17 +2,17 @@ package com.sebnozzi.slidingpuzzle
 
 object worksheet {
 
+class AbstractContainer{
+  def setWidget(w:AbstractWidget){}
+}
 
+class AbstractWidget{}
 
-  def onEvent(callback: => Unit){
-    val _callback = callback _
-    println("First this")
-    _callback
-  }                                               //> onEvent: (callback: => Unit)Unit
+class ContainerA{
+  def setWidget(w:WidgetA){}
+}
 
-  onEvent{
-    println("Hello")
-  }                                               //> First this
+class WidgetA extends AbstractWidget
 
 
 }

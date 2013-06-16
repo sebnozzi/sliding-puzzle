@@ -9,8 +9,9 @@ import javafx.scene.input.MouseEvent
 import javafx.animation.TranslateTransitionBuilder
 import javafx.util.Duration
 import javafx.animation.FadeTransitionBuilder
+import com.sebnozzi.slidingpuzzle.ui.TileView
 
-class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends Group {
+class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
 
   val animationDurationMs = 200
 
@@ -26,7 +27,7 @@ class TileNode(val parent: TilesBoard, imgSlice: Canvas, pos: Position) extends 
   drawBorders(imgSlice)
   setupEventHandler()
 
-  def onMousePressed(callback: => Unit) {
+  override def onMousePressed(callback: => Unit) {
     onTilePressedCallback = Some(callback _)
   }
 

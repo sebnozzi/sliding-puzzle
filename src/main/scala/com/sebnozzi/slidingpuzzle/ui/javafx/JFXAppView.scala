@@ -13,11 +13,14 @@ import javafx.scene.image.Image
 import javafx.scene.input.KeyEvent
 import javafx.scene.Group
 import com.sebnozzi.slidingpuzzle.model.GridSize
+import com.sebnozzi.slidingpuzzle.ui.AppView
+import com.sebnozzi.slidingpuzzle.ui.PuzzleView
 
-class GameWindowWrapper(window: Stage) {
+class JFXAppView(window: Stage) extends AppView {
 
   private val tilesBoardContainer = new Group
-  private var _controlPanel: ControlPanel = _
+  private var _controlPanel: ControlPanel =
+    _
 
   init()
 
@@ -30,39 +33,25 @@ class GameWindowWrapper(window: Stage) {
 
     setupWithGroup(mainGroup)
   }
-  
-  def selectGridSize(gridSize:GridSize){
-    _controlPanel.selectGridSize(gridSize)
-  }
 
-  def setTilesBoard(tilesBoard: TilesBoard) {
-    val grpChildren = tilesBoardContainer.getChildren()
-    grpChildren.clear()
-    grpChildren.add(tilesBoard)
-  }
-
-  def onShufflePressed(callback: => Unit) {
-    _controlPanel.onShufflePressed(callback)
-  }
-  
-  def onResetPressed(callback: => Unit) {
-    _controlPanel.onResetPressed(callback)
-  }
-  
-  def onSizeSelectionChange(callback: (GridSize) => Unit){
-    _controlPanel.onSizeChange(callback)
-  }
-  
-  def setMovesCount(newCount:Int){
+  def setMovesCount(newCount: Int) {
     _controlPanel.setMovesCount(newCount)
   }
+
+  def selectGridSize(newSize: GridSize) {
+    _controlPanel.selectGridSize(newSize)
+  }
+
+  def setPuzzleView(puzzleView: PuzzleView) {
+    puzzleView match{
+      case jfxView : JFXPuzzleView => setPuzzleView(jfxView)
+    }
+  }  
   
-  def onKeyPressed(callback: (KeyEvent) => Unit) {
-    window.getScene().setOnKeyPressed(new EventHandler[KeyEvent]() {
-      def handle(event: KeyEvent) {
-        callback(event)
-      }
-    })
+  def setPuzzleView(puzzleView: JFXPuzzleView) {
+    val grpChildren = tilesBoardContainer.getChildren()
+    grpChildren.clear()
+    grpChildren.add(puzzleView)
   }
 
   private def setupWithGroup(mainGroup: Parent) {
