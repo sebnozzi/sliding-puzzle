@@ -23,5 +23,19 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
   test("handles shuffle click when no callback") {
     appView.shuffleClicked()
   } 
+  
+  test("handles reset click") {
+    var called = false
+    appView.onResetClicked {
+      called = true
+    }
+    appView.resetClicked()
+    assert(called, "was not called")
+  }
+  
+  test("handles reset click when no callback") {
+    appView.resetClicked()
+  } 
+  
 
 }
