@@ -21,8 +21,7 @@ class ControlPanel extends ToolBar {
     GridSize(3, 2),
     GridSize(3, 3),
     GridSize(4, 3),
-    GridSize(6, 4)
-    )
+    GridSize(6, 4))
 
   private val shuffleButton = new Button("Shuffle")
   private val resetButton = new Button("Reset")
@@ -60,7 +59,7 @@ class ControlPanel extends ToolBar {
     ControlPanel.this.getItems().add(resetButton)
     ControlPanel.this.getItems().add(movesLabel)
 
-    sizeSelector.setItems(FXCollections.observableArrayList[GridSize](gridSizes:_*))
+    sizeSelector.setItems(FXCollections.observableArrayList[GridSize](gridSizes: _*))
     val selectionModel = sizeSelector.getSelectionModel()
     selectionModel.selectedIndexProperty().addListener(new ChangeListener[Number]() {
       def changed(ov: ObservableValue[_ <: Number],

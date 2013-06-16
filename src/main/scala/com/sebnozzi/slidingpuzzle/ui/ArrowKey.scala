@@ -1,6 +1,5 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-
 sealed abstract class ArrowKey
 
 case object Up extends ArrowKey

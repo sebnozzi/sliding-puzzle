@@ -7,7 +7,7 @@ import com.sebnozzi.slidingpuzzle.model.Position
 import javafx.scene.Group
 import javafx.scene.image.Image
 
-class JFXPuzzleView(img: Image, gridSize:GridSize) extends Group with PuzzleView {
+class JFXPuzzleView(img: Image, gridSize: GridSize) extends Group with PuzzleView {
 
   private val slicer = new ImageSlicer(img, gridSize)
 
@@ -17,11 +17,11 @@ class JFXPuzzleView(img: Image, gridSize:GridSize) extends Group with PuzzleView
   addSliceNodes()
 
   lazy val tileViews = makeTiles()
-  
-  override def requestFocus(){
+
+  override def requestFocus() {
     super[Group].requestFocus()
   }
-  
+
   private def addSliceNodes() {
     tileViews.foreach { this.getChildren().add(_) }
   }

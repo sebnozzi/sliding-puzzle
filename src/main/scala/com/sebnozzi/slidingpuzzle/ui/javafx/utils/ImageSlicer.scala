@@ -4,7 +4,7 @@ import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
 import com.sebnozzi.slidingpuzzle.model.GridSize
 
-class ImageSlicer(val img: Image, gridSize:GridSize) {
+class ImageSlicer(val img: Image, gridSize: GridSize) {
 
   val sliceWidth = img.getWidth() / gridSize.columns
   val sliceHeight = img.getHeight() / gridSize.rows
@@ -15,7 +15,7 @@ class ImageSlicer(val img: Image, gridSize:GridSize) {
       xPos <- 1 to gridSize.columns
     ) yield (xPos, yPos)).toList
   }
-  
+
   lazy val allSlices: Seq[Canvas] = {
     slicePositions.map { case (xPos, yPos) => makeSliceAt(xPos, yPos) }
   }

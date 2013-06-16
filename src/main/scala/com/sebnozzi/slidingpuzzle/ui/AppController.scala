@@ -15,19 +15,19 @@ abstract class AppController() {
 
   private def hiddenTile = game.tiles.last
 
-  def createAppView():AppView  
-  
-  def createPuzzleView(gridSize:GridSize):PuzzleView
-   
+  def createAppView(): AppView
+
+  def createPuzzleView(gridSize: GridSize): PuzzleView
+
   def start() {
-    val initialGridSize = GridSize(3,3)
+    val initialGridSize = GridSize(3, 3)
     appView = createAppView()
     setupAppView(appView, initialGridSize)
     setupGame(initialGridSize)
     appView.show()
   }
-  
-  private def setupAppView(appView:AppView, gridSize: GridSize) = {
+
+  private def setupAppView(appView: AppView, gridSize: GridSize) = {
     appView.selectGridSize(gridSize)
 
     appView.onArrowKeyPressed { arrowKey =>
@@ -57,7 +57,7 @@ abstract class AppController() {
     game = new Game(gridSize.columns, gridSize.rows)
 
     puzzleView = createPuzzleView(gridSize)
-    
+
     appView.setPuzzleView(puzzleView)
 
     game.tiles.zip(puzzleView.tileViews).foreach {
@@ -98,7 +98,7 @@ abstract class AppController() {
   }
 
   private def arrowKeyPressed(arrowKey: ArrowKey) {
-    import com.sebnozzi.slidingpuzzle.ui.{Up,Down,Left,Right}
+    import com.sebnozzi.slidingpuzzle.ui.{ Up, Down, Left, Right }
     val tileToMove: Option[Tile] = arrowKey match {
       case Up => { hiddenTile.tileBelow }
       case Down => { hiddenTile.tileAbove }
@@ -108,7 +108,5 @@ abstract class AppController() {
 
     tileToMove.map { _.moveToEmptySlot() }
   }
-  
-  
-  
+
 }

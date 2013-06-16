@@ -68,15 +68,15 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     assert(topRight.adjacentTiles === List(topLeft, bottomRight))
   }
 
-  test("a tile knows directional adjacent tiles"){
+  test("a tile knows directional adjacent tiles") {
     val game = new Game(columns = 3, rows = 3)
     val tile = game.tileAt(1, 2)
-    assert(tile.tileAbove.get.initialPosition === Position(1,1))
-    assert(tile.tileRight.get.initialPosition === Position(2,2))
-    assert(tile.tileBelow.get.initialPosition === Position(1,3))
+    assert(tile.tileAbove.get.initialPosition === Position(1, 1))
+    assert(tile.tileRight.get.initialPosition === Position(2, 2))
+    assert(tile.tileBelow.get.initialPosition === Position(1, 3))
     assert(tile.tileLeft === None)
   }
-  
+
   test("asking if one tile is adjacent to another") {
     val game = new Game(columns = 3, rows = 3)
     assert(game.tileAt(1, 1).isAdjacentTo(game.tileAt(2, 1)))
@@ -287,8 +287,8 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     tile.moveToEmptySlot()
     game.shuffle()
     assert(game.movesDone === 0)
-  }  
-  
+  }
+
   test("callback when move-count changes") {
     var calls = 0
     val tile = game.tileAt(4, 2)
@@ -308,8 +308,8 @@ class GameSuite extends FunSuite with BeforeAndAfter {
     game.reset()
     assert(game.movesDone === 0)
   }
-  
-  test("setting another tile as hidden unsets the previous one"){
+
+  test("setting another tile as hidden unsets the previous one") {
     game.tileAt(4, 2).makeHidden()
     game.tileAt(4, 3).makeHidden()
     assert(game.hiddenTile === game.tileAt(4, 3))
@@ -319,14 +319,14 @@ class GameSuite extends FunSuite with BeforeAndAfter {
   test("tile informs on visibility change (only real changes)") {
     var calls = 0
     val tile = game.tileAt(4, 2)
-    tile.onVisibilityChange { toVisible => 
+    tile.onVisibilityChange { toVisible =>
       calls += 1
     }
     tile.makeHidden()
     tile.makeHidden()
     tile.makeVisible()
     tile.makeVisible()
-    
+
     assert(calls === 2)
   }
 

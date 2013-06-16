@@ -10,9 +10,9 @@ trait AppView {
   private var arrowKeyCallback: Option[(ArrowKey) => Unit] = None
 
   def setPuzzleView(puzzleView: PuzzleView)
-  def setMovesCount(newCount:Int)
-  def selectGridSize(newSize:GridSize)
-  
+  def setMovesCount(newCount: Int)
+  def selectGridSize(newSize: GridSize)
+
   def show()
 
   def shuffleClicked() {

@@ -12,7 +12,7 @@ class PuzzleViewSuite extends FunSuite with BeforeAndAfter {
 
   before {
     view = new PuzzleView() {
-      val tileViews:List[TileView] = {
+      val tileViews: List[TileView] = {
         List(new TestTileView, new TestTileView, new TestTileView)
       }
       //

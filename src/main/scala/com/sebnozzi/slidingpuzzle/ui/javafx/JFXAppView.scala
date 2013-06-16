@@ -81,7 +81,7 @@ class JFXAppView(window: Stage) extends AppView {
     grpChildren.clear()
     grpChildren.add(puzzleView)
   }
-  
+
   def show() {
     window.show()
   }

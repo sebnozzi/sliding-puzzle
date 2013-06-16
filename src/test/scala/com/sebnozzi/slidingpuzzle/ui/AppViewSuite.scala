@@ -10,9 +10,9 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
     def setPuzzleView(puzzleView: PuzzleView) {
       hasPuzzleView = true
     }
-    def selectGridSize(gridSize:GridSize){}
-    def setMovesCount(newCount:Int){}
-    def show(){}
+    def selectGridSize(gridSize: GridSize) {}
+    def setMovesCount(newCount: Int) {}
+    def show() {}
   }
 
   var appView: TestAppView = _
@@ -83,13 +83,13 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
     assertKeyPressed(Left)
     assertKeyPressed(Right)
   }
-  
-  test("can set the moves-count"){
+
+  test("can set the moves-count") {
     appView.setMovesCount(2)
   }
-  
-  test("can set new grid size"){
-    appView.selectGridSize(GridSize(4,3))
+
+  test("can set new grid size") {
+    appView.selectGridSize(GridSize(4, 3))
   }
 
 }

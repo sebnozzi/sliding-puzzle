@@ -16,5 +16,5 @@ class SlidingPuzzleJFXApp extends Application {
     val appController = new JFXAppController(mainWindow)
     appController.start()
   }
-  
+
 }
