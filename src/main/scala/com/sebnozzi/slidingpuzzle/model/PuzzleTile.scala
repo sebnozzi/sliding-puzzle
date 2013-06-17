@@ -9,6 +9,14 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position)
   protected def positionsRect = puzzle.positionsRect
   protected def tileAt(pos: Position) = puzzle.tileAt(pos)
   
+  def makeHidden() {
+    puzzle.setHiddenTileAt(PuzzleTile.this.currentPosition)
+  }
+
+  def makeVisible() {
+    puzzle.clearHiddenTile
+  }  
+  
   def canMoveToEmptySlot = {
     puzzle.canMoveToEmptySlot(this)
   }

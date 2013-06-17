@@ -94,7 +94,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("moving to empty slot") {
     val tile1 = puzzle.tileAt(4, 2)
     val tile2 = puzzle.tileAt(4, 3)
-    puzzle.setHiddenTileAt(4, 3)
+    tile2.makeHidden()
     tile1.moveToEmptySlot()
     assert(tile1.currentPosition === Position(4, 3))
     assert(tile2.currentPosition === Position(4, 2))
@@ -133,22 +133,16 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
 
   test("making a tile hidden") {
     val tile1 = puzzle.tileAt(1, 1)
-    puzzle.setHiddenTileAt(1, 1)
-    assert(puzzle.hiddenTile === tile1)
-  }
-  
-  test("setting a hidden tile"){
-    val tile1 = puzzle.tileAt(1, 1)
-    puzzle.setHiddenTile(tile1)
+    tile1.makeHidden
     assert(puzzle.hiddenTile === tile1)
   }
 
   test("unhiding the tile") {
     assert(puzzle.hasHiddenTile === false)
     val tile = puzzle.tileAt(1, 1)
-    puzzle.setHiddenTileAt(1,1)
+    tile.makeHidden
     assert(puzzle.hasHiddenTile)
-    puzzle.clearHiddenTile()
+    tile.makeVisible
     assert(puzzle.hasHiddenTile === false)
   }
 
@@ -165,7 +159,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("as soon as one move is made, the puzzle is not in solved state") {
     val tile1 = puzzle.tileAt(4, 2)
     val tile2 = puzzle.tileAt(4, 3)
-    puzzle.setHiddenTileAt(4,3)
+    tile2.makeHidden
     tile1.moveToEmptySlot()
     assert(puzzle.isSolved === false)
   }
@@ -173,7 +167,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("puzzle solved after putting back the tile") {
     val tile = puzzle.tileAt(4, 2)
     val hiddenTile = puzzle.tileAt(4, 3)
-    puzzle.setHiddenTileAt(4,3)
+    hiddenTile.makeHidden
     val firstMoveDone = tile.moveToEmptySlot()
     val secondMoveDone = tile.moveToEmptySlot()
     assert(firstMoveDone)
@@ -192,7 +186,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("shuffling tiles") {
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     puzzle.shuffle()
     assume(puzzle.isSolved === false)
   }
@@ -209,7 +203,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("revert to initial state") {
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     puzzle.shuffle()
     puzzle.reset()
     assert(puzzle.isSolved)
@@ -218,7 +212,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("callback called when tile swapped") {
     val tile = puzzle.tileAt(4, 2)
     var tileModed = false
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     tile.onPositionChange {
       tileModed = true
     }
@@ -229,7 +223,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("callback called when tile moved to initial position") {
     val tile = puzzle.tileAt(4, 2)
     var tileModed = false
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     tile.onPositionChange {
       tileModed = true
     }
@@ -247,7 +241,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
         called = true
       }
     }
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden()
     puzzle.tileAt(4, 2).moveToEmptySlot()
     assert(called)
   }
@@ -260,7 +254,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
         calls += 1
       }
     }
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden()
     puzzle.tileAt(4, 2).moveToEmptySlot()
     puzzle.reset()
     assert(calls === 1)
@@ -269,7 +263,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("callback when puzzle solved") {
     var called = false
     val tile = puzzle.tileAt(4, 2)
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot()
     puzzle.onSolved {
       called = true
@@ -284,14 +278,14 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
 
   test("one move") {
     val tile = puzzle.tileAt(4, 2)
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot()
     assert(puzzle.movesDone === 1)
   }
 
   test("shuffling resets the amount of moves") {
     val tile = puzzle.tileAt(4, 2)
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot()
     puzzle.shuffle()
     assert(puzzle.movesDone === 0)
@@ -300,7 +294,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("callback when move-count changes") {
     var calls = 0
     val tile = puzzle.tileAt(4, 2)
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     puzzle.onMovesCountChange {
       calls += 1
     }
@@ -311,17 +305,31 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
 
   test("moves go back to 0 after reset") {
     val tile = puzzle.tileAt(4, 2)
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot()
     puzzle.reset()
     assert(puzzle.movesDone === 0)
   }
 
   test("setting another tile as hidden unsets the previous one") {
-    puzzle.setHiddenTileAt(4,2)
-    puzzle.setHiddenTileAt(4,3)
+    puzzle.tileAt(4, 2).makeHidden()
+    puzzle.tileAt(4, 3).makeHidden()
     assert(puzzle.hiddenTile === puzzle.tileAt(4, 3))
     assert(puzzle.hiddenTile != puzzle.tileAt(4, 2))
+  }
+
+  test("tile informs on visibility change (only real changes)") {
+    var calls = 0
+    val tile = puzzle.tileAt(4, 2)
+    tile.onVisibilityChange { toVisible =>
+      calls += 1
+    }
+    tile.makeHidden()
+    tile.makeHidden()
+    tile.makeVisible()
+    tile.makeVisible()
+
+    assert(calls === 2)
   }
 
 }
