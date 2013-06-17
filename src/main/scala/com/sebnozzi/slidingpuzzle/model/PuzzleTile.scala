@@ -2,7 +2,7 @@ package com.sebnozzi.slidingpuzzle.model
 
 import scala.util.Random
 
-class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) {
+class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends OtherTilesAware {
 
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
@@ -70,28 +70,7 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) {
     currentPosition = initialPosition
   }
 
-  def adjacentTiles: List[PuzzleTile] = List(
-    tileAbove,
-    tileLeft,
-    tileRight,
-    tileBelow).flatten
-
-  def tileAbove: Option[PuzzleTile] =
-    currentPosition.aboveIn(puzzle.positionsRect).map { puzzle.tileAt }
-
-  def tileBelow: Option[PuzzleTile] =
-    currentPosition.belowIn(puzzle.positionsRect).map { puzzle.tileAt }
-
-  def tileLeft: Option[PuzzleTile] =
-    currentPosition.leftIn(puzzle.positionsRect).map { puzzle.tileAt }
-
-  def tileRight: Option[PuzzleTile] =
-    currentPosition.rightIn(puzzle.positionsRect).map { puzzle.tileAt }
-
-  def randomAdjacentTile: PuzzleTile = {
-    val tiles = adjacentTiles
-    Random.shuffle(tiles).head
-  }
+ 
 
   override def toString() = {
     val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
