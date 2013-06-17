@@ -2,6 +2,8 @@
 
 [Sliding Puzzle](http://en.wikipedia.org/wiki/Sliding_puzzle) implemented in **Scala** using JavaFX.
 
+![image](screenshot.jpg)
+
 Comes in many sizes: 3x2, 3x3, 4x3 and 6x4.
 
 As much as possible, I've tried to have JavaFX-agnostic code. First for better design and second in order to make other implementations easier.
