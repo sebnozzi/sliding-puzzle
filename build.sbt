@@ -4,12 +4,10 @@ version := "0.1-SNAPSHOT"
 
 organization := "com.sebnozzi"
 
-scalaVersion := "2.10.1"
+scalaVersion := "2.10.2"
 
 libraryDependencies ++= Seq(
-  "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test",
-  "org.scalamock" %% "scalamock-scalatest-support" % "3.0.1" % "test"
-)
+  "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test")
 
 
 unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/jfxrt.jar"))

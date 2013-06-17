@@ -5,7 +5,9 @@ import org.scalatest.BeforeAndAfter
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import org.scalatest.Ignore
 
+@Ignore
 class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
 
   val img: Image = {
