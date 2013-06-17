@@ -2,13 +2,17 @@ package com.sebnozzi.slidingpuzzle.model
 
 import com.sebnozzi.slidingpuzzle.model.structs.Rect
 import com.sebnozzi.slidingpuzzle.model.structs.Position
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 
-class Puzzle(val columns: Int, val rows: Int) {
+class Puzzle(gridSize: GridSize) {
 
   private var _movesDone = 0
   private var _solvedCallback: Option[() => Unit] = None
   private var _movesCountCallback: Option[() => Unit] = None
   private var _hiddenTile: Option[PuzzleTile] = None
+
+  val columns = gridSize.columns
+  val rows = gridSize.rows
 
   val tiles: List[PuzzleTile] = {
     (for (

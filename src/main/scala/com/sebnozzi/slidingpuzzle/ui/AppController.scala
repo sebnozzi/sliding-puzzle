@@ -54,7 +54,7 @@ abstract class AppController() {
   }
 
   private def setupGame(gridSize: GridSize) {
-    puzzle = new Puzzle(gridSize.columns, gridSize.rows)
+    puzzle = new Puzzle(gridSize)
 
     puzzleView = createPuzzleView(gridSize)
 
