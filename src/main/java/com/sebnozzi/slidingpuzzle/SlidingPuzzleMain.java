@@ -1,10 +1,10 @@
 package com.sebnozzi.slidingpuzzle;
 
-public class SlidingPuzzleMain {
 
+public class SlidingPuzzleMain extends SlidingPuzzleJFXApp {
 
   public static void main(String[] args) {
-    SlidingPuzzleApp.main(args);
+    launch(SlidingPuzzleMain.class, args);
   }
 
 }
