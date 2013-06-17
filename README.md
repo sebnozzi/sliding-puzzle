@@ -6,7 +6,11 @@ Comes in many sizes: 3x2, 3x3, 4x3 and 6x4.
 
 As much as possible, I've tried to have JavaFX-agnostic code. First for better design and second in order to make other implementations easier.
 
+Needs JDK 7 or later, since it relies on JavaFX
+
 ## Running
+
+### Through SBT
 
 Assuming you have SBT set up, run with:
 
@@ -14,13 +18,23 @@ Assuming you have SBT set up, run with:
 sbt run
 ```
 
-Needs JDK 7 or later, since it relies on JavaFX
+### Eclipse
+
+Otherwise if you are using Scala-IDE or the Eclipse plugin, from within sbt run:
+
+```
+eclipse with-source=true
+```
+
+and import the project into your workspace. From there launch it as a normal Java application (yes, Java).
 
 ## Notes
 
 ### About the picture
 
 The musicians you see on the picture are part of a jazz band.
+
+![image](http://farm3.staticflickr.com/2325/2322324186_36e37dc5bf_d.jpg)
 
 I wanted to use this picture for this puzzle because it portraits two of my favourite jazz-instruments: **baritone sax** and **trombone**.
 
