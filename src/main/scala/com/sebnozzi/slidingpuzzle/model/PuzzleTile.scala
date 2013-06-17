@@ -4,27 +4,19 @@ import scala.util.Random
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position)
-  extends PositionAware with OtherTilesAware with VisibilityAware {
+  extends PositionAware with AdjacentTilesAware with VisibilityAware {
 
+  protected def positionsRect = puzzle.positionsRect
+  protected def tileAt(pos: Position) = puzzle.tileAt(pos)
+  
   def canMoveToEmptySlot = {
-    if (puzzle.hasHiddenTile) {
-      PuzzleTile.this.isAdjacentTo(puzzle.hiddenTile)
-    } else {
-      false
-    }
+    puzzle.canMoveToEmptySlot(this)
   }
 
   def moveToEmptySlot(shuffling: Boolean = false) = {
-    if (canMoveToEmptySlot) {
-      swapPositionWith(puzzle.hiddenTile)
-      if (!shuffling)
-        puzzle.didMoveToEmptySlot(PuzzleTile.this)
-      true
-    } else {
-      false
-    }
+    puzzle.moveToEmptySlot(this, shuffling)
   }
-
+  
   override def toString() = {
     val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
       initialPosition.col,

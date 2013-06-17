@@ -41,6 +41,25 @@ class Puzzle(val columns: Int, val rows: Int) {
       _movesCountCallback.get()
   }
 
+  def canMoveToEmptySlot(tile: PuzzleTile) = {
+    if (hasHiddenTile) {
+      tile.isAdjacentTo(hiddenTile)
+    } else {
+      false
+    }
+  }
+
+  def moveToEmptySlot(tile: PuzzleTile, shuffling: Boolean = false) = {
+    if (canMoveToEmptySlot(tile)) {
+      tile.swapPositionWith(hiddenTile)
+      if (!shuffling)
+        didMoveToEmptySlot(tile)
+      true
+    } else {
+      false
+    }
+  }
+
   def didMoveToEmptySlot(tile: PuzzleTile) {
     movesDone = movesDone + 1
     if (this.isSolved && _solvedCallback.isDefined)
