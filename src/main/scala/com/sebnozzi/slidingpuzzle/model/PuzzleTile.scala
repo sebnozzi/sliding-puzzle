@@ -1,6 +1,7 @@
 package com.sebnozzi.slidingpuzzle.model
 
 import scala.util.Random
+import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends OtherTilesAware {
 

@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import com.sebnozzi.slidingpuzzle.model.Position
+import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 trait TileView {
 

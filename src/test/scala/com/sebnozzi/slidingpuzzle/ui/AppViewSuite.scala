@@ -2,7 +2,7 @@ package com.sebnozzi.slidingpuzzle.ui
 
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
-import com.sebnozzi.slidingpuzzle.model.GridSize
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 class AppViewSuite extends FunSuite with BeforeAndAfter {
 
   class TestAppView extends AppView {

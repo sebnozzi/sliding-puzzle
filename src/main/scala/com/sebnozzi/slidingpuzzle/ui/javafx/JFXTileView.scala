@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
 import javafx.scene.canvas.Canvas
-import com.sebnozzi.slidingpuzzle.model.Position
+import com.sebnozzi.slidingpuzzle.model.structs.Position
 import javafx.scene.Group
 import javafx.scene.Node
 import javafx.event.EventHandler

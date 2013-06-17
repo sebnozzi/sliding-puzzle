@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import com.sebnozzi.slidingpuzzle.model.GridSize
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 
 trait AppView {
 

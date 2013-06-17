@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.model
+package com.sebnozzi.slidingpuzzle.model.structs
 
 package object PositionConversions {
   implicit def tupleToPosition(tuple: Pair[Int, Int]): Position = Position(tuple._1, tuple._2)

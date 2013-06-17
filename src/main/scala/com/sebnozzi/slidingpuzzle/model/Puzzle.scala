@@ -1,5 +1,8 @@
 package com.sebnozzi.slidingpuzzle.model
 
+import com.sebnozzi.slidingpuzzle.model.structs.Rect
+import com.sebnozzi.slidingpuzzle.model.structs.Position
+
 class Puzzle(val columns: Int, val rows: Int) {
 
   private var _movesDone = 0

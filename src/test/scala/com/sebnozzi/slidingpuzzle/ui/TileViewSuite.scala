@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import org.scalatest.FunSuite
-import com.sebnozzi.slidingpuzzle.model.Position
+import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 class TileViewSuite extends FunSuite {
 

@@ -12,7 +12,7 @@ import javafx.scene.control.ChoiceBox
 import javafx.collections.FXCollections
 import javafx.beans.value.ChangeListener
 import javafx.beans.value.ObservableValue
-import com.sebnozzi.slidingpuzzle.model.GridSize
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import javafx.util.StringConverter
 
 class ControlPanel extends ToolBar {

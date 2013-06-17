@@ -2,8 +2,10 @@ package com.sebnozzi.slidingpuzzle.model
 
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
-import PositionConversions._
+import com.sebnozzi.slidingpuzzle.model.structs.PositionConversions._
 import org.scalatest.Finders
+import com.sebnozzi.slidingpuzzle.model.structs.Rect
+import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 class puzzleSuite extends FunSuite with BeforeAndAfter {
 

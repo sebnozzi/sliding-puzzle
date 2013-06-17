@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.model
+package com.sebnozzi.slidingpuzzle.model.structs
 
 import org.scalatest.FunSuite
 import org.scalatest.Finders

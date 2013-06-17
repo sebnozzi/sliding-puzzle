@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import com.sebnozzi.slidingpuzzle.model.GridSize
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import com.sebnozzi.slidingpuzzle.ui.AppView
 import com.sebnozzi.slidingpuzzle.ui.PuzzleView
 import javafx.application.Platform
