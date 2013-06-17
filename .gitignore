@@ -19,3 +19,4 @@ dist
 /.cache
 bin/
 /.worksheet
+#lib/jfxrt.jar
