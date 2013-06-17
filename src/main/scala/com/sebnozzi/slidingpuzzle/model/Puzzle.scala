@@ -5,13 +5,13 @@ class Puzzle(val columns: Int, val rows: Int) {
   private var _movesDone = 0
   private var _solvedCallback: Option[() => Unit] = None
   private var _movesCountCallback: Option[() => Unit] = None
-  private var _hiddenTile: Option[Tile] = None
+  private var _hiddenTile: Option[PuzzleTile] = None
 
-  val tiles: List[Tile] = {
+  val tiles: List[PuzzleTile] = {
     (for (
       rowNr <- 1 to rows;
       colNr <- 1 to columns
-    ) yield new Tile(puzzle = this, initialPosition = Position(colNr, rowNr))).toList
+    ) yield new PuzzleTile(puzzle = this, initialPosition = Position(colNr, rowNr))).toList
   }
 
   val positionsRect = Rect(Position(1, 1), Position(columns, rows))
@@ -38,7 +38,7 @@ class Puzzle(val columns: Int, val rows: Int) {
       _movesCountCallback.get()
   }
 
-  def didMoveToEmptySlot(tile: Tile) {
+  def didMoveToEmptySlot(tile: PuzzleTile) {
     movesDone = movesDone + 1
     if (this.isSolved && _solvedCallback.isDefined)
       _solvedCallback.get()
@@ -62,7 +62,7 @@ class Puzzle(val columns: Int, val rows: Int) {
     tiles.forall { tile => tile.isAtInitialPosition }
   }
 
-  def tileAt(position: Position): Tile = {
+  def tileAt(position: Position): PuzzleTile = {
     tiles.find(tile => tile.currentPosition == position).get
   }
 
@@ -89,6 +89,6 @@ class Puzzle(val columns: Int, val rows: Int) {
 
   def hasHiddenTile = _hiddenTile.isDefined
 
-  def hiddenTile: Tile = _hiddenTile.getOrElse(throw new java.util.NoSuchElementException("Does not have a hidden tile"))
+  def hiddenTile: PuzzleTile = _hiddenTile.getOrElse(throw new java.util.NoSuchElementException("Does not have a hidden tile"))
 
 }

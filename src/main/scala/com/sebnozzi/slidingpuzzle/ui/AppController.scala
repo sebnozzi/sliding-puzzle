@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.GridSize
-import com.sebnozzi.slidingpuzzle.model.Tile
+import com.sebnozzi.slidingpuzzle.model.PuzzleTile
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXPuzzleView
 import com.sebnozzi.slidingpuzzle.model.Puzzle
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppView
@@ -60,7 +60,7 @@ abstract class AppController() {
     appView.setPuzzleView(puzzleView)
 
     puzzle.tiles.zip(puzzleView.tileViews).foreach {
-      case (modelTile: Tile, uiTile: TileView) => {
+      case (modelTile: PuzzleTile, uiTile: TileView) => {
         bindUiAndModelTiles(uiTile, modelTile)
       }
     }
@@ -80,7 +80,7 @@ abstract class AppController() {
     appView.setMovesCount(puzzle.movesDone)
   }
 
-  private def bindUiAndModelTiles(tileView: TileView, modelTile: Tile) {
+  private def bindUiAndModelTiles(tileView: TileView, modelTile: PuzzleTile) {
     modelTile.onTileMoved {
       tileView.moveTileTo(modelTile.currentPosition, animate = true)
     }
@@ -98,7 +98,7 @@ abstract class AppController() {
 
   private def arrowKeyPressed(arrowKey: ArrowKey) {
     import com.sebnozzi.slidingpuzzle.ui.{ Up, Down, Left, Right }
-    val tileToMove: Option[Tile] = arrowKey match {
+    val tileToMove: Option[PuzzleTile] = arrowKey match {
       case Up => { hiddenTile.tileBelow }
       case Down => { hiddenTile.tileAbove }
       case Left => { hiddenTile.tileRight }

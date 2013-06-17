@@ -234,7 +234,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("tile notifies puzzle on every move") {
     var called = false
     val puzzle = new Puzzle(columns = 4, rows = 3) {
-      override def didMoveToEmptySlot(tile: Tile) {
+      override def didMoveToEmptySlot(tile: PuzzleTile) {
         super.didMoveToEmptySlot(tile)
         called = true
       }
@@ -247,7 +247,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("tile notifies puzzle on every move to empty slot") {
     var calls = 0
     val puzzle = new Puzzle(columns = 4, rows = 3) {
-      override def didMoveToEmptySlot(tile: Tile) {
+      override def didMoveToEmptySlot(tile: PuzzleTile) {
         super.didMoveToEmptySlot(tile)
         calls += 1
       }

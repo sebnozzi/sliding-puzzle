@@ -2,7 +2,7 @@ package com.sebnozzi.slidingpuzzle.model
 
 import scala.util.Random
 
-class Tile(val puzzle: Puzzle, val initialPosition: Position) {
+class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) {
 
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
@@ -24,14 +24,14 @@ class Tile(val puzzle: Puzzle, val initialPosition: Position) {
     _visibilityCallback = Some(callback)
   }
 
-  def swapPositionWith(other: Tile) {
-    val previousPosition = this.currentPosition
-    this.currentPosition = other.currentPosition
+  def swapPositionWith(other: PuzzleTile) {
+    val previousPosition = PuzzleTile.this.currentPosition
+    PuzzleTile.this.currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
 
   def makeHidden() {
-    puzzle.setHiddenTileAt(this.currentPosition)
+    puzzle.setHiddenTileAt(PuzzleTile.this.currentPosition)
   }
 
   def makeVisible() {
@@ -45,11 +45,11 @@ class Tile(val puzzle: Puzzle, val initialPosition: Position) {
 
   def isAtInitialPosition = (currentPosition == initialPosition)
 
-  def isAdjacentTo(other: Tile) = this.adjacentTiles.contains(other)
+  def isAdjacentTo(other: PuzzleTile) = PuzzleTile.this.adjacentTiles.contains(other)
 
   def canMoveToEmptySlot = {
     if (puzzle.hasHiddenTile) {
-      this.isAdjacentTo(puzzle.hiddenTile)
+      PuzzleTile.this.isAdjacentTo(puzzle.hiddenTile)
     } else {
       false
     }
@@ -57,11 +57,11 @@ class Tile(val puzzle: Puzzle, val initialPosition: Position) {
 
   def moveToEmptySlot(shuffling: Boolean = false) = {
     if (canMoveToEmptySlot) {
-      swapPositionWith(puzzle.hiddenTile)
-      if (!shuffling)
-        puzzle.didMoveToEmptySlot(this)
-      true
-    } else {
+        swapPositionWith(puzzle.hiddenTile)
+        if (!shuffling)
+          puzzle.didMoveToEmptySlot(PuzzleTile.this)
+        true
+      } else {
       false
     }
   }
@@ -70,25 +70,25 @@ class Tile(val puzzle: Puzzle, val initialPosition: Position) {
     currentPosition = initialPosition
   }
 
-  def adjacentTiles: List[Tile] = List(
+  def adjacentTiles: List[PuzzleTile] = List(
     tileAbove,
     tileLeft,
     tileRight,
     tileBelow).flatten
 
-  def tileAbove: Option[Tile] =
+  def tileAbove: Option[PuzzleTile] =
     currentPosition.aboveIn(puzzle.positionsRect).map { puzzle.tileAt }
 
-  def tileBelow: Option[Tile] =
+  def tileBelow: Option[PuzzleTile] =
     currentPosition.belowIn(puzzle.positionsRect).map { puzzle.tileAt }
 
-  def tileLeft: Option[Tile] =
+  def tileLeft: Option[PuzzleTile] =
     currentPosition.leftIn(puzzle.positionsRect).map { puzzle.tileAt }
 
-  def tileRight: Option[Tile] =
+  def tileRight: Option[PuzzleTile] =
     currentPosition.rightIn(puzzle.positionsRect).map { puzzle.tileAt }
 
-  def randomAdjacentTile: Tile = {
+  def randomAdjacentTile: PuzzleTile = {
     val tiles = adjacentTiles
     Random.shuffle(tiles).head
   }
