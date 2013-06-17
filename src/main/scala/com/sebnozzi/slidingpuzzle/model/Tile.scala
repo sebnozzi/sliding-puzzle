@@ -4,15 +4,15 @@ import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 trait Tile {
 
-  val initialPosition: Position  
-  
+  val initialPosition: Position
+
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
 
   def currentPosition = _currentPosition
 
   def isAtInitialPosition = (currentPosition == initialPosition)
-  
+
   def currentPosition_=(newPosition: Position) {
     _currentPosition = newPosition
     if (_tileMovedCallback.isDefined)
@@ -21,8 +21,8 @@ trait Tile {
 
   def moveToInitialPosition() {
     currentPosition = initialPosition
-  }  
-  
+  }
+
   def onTileMoved(callback: => Unit) {
     _tileMovedCallback = Some(callback _)
   }
@@ -32,7 +32,7 @@ trait Tile {
     this.currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
-  
+
   override def toString() = {
     val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
       initialPosition.col,
@@ -41,5 +41,5 @@ trait Tile {
       currentPosition.row)
     s"Tile($positionStr)"
   }
-  
+
 }
