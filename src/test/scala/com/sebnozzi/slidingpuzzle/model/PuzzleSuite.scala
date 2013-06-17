@@ -31,29 +31,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(puzzle3x3.tiles.size === 9)
   }
 
-  test("a tile has an original position") {
-    assert(puzzle4x3.tiles.head.initialPosition === Position(1, 1))
-    assert(puzzle4x3.tiles.last.initialPosition === Position(4, 3))
-  }
 
-  test("a tile's current position is initially the initial position") {
-    val tile = puzzle4x3.tiles.head
-    assert(tile.currentPosition === tile.initialPosition)
-  }
-
-  test("changing a tile's current position") {
-    val tile = puzzle4x3.tiles.head
-    tile.currentPosition = (2, 2)
-    assert(tile.currentPosition != tile.initialPosition)
-  }
-
-  test("swapping positions between two tiles") {
-    val tile1 = puzzle4x3.tiles(0)
-    val tile2 = puzzle4x3.tiles(1)
-    tile1.swapPositionWith(tile2)
-    assert(tile1.currentPosition === tile2.initialPosition)
-    assert(tile2.currentPosition === tile1.initialPosition)
-  }
 
   test("a tile knows its puzzle") {
     puzzle4x3.tiles.foreach { tile => assert(tile.puzzle === puzzle4x3) }

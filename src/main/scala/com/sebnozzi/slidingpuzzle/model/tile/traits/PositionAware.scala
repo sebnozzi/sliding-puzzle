@@ -28,9 +28,9 @@ trait PositionAware {
     _positionChangeCallback = Some(callback _)
   }
 
-  def swapPositionWith(other: PuzzleTile) {
-    val previousPosition = PositionAware.this.currentPosition
-    PositionAware.this.currentPosition = other.currentPosition
+  def swapPositionWith(other: PositionAware) {
+    val previousPosition = currentPosition
+    currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
 
