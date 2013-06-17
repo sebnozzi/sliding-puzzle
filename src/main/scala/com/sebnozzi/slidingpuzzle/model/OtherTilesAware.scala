@@ -5,6 +5,8 @@ import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 trait OtherTilesAware { self:PuzzleTile => 
 
+  def isAdjacentTo(other: PuzzleTile) = adjacentTiles.contains(other)
+  
  def adjacentTiles: List[PuzzleTile] = List(
     tileAbove,
     tileLeft,

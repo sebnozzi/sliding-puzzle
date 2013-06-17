@@ -26,8 +26,8 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends Othe
   }
 
   def swapPositionWith(other: PuzzleTile) {
-    val previousPosition = PuzzleTile.this.currentPosition
-    PuzzleTile.this.currentPosition = other.currentPosition
+    val previousPosition = this.currentPosition
+    this.currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
 
@@ -45,8 +45,6 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends Othe
   }
 
   def isAtInitialPosition = (currentPosition == initialPosition)
-
-  def isAdjacentTo(other: PuzzleTile) = PuzzleTile.this.adjacentTiles.contains(other)
 
   def canMoveToEmptySlot = {
     if (puzzle.hasHiddenTile) {
@@ -70,8 +68,6 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends Othe
   def moveToInitialPosition() {
     currentPosition = initialPosition
   }
-
- 
 
   override def toString() = {
     val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
