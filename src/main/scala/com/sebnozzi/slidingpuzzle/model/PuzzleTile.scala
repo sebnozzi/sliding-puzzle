@@ -6,14 +6,6 @@ import com.sebnozzi.slidingpuzzle.model.structs.Position
 class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position)
   extends Tile with OtherTilesAware with VisibilityAware {
 
-  def makeHidden() {
-    puzzle.setHiddenTileAt(PuzzleTile.this.currentPosition)
-  }
-
-  def makeVisible() {
-    puzzle.clearHiddenTile
-  }
-
   def canMoveToEmptySlot = {
     if (puzzle.hasHiddenTile) {
       PuzzleTile.this.isAdjacentTo(puzzle.hiddenTile)

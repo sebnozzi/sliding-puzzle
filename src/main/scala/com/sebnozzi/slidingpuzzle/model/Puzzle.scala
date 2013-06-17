@@ -69,8 +69,7 @@ class Puzzle(val columns: Int, val rows: Int) {
     tiles.find(tile => tile.currentPosition == position).get
   }
 
-  def setHiddenTileAt(position: Position) {
-    val newTile = tileAt(position)
+  def setHiddenTile(newTile: PuzzleTile) {
     _hiddenTile match {
       case Some(currentTile) if newTile != currentTile => {
         currentTile.visibilityChanged(toVisible = true)
@@ -83,6 +82,11 @@ class Puzzle(val columns: Int, val rows: Int) {
       }
       case _ => {}
     }
+  }
+
+  def setHiddenTileAt(position: Position) {
+    val newTile = tileAt(position)
+    setHiddenTile(newTile)
   }
 
   def clearHiddenTile() {

@@ -4,10 +4,6 @@ trait VisibilityAware {
 
   private var _visibilityCallback: Option[(Boolean) => Unit] = None
 
-  def makeHidden()
-
-  def makeVisible()
-
   def onVisibilityChange(callback: (Boolean) => Unit) {
     _visibilityCallback = Some(callback)
   }

@@ -36,7 +36,7 @@ abstract class AppController() {
     }
 
     appView.onShuffleClicked {
-      hiddenTile.makeHidden()
+      puzzle.setHiddenTile(hiddenTile)
       puzzle.shuffle()
       puzzleView.requestFocus()
     }
@@ -71,7 +71,7 @@ abstract class AppController() {
     }
 
     puzzle.onSolved {
-      hiddenTile.makeVisible()
+      puzzle.clearHiddenTile()
     }
 
     updateMovesCount()
