@@ -8,9 +8,12 @@ Comes in many sizes: 3x2, 3x3, 4x3 and 6x4.
 
 As much as possible, I've tried to have JavaFX-agnostic code. First for better design and second in order to make other implementations easier.
 
-Needs JDK 7 or later, since it relies on JavaFX
+## Building / Running
 
-## Running
+**IMPORTANT**: 
+
+* Make sure your `JAVA_HOME` is properly set
+* Needs JDK 7 or later, since it relies on JavaFX
 
 ### Through SBT
 
