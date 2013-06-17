@@ -92,6 +92,8 @@ class Puzzle(gridSize: GridSize) {
     tiles.find(tile => tile.currentPosition == position).get
   }
 
+  def tileAt(col:Int, row:Int):PuzzleTile = tileAt(Position(col,row))
+  
   def setHiddenTile(newTile: PuzzleTile) {
     _hiddenTile match {
       case Some(currentTile) if newTile != currentTile => {
