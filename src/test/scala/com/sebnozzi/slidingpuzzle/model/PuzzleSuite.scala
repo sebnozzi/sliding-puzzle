@@ -31,8 +31,6 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(puzzle3x3.tiles.size === 9)
   }
 
-
-
   test("a tile knows its puzzle") {
     puzzle4x3.tiles.foreach { tile => assert(tile.puzzle === puzzle4x3) }
   }
@@ -40,28 +38,6 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
   test("a puzzle can return a rect for valid positions") {
     assert(puzzle4x3.positionsRect === Rect((1, 1), (4, 3)))
     assert(puzzle2x2.positionsRect === Rect((1, 1), (2, 2)))
-  }
-
-  test("a tile knows its adjacent tiles") {
-    val topLeft = puzzle2x2.tileAt(1, 1)
-    val topRight = puzzle2x2.tileAt(2, 1)
-    val bottomLeft = puzzle2x2.tileAt(1, 2)
-    val bottomRight = puzzle2x2.tileAt(2, 2)
-    assert(topLeft.adjacentTiles === List(topRight, bottomLeft))
-    assert(topRight.adjacentTiles === List(topLeft, bottomRight))
-  }
-
-  test("a tile knows directional adjacent tiles") {
-    val tile = puzzle3x3.tileAt(1, 2)
-    assert(tile.tileAbove.get.initialPosition === Position(1, 1))
-    assert(tile.tileRight.get.initialPosition === Position(2, 2))
-    assert(tile.tileBelow.get.initialPosition === Position(1, 3))
-    assert(tile.tileLeft === None)
-  }
-
-  test("asking if one tile is adjacent to another") {
-    assert(puzzle3x3.tileAt(1, 1).isAdjacentTo(puzzle3x3.tileAt(2, 1)))
-    assert(!puzzle3x3.tileAt(1, 1).isAdjacentTo(puzzle3x3.tileAt(3, 2)))
   }
 
   test("it is possible to define a hidden tile") {
