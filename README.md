@@ -2,7 +2,7 @@
 
 [Sliding Puzzle](http://en.wikipedia.org/wiki/Sliding_puzzle) implemented in **Scala** using JavaFX.
 
-![image](screenshot.jpg)
+![image](images/screenshot.jpg)
 
 Comes in many sizes: 3x2, 3x3, 4x3 and 6x4.
 
@@ -36,7 +36,7 @@ and import the project into your workspace. From there launch it as a normal Jav
 
 The musicians you see on the picture are part of a jazz band.
 
-![image](http://farm3.staticflickr.com/2325/2322324186_36e37dc5bf_d.jpg)
+![image](images/original_small.jpg)
 
 I wanted to use this picture for this puzzle because it portraits two of my favourite jazz-instruments: **baritone sax** and **trombone**.
 
