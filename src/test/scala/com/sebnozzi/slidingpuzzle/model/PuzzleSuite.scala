@@ -6,7 +6,6 @@ import org.scalatest.Finders
 import com.sebnozzi.slidingpuzzle.model.structs.Rect
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.model.tile.PuzzleTile
 
 import scala.language.implicitConversions
 
