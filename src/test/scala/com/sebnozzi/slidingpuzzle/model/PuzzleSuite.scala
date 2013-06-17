@@ -67,13 +67,6 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(tile2.currentPosition === Position(4, 3))
   }
 
-  test("asking if tile can be moved to empty slot") {
-    val tile1 = puzzle4x3.tileAt(1, 1)
-    val tile2 = puzzle4x3.tileAt(4, 3)
-    puzzle4x3.setHiddenTileAt(4, 3)
-    assert(tile1.canMoveToEmptySlot === false)
-  }
-
   test("asking if a puzzle has a hidden tile") {
     assert(puzzle4x3.hasHiddenTile === false)
     puzzle4x3.setHiddenTileAt(4, 3)
@@ -84,12 +77,6 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(puzzle4x3.isSolved)
   }
 
-  test("ask tile if in initial position") {
-    assert(puzzle4x3.tileAt(1, 1).isAtInitialPosition)
-    puzzle4x3.tileAt(2, 2).swapPositionWith(puzzle4x3.tileAt(3, 2))
-    assert(puzzle4x3.tileAt(2, 2).isAtInitialPosition === false)
-  }
-
   test("as soon as one move is made, the puzzle is not in solved state") {
     val tile1 = puzzle4x3.tileAt(4, 2)
     val tile2 = puzzle4x3.tileAt(4, 3)
@@ -98,7 +85,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(puzzle4x3.isSolved === false)
   }
 
-  test("puzzle solved after putting back the tile") {
+  test("puzzle solved after putting back one moved tile") {
     val tile = puzzle4x3.tileAt(4, 2)
     val hiddenTile = puzzle4x3.tileAt(4, 3)
     hiddenTile.makeHidden
@@ -109,54 +96,19 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(puzzle4x3.isSolved)
   }
 
-  test("shuffling tiles") {
+  test("shuffling tiles should result in unsolved state") {
     puzzle4x3.tileAt(4, 3).makeHidden
     puzzle4x3.shuffle()
     assume(puzzle4x3.isSolved === false)
   }
 
-  test("ask tile to go back to initial position") {
-    val tile1 = puzzle4x3.tiles(0)
-    val tile2 = puzzle4x3.tiles(1)
-    tile1.swapPositionWith(tile2)
-    tile1.moveToInitialPosition()
-    tile2.moveToInitialPosition()
-
-    assert(tile1.isAtInitialPosition)
-    assert(tile2.isAtInitialPosition)
-  }
-
-  test("revert to initial state") {
+  test("resetting the puzzle should leave it in solved state") {
     puzzle4x3.tileAt(4, 3).makeHidden
     puzzle4x3.shuffle()
     puzzle4x3.reset()
     assert(puzzle4x3.isSolved)
   }
-
-  test("callback called when tile swapped") {
-    val tile = puzzle4x3.tileAt(4, 2)
-    var tileModed = false
-    puzzle4x3.tileAt(4, 3).makeHidden
-    tile.onPositionChange {
-      tileModed = true
-    }
-    tile.moveToEmptySlot()
-    assert(tileModed)
-  }
-
-  test("callback called when tile moved to initial position") {
-    val tile = puzzle4x3.tileAt(4, 2)
-    var tileModed = false
-    puzzle4x3.tileAt(4, 3).makeHidden
-    tile.onPositionChange {
-      tileModed = true
-    }
-    tile.moveToEmptySlot()
-    tileModed = false
-    tile.moveToInitialPosition
-    assert(tileModed)
-  }
-
+  
   test("callback when puzzle solved") {
     var called = false
     val tile = puzzle4x3.tileAt(4, 2)
@@ -169,11 +121,11 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     assert(called)
   }
 
-  test("initially, moves are 0") {
+  test("initially, moves are at 0") {
     assert(puzzle4x3.movesDone === 0)
   }
 
-  test("one move") {
+  test("after one move is made, the counter should reflect it") {
     val tile = puzzle4x3.tileAt(4, 2)
     puzzle4x3.tileAt(4, 3).makeHidden
     tile.moveToEmptySlot()

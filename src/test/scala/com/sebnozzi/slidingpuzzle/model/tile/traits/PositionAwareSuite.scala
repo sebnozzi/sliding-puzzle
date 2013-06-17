@@ -36,4 +36,39 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
     assert(tile2.currentPosition === tile1.initialPosition)
   }
 
+  test("after swapping once, the tile should not be at its initial position") {
+    assert(tile1.isAtInitialPosition)
+    tile1.swapPositionWith(tile2)
+    assert(tile1.isAtInitialPosition === false)
+  }
+
+  test("ask tile to go back to initial position") {
+    tile1.swapPositionWith(tile2)
+    tile1.moveToInitialPosition()
+    tile2.moveToInitialPosition()
+
+    assert(tile1.isAtInitialPosition)
+    assert(tile2.isAtInitialPosition)
+  }
+
+  test("callback called when tile swapped") {
+    var tileMoved = false
+    tile1.onPositionChange {
+      tileMoved = true
+    }
+    tile1.swapPositionWith(tile2)
+    assert(tileMoved)
+  }
+
+  test("callback called when tile moved to initial position") {
+    var tileMoved = false
+    tile1.swapPositionWith(tile2)
+    assert(!tileMoved, "callback should not have been called yet")
+    tile1.onPositionChange {
+      tileMoved = true
+    }
+    tile1.moveToInitialPosition
+    assert(tileMoved, "callback should have been called after moving to initial position")
+  }
+
 }

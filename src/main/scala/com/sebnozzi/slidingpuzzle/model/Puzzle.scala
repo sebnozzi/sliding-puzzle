@@ -92,8 +92,8 @@ class Puzzle(gridSize: GridSize) {
     tiles.find(tile => tile.currentPosition == position).get
   }
 
-  def tileAt(col:Int, row:Int):PuzzleTile = tileAt(Position(col,row))
-  
+  def tileAt(col: Int, row: Int): PuzzleTile = tileAt(Position(col, row))
+
   def setHiddenTile(newTile: PuzzleTile) {
     _hiddenTile match {
       case Some(currentTile) if newTile != currentTile => {
@@ -108,6 +108,8 @@ class Puzzle(gridSize: GridSize) {
       case _ => {}
     }
   }
+
+  def setHiddenTileAt(col: Int, row: Int): Unit = setHiddenTileAt(Position(col, row))
 
   def setHiddenTileAt(position: Position) {
     val newTile = tileAt(position)

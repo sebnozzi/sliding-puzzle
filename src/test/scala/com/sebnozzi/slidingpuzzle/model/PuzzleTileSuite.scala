@@ -38,6 +38,13 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
     assert(puzzle4x3.hasHiddenTile === false)
   }
 
+  test("a tile non-adjacent to the hidden one can not be moved") {
+    val tile1 = puzzle4x3.tileAt(1, 1)
+    val tile2 = puzzle4x3.tileAt(4, 3)
+    puzzle4x3.setHiddenTileAt(4, 3)
+    assert(tile1.canMoveToEmptySlot === false)
+  }
+  
   test("tile notifies puzzle on every move") {
     var called = false
     val puzzle = new Puzzle(GridSize(columns = 4, rows = 3)) {
@@ -85,5 +92,5 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
 
     assert(calls === 2)
   }
-
+  
 }
