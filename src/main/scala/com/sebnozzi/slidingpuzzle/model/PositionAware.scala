@@ -2,12 +2,12 @@ package com.sebnozzi.slidingpuzzle.model
 
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 
-trait Tile {
+trait PositionAware {
 
   val initialPosition: Position
 
   private var _currentPosition = initialPosition
-  private var _tileMovedCallback: Option[() => Unit] = None
+  private var _positionChangeCallback: Option[() => Unit] = None
 
   def currentPosition = _currentPosition
 
@@ -15,21 +15,21 @@ trait Tile {
 
   def currentPosition_=(newPosition: Position) {
     _currentPosition = newPosition
-    if (_tileMovedCallback.isDefined)
-      _tileMovedCallback.get()
+    if (_positionChangeCallback.isDefined)
+      _positionChangeCallback.get()
   }
 
   def moveToInitialPosition() {
     currentPosition = initialPosition
   }
 
-  def onTileMoved(callback: => Unit) {
-    _tileMovedCallback = Some(callback _)
+  def onPositionChange(callback: => Unit) {
+    _positionChangeCallback = Some(callback _)
   }
 
   def swapPositionWith(other: PuzzleTile) {
-    val previousPosition = this.currentPosition
-    this.currentPosition = other.currentPosition
+    val previousPosition = PositionAware.this.currentPosition
+    PositionAware.this.currentPosition = other.currentPosition
     other.currentPosition = previousPosition
   }
 

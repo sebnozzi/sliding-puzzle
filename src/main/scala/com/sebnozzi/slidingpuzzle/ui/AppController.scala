@@ -82,7 +82,7 @@ abstract class AppController() {
   }
 
   private def bindUiAndModelTiles(tileView: TileView, modelTile: PuzzleTile) {
-    modelTile.onTileMoved {
+    modelTile.onPositionChange {
       tileView.moveTileTo(modelTile.currentPosition, animate = true)
     }
     modelTile.onVisibilityChange { toVisible =>

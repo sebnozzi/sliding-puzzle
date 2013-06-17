@@ -4,7 +4,7 @@ import scala.util.Random
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 
 class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position)
-  extends Tile with OtherTilesAware with VisibilityAware {
+  extends PositionAware with OtherTilesAware with VisibilityAware {
 
   def canMoveToEmptySlot = {
     if (puzzle.hasHiddenTile) {

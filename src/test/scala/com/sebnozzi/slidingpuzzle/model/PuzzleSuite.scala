@@ -219,7 +219,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     val tile = puzzle.tileAt(4, 2)
     var tileModed = false
     puzzle.setHiddenTileAt(4,3)
-    tile.onTileMoved {
+    tile.onPositionChange {
       tileModed = true
     }
     tile.moveToEmptySlot()
@@ -230,7 +230,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     val tile = puzzle.tileAt(4, 2)
     var tileModed = false
     puzzle.setHiddenTileAt(4,3)
-    tile.onTileMoved {
+    tile.onPositionChange {
       tileModed = true
     }
     tile.moveToEmptySlot()
