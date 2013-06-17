@@ -38,11 +38,15 @@ The musicians you see on the picture are part of a jazz band.
 
 ![image](images/original_small.jpg)
 
-I wanted to use this picture for this puzzle because it portraits two of my favourite jazz-instruments: **baritone sax** and **trombone**.
+> Tini Thomsen and Matthias Konrad 
+> with the Thomsen Group @ Birdland, Hamburg
 
-Original picture taken from: 
+I wanted to use this picture for this puzzle because it portraits two of my favourite jazz-instruments: 
 
-http://www.flickr.com/photos/mawel/2322324186/
+* **baritone sax** (left)
+* **trombone** (right)
+
+Original [picture](http://www.flickr.com/photos/mawel/2322324186/) taken by [Marc Wellekötter](http://www.flickr.com/photos/mawel/)
 
 ## TO-DOs
 
