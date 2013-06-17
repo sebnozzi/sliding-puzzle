@@ -3,11 +3,11 @@ package com.sebnozzi.slidingpuzzle.model
 import scala.util.Random
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 
-class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends OtherTilesAware {
+class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) 
+  extends OtherTilesAware with VisibilityAware {
 
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
-  private var _visibilityCallback: Option[(Boolean) => Unit] = None
 
   def currentPosition = _currentPosition
 
@@ -19,10 +19,6 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends Othe
 
   def onTileMoved(callback: => Unit) {
     _tileMovedCallback = Some(callback _)
-  }
-
-  def onVisibilityChange(callback: (Boolean) => Unit) {
-    _visibilityCallback = Some(callback)
   }
 
   def swapPositionWith(other: PuzzleTile) {
@@ -37,11 +33,6 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position) extends Othe
 
   def makeVisible() {
     puzzle.clearHiddenTile
-  }
-
-  def visibilityChanged(toVisible: Boolean) {
-    if (_visibilityCallback.isDefined)
-      _visibilityCallback.get(toVisible)
   }
 
   def isAtInitialPosition = (currentPosition == initialPosition)
