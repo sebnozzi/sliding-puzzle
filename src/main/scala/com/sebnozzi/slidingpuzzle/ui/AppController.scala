@@ -3,17 +3,17 @@ package com.sebnozzi.slidingpuzzle.ui
 import com.sebnozzi.slidingpuzzle.model.GridSize
 import com.sebnozzi.slidingpuzzle.model.Tile
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXPuzzleView
-import com.sebnozzi.slidingpuzzle.model.Game
+import com.sebnozzi.slidingpuzzle.model.Puzzle
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppView
 
 abstract class AppController() {
 
-  private var game: Game = _
+  private var puzzle: Puzzle = _
 
   private var appView: AppView = _
   private var puzzleView: PuzzleView = _
 
-  private def hiddenTile = game.tiles.last
+  private def hiddenTile = puzzle.tiles.last
 
   def createAppView(): AppView
 
@@ -36,12 +36,12 @@ abstract class AppController() {
 
     appView.onShuffleClicked {
       hiddenTile.makeHidden()
-      game.shuffle()
+      puzzle.shuffle()
       puzzleView.requestFocus()
     }
 
     appView.onResetClicked {
-      game.reset()
+      puzzle.reset()
       puzzleView.requestFocus()
     }
 
@@ -53,24 +53,23 @@ abstract class AppController() {
   }
 
   private def setupGame(gridSize: GridSize) {
-    val _gridSize = gridSize
-    game = new Game(gridSize.columns, gridSize.rows)
+    puzzle = new Puzzle(gridSize.columns, gridSize.rows)
 
     puzzleView = createPuzzleView(gridSize)
 
     appView.setPuzzleView(puzzleView)
 
-    game.tiles.zip(puzzleView.tileViews).foreach {
+    puzzle.tiles.zip(puzzleView.tileViews).foreach {
       case (modelTile: Tile, uiTile: TileView) => {
         bindUiAndModelTiles(uiTile, modelTile)
       }
     }
 
-    game.onMovesCountChange {
+    puzzle.onMovesCountChange {
       updateMovesCount()
     }
 
-    game.onGameSolved {
+    puzzle.onSolved {
       hiddenTile.makeVisible()
     }
 
@@ -78,7 +77,7 @@ abstract class AppController() {
   }
 
   private def updateMovesCount() {
-    appView.setMovesCount(game.movesDone)
+    appView.setMovesCount(puzzle.movesDone)
   }
 
   private def bindUiAndModelTiles(tileView: TileView, modelTile: Tile) {
@@ -87,7 +86,7 @@ abstract class AppController() {
     }
     modelTile.onVisibilityChange { toVisible =>
       if (toVisible) {
-        tileView.makeVisible(animate = modelTile.game.isSolved)
+        tileView.makeVisible(animate = modelTile.puzzle.isSolved)
       } else {
         tileView.makeHidden()
       }

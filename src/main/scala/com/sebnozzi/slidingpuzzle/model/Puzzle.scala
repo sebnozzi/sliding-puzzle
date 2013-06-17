@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle.model
 
-class Game(val columns: Int, val rows: Int) {
+class Puzzle(val columns: Int, val rows: Int) {
 
   private var _movesDone = 0
   private var _solvedCallback: Option[() => Unit] = None
@@ -11,7 +11,7 @@ class Game(val columns: Int, val rows: Int) {
     (for (
       rowNr <- 1 to rows;
       colNr <- 1 to columns
-    ) yield new Tile(game = this, initialPosition = Position(colNr, rowNr))).toList
+    ) yield new Tile(puzzle = this, initialPosition = Position(colNr, rowNr))).toList
   }
 
   val positionsRect = Rect(Position(1, 1), Position(columns, rows))
@@ -20,13 +20,13 @@ class Game(val columns: Int, val rows: Int) {
     if (hasHiddenTile) {
       for (_ <- (1 to times)) {
         val tileToMove = hiddenTile.randomAdjacentTile
-        tileToMove.moveToEmptySlot(shuffling=true)
+        tileToMove.moveToEmptySlot(shuffling = true)
       }
     }
   }
-  
+
   def shuffle() {
-    makeRandomMove(times=300)
+    makeRandomMove(times = 300)
     movesDone = 0
   }
 
@@ -44,7 +44,7 @@ class Game(val columns: Int, val rows: Int) {
       _solvedCallback.get()
   }
 
-  def onGameSolved(callback: => Unit) {
+  def onSolved(callback: => Unit) {
     _solvedCallback = Some(callback _)
   }
 

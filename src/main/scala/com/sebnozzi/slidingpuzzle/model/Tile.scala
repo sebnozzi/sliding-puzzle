@@ -2,7 +2,7 @@ package com.sebnozzi.slidingpuzzle.model
 
 import scala.util.Random
 
-class Tile(val game: Game, val initialPosition: Position) {
+class Tile(val puzzle: Puzzle, val initialPosition: Position) {
 
   private var _currentPosition = initialPosition
   private var _tileMovedCallback: Option[() => Unit] = None
@@ -31,11 +31,11 @@ class Tile(val game: Game, val initialPosition: Position) {
   }
 
   def makeHidden() {
-    game.setHiddenTileAt(this.currentPosition)
+    puzzle.setHiddenTileAt(this.currentPosition)
   }
 
   def makeVisible() {
-    game.clearHiddenTile
+    puzzle.clearHiddenTile
   }
 
   def visibilityChanged(toVisible: Boolean) {
@@ -48,8 +48,8 @@ class Tile(val game: Game, val initialPosition: Position) {
   def isAdjacentTo(other: Tile) = this.adjacentTiles.contains(other)
 
   def canMoveToEmptySlot = {
-    if (game.hasHiddenTile) {
-      this.isAdjacentTo(game.hiddenTile)
+    if (puzzle.hasHiddenTile) {
+      this.isAdjacentTo(puzzle.hiddenTile)
     } else {
       false
     }
@@ -57,9 +57,9 @@ class Tile(val game: Game, val initialPosition: Position) {
 
   def moveToEmptySlot(shuffling: Boolean = false) = {
     if (canMoveToEmptySlot) {
-      swapPositionWith(game.hiddenTile)
+      swapPositionWith(puzzle.hiddenTile)
       if (!shuffling)
-        game.didMoveToEmptySlot(this)
+        puzzle.didMoveToEmptySlot(this)
       true
     } else {
       false
@@ -77,16 +77,16 @@ class Tile(val game: Game, val initialPosition: Position) {
     tileBelow).flatten
 
   def tileAbove: Option[Tile] =
-    currentPosition.aboveIn(game.positionsRect).map { game.tileAt }
+    currentPosition.aboveIn(puzzle.positionsRect).map { puzzle.tileAt }
 
   def tileBelow: Option[Tile] =
-    currentPosition.belowIn(game.positionsRect).map { game.tileAt }
+    currentPosition.belowIn(puzzle.positionsRect).map { puzzle.tileAt }
 
   def tileLeft: Option[Tile] =
-    currentPosition.leftIn(game.positionsRect).map { game.tileAt }
+    currentPosition.leftIn(puzzle.positionsRect).map { puzzle.tileAt }
 
   def tileRight: Option[Tile] =
-    currentPosition.rightIn(game.positionsRect).map { game.tileAt }
+    currentPosition.rightIn(puzzle.positionsRect).map { puzzle.tileAt }
 
   def randomAdjacentTile: Tile = {
     val tiles = adjacentTiles
