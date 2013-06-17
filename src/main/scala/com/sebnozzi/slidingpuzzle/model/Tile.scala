@@ -33,13 +33,4 @@ trait Tile {
     other.currentPosition = previousPosition
   }
 
-  override def toString() = {
-    val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
-      initialPosition.col,
-      initialPosition.row,
-      currentPosition.col,
-      currentPosition.row)
-    s"Tile($positionStr)"
-  }
-
 }

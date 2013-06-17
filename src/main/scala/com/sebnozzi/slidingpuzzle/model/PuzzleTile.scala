@@ -25,4 +25,13 @@ class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position)
     }
   }
 
+  override def toString() = {
+    val positionStr = "ini(%d, %d)|cur(%d, %d)".format(
+      initialPosition.col,
+      initialPosition.row,
+      currentPosition.col,
+      currentPosition.row)
+    s"Tile($positionStr)"
+  }
+
 }
