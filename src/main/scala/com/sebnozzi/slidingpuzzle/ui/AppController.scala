@@ -5,6 +5,7 @@ import com.sebnozzi.slidingpuzzle.model.PuzzleTile
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXPuzzleView
 import com.sebnozzi.slidingpuzzle.model.Puzzle
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppView
+import com.sebnozzi.slidingpuzzle.ui.keys.ArrowKey
 
 abstract class AppController() {
 
@@ -97,7 +98,7 @@ abstract class AppController() {
   }
 
   private def arrowKeyPressed(arrowKey: ArrowKey) {
-    import com.sebnozzi.slidingpuzzle.ui.{ Up, Down, Left, Right }
+    import com.sebnozzi.slidingpuzzle.ui.keys.{ Up, Down, Left, Right }
     val tileToMove: Option[PuzzleTile] = arrowKey match {
       case Up => { hiddenTile.tileBelow }
       case Down => { hiddenTile.tileAbove }

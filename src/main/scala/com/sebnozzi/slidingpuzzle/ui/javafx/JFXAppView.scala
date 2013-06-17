@@ -14,7 +14,7 @@ import javafx.scene.paint.Color
 import javafx.stage.Stage
 import javafx.stage.WindowEvent
 import javafx.scene.input.KeyCode
-import com.sebnozzi.slidingpuzzle.ui.{ Up, Down, Left, Right }
+import com.sebnozzi.slidingpuzzle.ui.keys.{ Up, Down, Left, Right }
 
 class JFXAppView(window: Stage) extends AppView {
 

@@ -1,6 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import com.sebnozzi.slidingpuzzle.ui.keys.ArrowKey
 
 trait AppView {
 

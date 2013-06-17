@@ -3,6 +3,9 @@ package com.sebnozzi.slidingpuzzle.ui
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import com.sebnozzi.slidingpuzzle.ui.keys.{Up, Down, Left, Right}
+import com.sebnozzi.slidingpuzzle.ui.keys.ArrowKey
+
 class AppViewSuite extends FunSuite with BeforeAndAfter {
 
   class TestAppView extends AppView {

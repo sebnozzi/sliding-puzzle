@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.ui
+package com.sebnozzi.slidingpuzzle.ui.keys
 
 sealed abstract class ArrowKey
 
