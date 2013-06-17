@@ -1,9 +1,5 @@
 package com.sebnozzi.slidingpuzzle.model.structs
 
-package object PositionConversions {
-  implicit def tupleToPosition(tuple: Pair[Int, Int]): Position = Position(tuple._1, tuple._2)
-}
-
 case class Position(col: Int, row: Int) {
 
   lazy val above = Position(col, row - 1)

@@ -2,14 +2,18 @@ package com.sebnozzi.slidingpuzzle.model
 
 import org.scalatest.FunSuite
 import org.scalatest.BeforeAndAfter
-import com.sebnozzi.slidingpuzzle.model.structs.PositionConversions._
 import org.scalatest.Finders
 import com.sebnozzi.slidingpuzzle.model.structs.Rect
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import com.sebnozzi.slidingpuzzle.model.tile.PuzzleTile
+
+import scala.language.implicitConversions
 
 class puzzleSuite extends FunSuite with BeforeAndAfter {
-
+  
+  implicit def tupleToPosition(tuple: Pair[Int, Int]): Position = Position(tuple._1, tuple._2)
+  
   var puzzle4x3: Puzzle = _
   var puzzle2x2: Puzzle = _
   var puzzle3x3: Puzzle = _

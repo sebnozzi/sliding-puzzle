@@ -3,6 +3,7 @@ package com.sebnozzi.slidingpuzzle.model
 import com.sebnozzi.slidingpuzzle.model.structs.Rect
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import com.sebnozzi.slidingpuzzle.model.tile.PuzzleTile
 
 class Puzzle(gridSize: GridSize) {
 

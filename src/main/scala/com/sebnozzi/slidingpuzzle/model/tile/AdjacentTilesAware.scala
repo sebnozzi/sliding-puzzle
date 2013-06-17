@@ -1,8 +1,8 @@
-package com.sebnozzi.slidingpuzzle.model
+package com.sebnozzi.slidingpuzzle.model.tile
 
-import scala.util.Random
-import com.sebnozzi.slidingpuzzle.model.structs.Position
 import com.sebnozzi.slidingpuzzle.model.structs.Rect
+import com.sebnozzi.slidingpuzzle.model.structs.Position
+import scala.util.Random
 
 trait AdjacentTilesAware { self:PositionAware =>
 

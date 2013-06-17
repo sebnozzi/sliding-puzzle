@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.model
+package com.sebnozzi.slidingpuzzle.model.tile
 
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 

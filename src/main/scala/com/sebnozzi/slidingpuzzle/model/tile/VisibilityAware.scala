@@ -1,4 +1,4 @@
-package com.sebnozzi.slidingpuzzle.model
+package com.sebnozzi.slidingpuzzle.model.tile
 
 trait VisibilityAware {
 

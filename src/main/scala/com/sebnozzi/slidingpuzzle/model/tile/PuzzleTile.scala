@@ -1,7 +1,7 @@
-package com.sebnozzi.slidingpuzzle.model
+package com.sebnozzi.slidingpuzzle.model.tile
 
-import scala.util.Random
 import com.sebnozzi.slidingpuzzle.model.structs.Position
+import com.sebnozzi.slidingpuzzle.model.Puzzle
 
 class PuzzleTile(val puzzle: Puzzle, val initialPosition: Position)
   extends PositionAware with AdjacentTilesAware with VisibilityAware {
