@@ -8,6 +8,14 @@ Comes in many sizes: 3x2, 3x3, 4x3 and 6x4.
 
 As much as possible, I've tried to have JavaFX-agnostic code. First for better design and second in order to make other implementations easier.
 
+## Download
+
+A compiled, ready-to-run version can be downloaded here:
+
+http://www.sebnozzi.com/files/slidingPuzzle.jar
+
+It might not be up-to-date at some point.
+
 ## Building / Running
 
 **IMPORTANT**: 
