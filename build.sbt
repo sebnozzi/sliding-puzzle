@@ -16,7 +16,8 @@ libraryDependencies ++= Seq(
   "org.scalatest" % "scalatest_2.10" % "2.0.M5b" % "test")
 
 
-unmanagedJars in Compile += Attributed.blank(file(System.getenv("JAVA_HOME") + "/jre/lib/jfxrt.jar"))
+unmanagedJars in Compile += Attributed.blank(
+    file(scala.util.Properties.javaHome) / "lib" / "jfxrt.jar")
 
 
 jarName in assembly := "slidingPuzzle.jar"
