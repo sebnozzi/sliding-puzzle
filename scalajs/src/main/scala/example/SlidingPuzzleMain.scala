@@ -2,7 +2,7 @@ package example
 
 import js.Dynamic.{ global => g }
 
-object SplidingPuzzleMainJs {
+object SplidingPuzzleMain {
   def main(): Unit = {
     val paragraph = g.document.createElement("p")
     paragraph.innerHTML = "<strong>It works!</strong>"

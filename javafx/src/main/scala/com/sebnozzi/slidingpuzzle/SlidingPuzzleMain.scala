@@ -5,7 +5,7 @@ import _root_.javafx.application.Application
 
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppController
 
-object SlidingPuzzleApp extends App {
+object SlidingPuzzleMain extends App {
   import Application._
   launch(classOf[SlidingPuzzleJFXApp], args:_*)
 }
