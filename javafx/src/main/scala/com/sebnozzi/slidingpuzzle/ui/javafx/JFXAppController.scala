@@ -14,11 +14,11 @@ class JFXAppController(mainWindow: Stage) extends AppController {
     new Image(inputStream)
   }
 
-  def createAppView(): AppView = {
+  override def createAppView(): AppView = {
     new JFXAppView(mainWindow)
   }
 
-  def createPuzzleView(gridSize: GridSize): PuzzleView = {
+  override def createPuzzleView(gridSize: GridSize): PuzzleView = {
     new JFXPuzzleView(img, gridSize)
   }
 
