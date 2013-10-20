@@ -49,15 +49,21 @@ object SlidingPuzzleBuild extends Build {
       name := "SlidingPuzzle JavaFX"
   ).dependsOn(core)
 
+  lazy val coreJs = project.settings(
+      (defaultSettings ++ scalaJSSettings): _*
+  ).settings(
+    name := "SlidingPuzzle CoreJS",
+      sourceDirectory := (sourceDirectory in core).value
+  ).dependsOn(core)
+  
   lazy val scalajs = project.in(file("scalajs")).settings(
       (defaultSettings ++ scalaJSSettings): _*
   ).settings(
       name := "SlidingPuzzle ScalaJS",
-      sourceDirectory := (sourceDirectory in core).value
-      /*,
+      // Add the startup.js file of this example project
       unmanagedSources in (Compile, packageJS) +=
-        baseDirectory.value / "js" / "startup.js"*/
-  ).dependsOn(core)  
+        baseDirectory.value / "startup.js"
+  ).dependsOn(coreJs)  
   
   /*
 
