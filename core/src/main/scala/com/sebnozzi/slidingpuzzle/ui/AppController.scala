@@ -18,6 +18,10 @@ abstract class AppController() {
 
   def createPuzzleView(gridSize: GridSize): PuzzleView
 
+  /**
+   * After creating the controller, you should call
+   * this method to get the application running.
+   * */
   def start() {
     val initialGridSize = GridSize(3, 3)
     appView = createAppView()

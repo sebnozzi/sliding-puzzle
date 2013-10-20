@@ -17,6 +17,7 @@ import javafx.util.StringConverter
 
 class ControlPanel extends ToolBar {
 
+  // TODO: repeated in ScalaJS
   val gridSizes = List(
     GridSize(3, 2),
     GridSize(3, 3),
