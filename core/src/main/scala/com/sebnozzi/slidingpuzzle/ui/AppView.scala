@@ -10,46 +10,92 @@ trait AppView {
   private var newSizeCallback: Option[(GridSize) => Unit] = None
   private var arrowKeyCallback: Option[(ArrowKey) => Unit] = None
 
+  /**
+   * Implement.
+   * Called when setting a new puzzle-view
+   */
   def setPuzzleView(puzzleView: PuzzleView)
+
+  /**
+   * Implement.
+   * Called when the moves count has to be updated
+   */
   def setMovesCount(newCount: Int)
+
+  /**
+   * Implement.
+   * Called when a new grid-size was selected
+   */
   def selectGridSize(newSize: GridSize)
 
+  /**
+   * Implement.
+   * Called when this view should be shown
+   */
   def show()
 
+  /**
+   * Your code should call this
+   * if "shuffle" clicked on the UI
+   */
   def shuffleClicked() {
     if (shuffleCallback.isDefined)
       shuffleCallback.get()
   }
 
-  def onShuffleClicked(callback: => Unit) {
-    shuffleCallback = Some(callback _)
-  }
-
+  /**
+   * Your code should call this
+   * if "reset" clicked on the UI
+   */
   def resetClicked() {
     if (resetCallback.isDefined)
       resetCallback.get()
   }
 
-  def onResetClicked(callback: => Unit) {
-    resetCallback = Some(callback _)
-  }
-
-  def onNewSizeSelected(callback: (GridSize) => Unit) {
-    newSizeCallback = Some(callback)
-  }
-
+  /**
+   * Your code should call this
+   * if a new size was selected on the UI
+   */
   def newSizeSelected(newSize: GridSize) {
     if (newSizeCallback.isDefined)
       newSizeCallback.get(newSize)
   }
 
-  def onArrowKeyPressed(callback: (ArrowKey) => Unit) {
-    arrowKeyCallback = Some(callback)
-  }
-
+  /**
+   * Your code should call this
+   * if a key was pressed on the UI
+   */
   def arrowKeyPressed(arrowKey: ArrowKey) {
     if (arrowKeyCallback.isDefined)
       arrowKeyCallback.get(arrowKey)
+  }
+
+  /**
+   * Used to set callback (don't modify / call)
+   */
+  def onShuffleClicked(callback: => Unit) {
+    shuffleCallback = Some(callback _)
+  }
+
+  /**
+   * Used to set callback (don't modify / call)
+   */
+  def onResetClicked(callback: => Unit) {
+    resetCallback = Some(callback _)
+  }
+
+  /**
+   * Used to set callback (don't modify / call)
+   */
+  def onNewSizeSelected(callback: (GridSize) => Unit) {
+    newSizeCallback = Some(callback)
+  }
+
+  /**
+   * Used to set callback (don't modify / call)
+   */
+  def onArrowKeyPressed(callback: (ArrowKey) => Unit) {
+    arrowKeyCallback = Some(callback)
   }
 
 }
