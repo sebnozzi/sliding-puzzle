@@ -1,12 +1,13 @@
 import sbt._
 import Keys._
 
-import ch.epfl.lamp.sbtscalajs.ScalaJSPlugin._
+import scala.scalajs.sbtplugin._
+import ScalaJSPlugin._
 import ScalaJSKeys._
 
 object SlidingPuzzleBuild extends Build {
 
-  val slidingPuzzleScalaVersion = "2.10.2"
+  val slidingPuzzleScalaVersion = "2.10.3"
 
   val defaultSettings: Seq[Setting[_]] = Seq(
       scalaVersion := slidingPuzzleScalaVersion,
@@ -40,7 +41,8 @@ object SlidingPuzzleBuild extends Build {
   lazy val core = project.in(file("core")).settings(
       (defaultSettings): _*
   ).settings(
-      name := "SlidingPuzzle Core"
+      name := "SlidingPuzzle Core",
+      libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
   )  
   
   lazy val javafx = project.in(file("javafx")).settings(
