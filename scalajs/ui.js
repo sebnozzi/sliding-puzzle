@@ -80,7 +80,9 @@ function makeJsUIController() {
       $("#movesCount").html(newValue);
     },
     getTiles: function() {
-      return tiles;
+      var r = tiles;
+      console.log("getTiles: ", r);
+      return r;
     },
     makeTileVisible: function(tile, animate) {
       console.log("Showing tile: ", tile);
