@@ -48,14 +48,16 @@ object SlidingPuzzleBuild extends Build {
   lazy val javafx = project.in(file("javafx")).settings(
       (defaultSettings ++ scalafxSettings): _*
   ).settings(
-      name := "SlidingPuzzle JavaFX"
+      name := "SlidingPuzzle JavaFX",
+      libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
   ).dependsOn(core)
 
   lazy val coreJs = project.settings(
       (defaultSettings ++ scalaJSSettings): _*
   ).settings(
     name := "SlidingPuzzle CoreJS",
-      sourceDirectory := (sourceDirectory in core).value
+    sourceDirectory := (sourceDirectory in core).value,
+    libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
   ).dependsOn(core)
   
   lazy val scalajs = project.in(file("scalajs")).settings(
@@ -66,42 +68,5 @@ object SlidingPuzzleBuild extends Build {
       unmanagedSources in (Compile, packageJS) +=
         baseDirectory.value / "startup.js"
   ).dependsOn(coreJs)  
-  
-  /*
-
-  lazy val slidingPuzzleJs = project.settings(
-      (defaultSettings ++ scalaJSSettings): _*
-  ).settings(
-      name := "SlidingPuzzle JS",
-      sourceDirectory := (sourceDirectory in mazes).value
-  ).dependsOn(core)
-
-  lazy val slidingPuzzleFx = project.in(file("javafx")).settings(
-      (defaultSettings ++ javafxSettings): _*
-  ).settings(
-      name := "JavaFX-based graphics"
-  ).dependsOn(core)
-
-  lazy val html5Graphics = project.in(file("html5-graphics")).settings(
-      (defaultSettings ++ scalaJSSettings): _*
-  ).settings(
-      name := "HTML5-based graphics"
-  ).dependsOn(corejs)
-
-  lazy val runner = project.settings(
-      (defaultSettings ++ scalafxSettings): _*
-  ).settings(
-      name := "FunLabyrinthe runner",
-      mainClass := Some("com.funlabyrinthe.runner.Main")
-  ).dependsOn(core, mazes, javafxGraphics)
-
-  lazy val runnerjs = project.settings(
-      (defaultSettings ++ scalaJSSettings): _*
-  ).settings(
-      name := "FunLabyrinthe runner js",
-      unmanagedSources in (Compile, packageJS) +=
-        baseDirectory.value / "js" / "startup.js"
-  ).dependsOn(corejs, mazesjs, html5Graphics)
-  */
 
 }
