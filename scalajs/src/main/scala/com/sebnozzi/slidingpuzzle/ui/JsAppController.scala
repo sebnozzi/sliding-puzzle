@@ -1,15 +1,14 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import scala.scalajs.js
 
 class JsAppController extends AppController {
 
-  val appContainerId = "appContainer"
+  val jsController = window.jsUIController
 
   override def createAppView(): AppView = {
-    val mainDiv = JQuery("<div id=\"" + appContainerId + "\">")
-    mainDiv.appendTo(JQuery("body"))
-    new JsAppView(container = mainDiv)
+    new JsAppView()
   }
 
   override def createPuzzleView(gridSize: GridSize): PuzzleView = {

@@ -1,6 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import scala.js.annotation.JSName
+import scala.scalajs.js
+import js.annotation.JSName
 
 @JSName("jQuery")
 object JQuery extends js.Object {

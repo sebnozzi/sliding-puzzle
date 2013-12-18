@@ -1,9 +1,33 @@
 
-#appContainer {
+body{
+  font-family: helvetica, sans;
+}
+
+h1{
+  margin-bottm: 5px;
+}
+
+.game {
   background: lightGray;
   border: 1px solid black;
 }
 
-#toolbar {
+.toolbar {
   background: gray;
+}
+
+.hidden {
+  display: none;
+}
+
+#puzzle {
+  position: relative;
+}
+
+.relative {
+  position: relative;
+}
+
+.absolute {
+  position: absolute;
 }
