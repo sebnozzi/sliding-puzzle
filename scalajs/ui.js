@@ -62,7 +62,32 @@ function makeJsUIController() {
       }
       return undefined;
     },    
-    moveTileTo: function(tile, targetCol, targetRow, animate) {
+    setMovesCount: function(newValue) {
+      $("#movesCount").html(newValue);
+    },
+    getTileIds: function() {
+      var ids = [];
+      for(i=0; i<tiles.length; i++) {
+        ids.push($(tiles[i]).attr("id"));
+      }
+      return ids;
+    },
+    makeTileVisible: function(tileId, animate) {
+      var tile = findTile(tileId);
+      console.log("Showing tile: ", tile);
+      if(animate) {
+        $(tile).show(400);
+      } else {
+        $(tile).show();
+      }
+    },
+    makeTileHidden: function(tileId) {
+      var tile = findTile(tileId);
+      console.log("Hiding tile: ", tile);
+      $(tile).hide();
+    },
+    moveTileTo: function(tileId, targetCol, targetRow, animate) {
+      var tile = findTile(tileId);
       console.log("Moving tile: ", tile, " to: ", col, row);
       var top = tileHeight * targetRow;
       var left = tileWidth * targetCol;
@@ -75,26 +100,6 @@ function makeJsUIController() {
         $(tile).css("top", top); 
         $(tile).css("left", left); 
       }
-    },
-    setMovesCount: function(newValue) {
-      $("#movesCount").html(newValue);
-    },
-    getTiles: function() {
-      var r = tiles;
-      console.log("getTiles: ", r);
-      return r;
-    },
-    makeTileVisible: function(tile, animate) {
-      console.log("Showing tile: ", tile);
-      if(animate) {
-        $(tile).show(400);
-      } else {
-        $(tile).show();
-      }
-    },
-    makeTileHidden: function(tile) {
-      console.log("Hiding tile: ", tile);
-      $(tile).hide();
     },
     getSelectedSize: function() {
       var commaSeparatedNumbers = $("#sizeSelector").val();

@@ -16,26 +16,22 @@ class JsPuzzleView extends PuzzleView {
 
   val tileViews: List[TileView] = {
 
-    def mkTileView(jsTile: js.Dynamic): TileView =
+    def mkTileView(tileId: String): TileView =
       new TileView() {
         def makeVisible(animate: Boolean) {
-          jsController.makeTileVisible(jsTile, animate)
+          jsController.makeTileVisible(tileId, animate)
         }
         def makeHidden() {
-          jsController.makeTileHidden(jsTile)
+          jsController.makeTileHidden(tileId)
         }
         def moveTileTo(pos: Position, animate: Boolean = false) {
-          jsController.moveTileTo(jsTile, pos.col, pos.row, animate)
+          jsController.moveTileTo(tileId, pos.col, pos.row, animate)
         }
       }
 
-    val jsTiles = jsController.getTiles()
-    val tileList = scala.collection.mutable.Buffer[TileView]()
-    for(i <- 0 to jsTiles.length) {
-      val jsTile = jsTiles(i)
-      tileList += mkTileView(jsTile)
-    }
-    tileList.toList
+    val tileIds = jsController.getTileIds()
+    val tileArray = (tileIds map { tileId => mkTileView(tileId) })
+    tileArray.toList
   }
 
 }
