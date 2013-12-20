@@ -10,8 +10,20 @@ function makeJsUIController() {
   
   var currentSize = undefined;
   
+  var resetCallback = function(){};
+  var shuffleCallback = function(){};
+  var tileCallback = function(tileId){};
+  var sizeCallback = function(newCols, newRows){};
+  
   return {
+    imageLoaded: function() {
+      var srcImg = $("#srcImg")[0];
+      imgWidth = srcImg.width;
+      imgHeight = srcImg.height;
+    },
     setupGrid: function(cols, rows) {
+      
+      console.log("Setting up grid: ", cols, "x", rows);
       
       $("#puzzle").empty();
       tiles = [];
@@ -52,8 +64,19 @@ function makeJsUIController() {
       });
     
     },
-    tileClicked: function(id) {
-      console.log("clicked on: ", id);
+    shuffleClicked: function() {
+      shuffleCallback();
+    },
+    resetClicked: function() {
+      resetCallback();
+    },
+    sizeChanged: function() {
+      var size = this.getSelectedSize();
+      sizeCallback(size.cols, size.rows);
+    },
+    tileClicked: function(tileId) {
+      //console.log(tileCallback);
+      tileCallback(tileId);
     },    
     findTile: function(id) {
       for(i = 0; i < tiles.length; i++) {
@@ -73,8 +96,7 @@ function makeJsUIController() {
       return ids;
     },
     makeTileVisible: function(tileId, animate) {
-      var tile = findTile(tileId);
-      console.log("Showing tile: ", tile);
+      var tile = this.findTile(tileId);
       if(animate) {
         $(tile).show(400);
       } else {
@@ -82,16 +104,15 @@ function makeJsUIController() {
       }
     },
     makeTileHidden: function(tileId) {
-      var tile = findTile(tileId);
-      console.log("Hiding tile: ", tile);
+      var tile = this.findTile(tileId);
       $(tile).hide();
     },
     moveTileTo: function(tileId, targetCol, targetRow, animate) {
-      var tile = findTile(tileId);
-      console.log("Moving tile: ", tile, " to: ", col, row);
-      var top = tileHeight * targetRow;
-      var left = tileWidth * targetCol;
-      if(animate) {
+      var tile = this.findTile(tileId);
+      //console.log("Moving tile: ", tile, " to: ", col, row);
+      var top = tileHeight * (targetRow-1);
+      var left = tileWidth * (targetCol-1);
+      if(false) {
         $(tile).animate({
           left: "" + top,
           top: "" + left,
@@ -108,31 +129,22 @@ function makeJsUIController() {
       var rows = parseInt(parts[1]);
       return {"cols": cols, "rows": rows};
     },    
-    onSizeChanged: function() {
-      var size = this.getSelectedSize();
-      console.log("size changed:", size.cols, size.rows);
-      this.setupGrid(size.cols, size.rows);
+    onTileClicked: function(callback) {
+      tileCallback = callback;
     },    
-    onShufflePressed: function() {
-      var size = this.getSelectedSize();
-      console.log("current size:", size.cols, size.rows);
-      console.log("shuffle");
+    onSizeChanged: function(callback) {
+      sizeCallback = callback;
     },    
-    onResetPressed: function() {
-      console.log("reset");
+    onShufflePressed: function(callback) {
+      shuffleCallback = callback;
     },    
-    onImageLoaded: function() {
-      var srcImg = $("#srcImg")[0];
-      imgWidth = srcImg.width;
-      imgHeight = srcImg.height;
+    onResetPressed: function(callback) {
+      resetCallback = callback;
     }
   };
     
 }
 
-$(document).ready(function() {
-
-});
   
 
 

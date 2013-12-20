@@ -2,20 +2,20 @@ $(document).ready(function() {
     
   window.jsUIController = makeJsUIController();
   var jsUIController = window.jsUIController;
-    
+  
   $("#sizeSelector").on("change", function() {
-    jsUIController.onSizeChanged();
+    jsUIController.sizeChanged();
   });
 
   $("#shuffleButton").on("click", function() {
-    jsUIController.onShufflePressed();
+    jsUIController.shuffleClicked();
   });
 
   $("#resetButton").on("click", function() {
-    jsUIController.onResetPressed();
+    jsUIController.resetClicked();
   });
 
-  jsUIController.onImageLoaded();
+  jsUIController.imageLoaded();
 
   jsUIController.setupGrid(4,3);
     
