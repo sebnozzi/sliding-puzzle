@@ -8,30 +8,29 @@ trait PositionAware {
   val initialPosition: Position
 
   private var _currentPosition = initialPosition
-  private var _positionChangeCallback: Option[() => Unit] = None
+  private var _positionChangeCallback: Option[(Boolean) => Unit] = None
 
   def currentPosition = _currentPosition
 
   def isAtInitialPosition = (currentPosition == initialPosition)
 
-  def currentPosition_=(newPosition: Position) {
+  def currentPosition_=(newPosition: Position, shuffling: Boolean = false) {
     _currentPosition = newPosition
-    if (_positionChangeCallback.isDefined)
-      _positionChangeCallback.get()
+    _positionChangeCallback.foreach(callback => callback(shuffling))
   }
 
   def moveToInitialPosition() {
     currentPosition = initialPosition
   }
 
-  def onPositionChange(callback: => Unit) {
-    _positionChangeCallback = Some(callback _)
+  def onPositionChange(callback: (Boolean) => Unit) {
+    _positionChangeCallback = Some(callback)
   }
 
-  def swapPositionWith(other: PositionAware) {
+  def swapPositionWith(other: PositionAware, shuffling: Boolean = false) {
     val previousPosition = currentPosition
-    currentPosition = other.currentPosition
-    other.currentPosition = previousPosition
+    currentPosition_=(other.currentPosition, shuffling)
+    other.currentPosition_=(previousPosition, shuffling)
   }
 
 }

@@ -53,7 +53,7 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
 
   test("callback called when tile swapped") {
     var tileMoved = false
-    tile1.onPositionChange {
+    tile1.onPositionChange { shuffling:Boolean => 
       tileMoved = true
     }
     tile1.swapPositionWith(tile2)
@@ -64,7 +64,7 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
     var tileMoved = false
     tile1.swapPositionWith(tile2)
     assert(!tileMoved, "callback should not have been called yet")
-    tile1.onPositionChange {
+    tile1.onPositionChange { shuffling:Boolean => 
       tileMoved = true
     }
     tile1.moveToInitialPosition

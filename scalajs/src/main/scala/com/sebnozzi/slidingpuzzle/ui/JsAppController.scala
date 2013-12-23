@@ -10,7 +10,7 @@ class JsAppController extends AppController with HasJsController {
   }
 
   override def createPuzzleView(gridSize: GridSize): PuzzleView = {
-    new JsPuzzleView()
+    new JsPuzzleView(gridSize)
   }
 
 }

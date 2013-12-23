@@ -6,8 +6,10 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 import scala.collection.mutable.Buffer
 
-class JsPuzzleView extends PuzzleView with HasJsController {
+class JsPuzzleView(gridSize: GridSize) extends PuzzleView with HasJsController {
 
+  jsController.setupGrid(gridSize.columns, gridSize.rows)
+  
   lazy val tileViews: List[JsTileView] = {
     val ids = jsController.getTileIds()
     val tiles = Buffer[JsTileView]()
@@ -25,7 +27,7 @@ class JsPuzzleView extends PuzzleView with HasJsController {
   })
 
   override def requestFocus() {
-    // nothing for now
+    // Not applicable to our JavaScript UI
   }
 
 }

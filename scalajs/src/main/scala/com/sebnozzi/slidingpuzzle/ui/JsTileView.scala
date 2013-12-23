@@ -10,6 +10,6 @@ class JsTileView(val tileId: String, jsController: JsUIController) extends TileV
     jsController.makeTileHidden(tileId)
   }
   def moveTileTo(pos: Position, animate: Boolean = false) {
-    jsController.moveTileTo(tileId, pos.col, pos.row, animate)
+    jsController.moveTileTo(tileId, pos.col - 1, pos.row - 1, animate)
   }
 }

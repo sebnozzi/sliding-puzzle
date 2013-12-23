@@ -17,7 +17,7 @@ $(document).ready(function() {
 
   jsUIController.imageLoaded();
 
-  jsUIController.setupGrid(4,3);
+  jsUIController.setupGrid(3,2);
     
   ScalaJS.modules.com_sebnozzi_slidingpuzzle_SlidingPuzzleMain().main();
   

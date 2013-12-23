@@ -55,7 +55,7 @@ class Puzzle(gridSize: GridSize) {
 
   def moveToEmptySlot(tile: PuzzleTile, shuffling: Boolean = false) = {
     if (canMoveToEmptySlot(tile)) {
-      tile.swapPositionWith(hiddenTile)
+      tile.swapPositionWith(hiddenTile, shuffling)
       if (!shuffling)
         didMoveToEmptySlot(tile)
       true

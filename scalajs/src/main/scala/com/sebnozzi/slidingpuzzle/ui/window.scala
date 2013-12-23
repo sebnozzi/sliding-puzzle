@@ -11,15 +11,17 @@ trait JsUIController extends js.Object {
 
   def getTileIds(): js.Array[String] = ???
 
-  def onTileClicked(callback: js.Function1[String,js.Object]) = ???
-  def onSizeChanged(callback: js.Function2[js.Number,js.Number,js.Object]) = ???
+  def setSelectedSize(cols: js.Number, rows: js.Number) = ???
+
+  def onTileClicked(callback: js.Function1[String, js.Object]) = ???
+  def onSizeChanged(callback: js.Function2[js.Number, js.Number, js.Object]) = ???
   def onShufflePressed(callback: js.Function) = ???
   def onResetPressed(callback: js.Function) = ???
 }
 
 trait HasJsController {
-  def log(msg:String) = 
+  def log(msg: String) =
     js.Dynamic.global.console.log(msg)
-  def jsController: JsUIController = 
+  def jsController: JsUIController =
     js.Dynamic.global.window.jsUIController.asInstanceOf[JsUIController]
 }

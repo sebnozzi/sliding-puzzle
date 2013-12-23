@@ -110,13 +110,13 @@ function makeJsUIController() {
     moveTileTo: function(tileId, targetCol, targetRow, animate) {
       var tile = this.findTile(tileId);
       //console.log("Moving tile: ", tile, " to: ", col, row);
-      var top = tileHeight * (targetRow-1);
-      var left = tileWidth * (targetCol-1);
-      if(false) {
+      var left = tileWidth * (targetCol);
+      var top = tileHeight * (targetRow);
+      if(animate) {
         $(tile).animate({
-          left: "" + top,
-          top: "" + left,
-        }, 200, "swing");
+          left: "" + left,
+          top: "" + top,
+        }, 100);
       } else {
         $(tile).css("top", top); 
         $(tile).css("left", left); 
@@ -128,7 +128,12 @@ function makeJsUIController() {
       var cols = parseInt(parts[0]);
       var rows = parseInt(parts[1]);
       return {"cols": cols, "rows": rows};
-    },    
+    },
+    setSelectedSize: function(cols, rows) {
+      var targetVal = cols + "," + rows;
+      console.log("Selecting size value: " + targetVal);
+      $("#sizeSelector").val(targetVal);
+    },
     onTileClicked: function(callback) {
       tileCallback = callback;
     },    

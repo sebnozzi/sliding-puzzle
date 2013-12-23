@@ -21,7 +21,7 @@ abstract class AppController() {
   /**
    * After creating the controller, you should call
    * this method to get the application running.
-   * */
+   */
   def start() {
     val initialGridSize = GridSize(3, 3)
     appView = createAppView()
@@ -84,8 +84,8 @@ abstract class AppController() {
   }
 
   private def bindUiAndModelTiles(tileView: TileView, modelTile: PuzzleTile) {
-    modelTile.onPositionChange {
-      tileView.moveTileTo(modelTile.currentPosition, animate = true)
+    modelTile.onPositionChange { shuffling: Boolean =>
+      tileView.moveTileTo(modelTile.currentPosition, animate = !shuffling)
     }
     modelTile.onVisibilityChange { toVisible =>
       if (toVisible) {
