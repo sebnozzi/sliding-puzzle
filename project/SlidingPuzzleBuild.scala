@@ -66,8 +66,7 @@ object SlidingPuzzleBuild extends Build {
       name := "SlidingPuzzle ScalaJS",
       // Add the startup.js file of this example project
       unmanagedSources in (Compile, packageJS) ++= Seq(
-        baseDirectory.value / "startup.js",
-        baseDirectory.value / "ui.js")
+        baseDirectory.value / "startup.js")
   ).dependsOn(coreJs)  
 
 }
