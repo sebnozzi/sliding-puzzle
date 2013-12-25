@@ -29,10 +29,10 @@ Here's a screenshot of the [Scala.js](http://www.scala-js.org/) based version, r
 
 You'll need Oracle's JDK 7 or later (as of 2013, OpenJDK will not work as it does not include JavaFX).
 
-Once in sbt, run:
+Run using SBT with:
 
 ```
-javafx/run
+sbt javafx/run
 ```
 
 ### Scala.js Version
@@ -43,8 +43,10 @@ You need to properly "install" Scala.js as instructed on its website (build and 
 
 Development, or "unoptimized", mode compiles code very quick. The caveat is that the generated code is very big and takes longer for the browser to load.
 
+Package unoptimized code with SBT with:
+
 ```
-scalajs/packageJS
+sbt scalajs/packageJS
 ```
 
 This will generate unoptimized JavaScript files. To load the unoptimized version of the puzzle, open `index-dev.html` in the browser (located inside the `scalajs` directory).
@@ -53,8 +55,10 @@ This will generate unoptimized JavaScript files. To load the unoptimized version
 
 Optimized code takes considerably longer to compile, but the generated code is much smaller and loads very quickly in the browser.
 
+Generate optimized code with SBT with:
+
 ```
-scalajs/optimizeJS
+sbt scalajs/optimizeJS
 ```
 
 This will generate one optimized JavaScript file using [Google's closure compiler](https://developers.google.com/closure/compiler/).
