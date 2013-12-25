@@ -1,23 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Example Scala.js application</title>
+  <title>Sliding Puzzle</title>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link href="./styles.css" media="all" rel="stylesheet" type="text/css" />
+  <script type="text/javascript" src="jquery-1.9.1.js"></script>
+  
+  <script type="text/javascript" src="./target/scala-2.10/slidingpuzzle-scalajs-opt.js"></script>
+
 </head>
+
 <body>
 
-<h1>Example Scala.js application - optimized version</h1>
+<table>
+  <tr>
+    <td width="900" valign="top">
+      <div class="game">
+        <div class="toolbar" style="display:table">
+          <select style="display:none" id="sizeSelector">
+            <option value="3,2">3x2</option>
+            <option value="3,3">3x3</option>
+            <option value="4,3">4x3</option>
+            <option value="6,4">6x4</option>
+          </select>
+          <button id="shuffleButton">Shuffle!</button>
+          <button id="resetButton">Reset</button>
+          <span>Moves: </span><span id="movesCount">0</button>
+        </div>
+        <div id="puzzle"></div>
+      </div>
+    </td>
+    <td valign="middle">
+      <div id="message">
+      Message
+      </div>
+    </td>
+  </tr>
+</table>
 
-<p>After having compiled and optimized properly the code for the application
-(using `sbt optimizeJS`), you should see "It works" herebelow.
-See README.md for detailed explanations.</p>
-
-<div id="playground">
+<div id="hiddenContainer" class="hidden">
+  <a id="imgAnchor" href="./resources/2322324186_ca41fba641_o.jpg"></a>
 </div>
-
-<script type="text/javascript" src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
-
-<script type="text/javascript" src="./target/scala-2.10/slidingpuzzle-opt.js"></script>
 
 </body>
 </html>
