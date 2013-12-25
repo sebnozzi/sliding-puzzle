@@ -8,12 +8,24 @@ h1{
 }
 
 .game {
-  background: lightGray;
-  border: 1px solid black;
+  
+  xborder: 1px solid gray;
+  -webkit-box-shadow: 5px 5px 5px 0px rgba(84,84,84,1);
+  -moz-box-shadow: 5px 5px 5px 0px rgba(84,84,84,1);
+  box-shadow: 5px 5px 5px 0px rgba(84,84,84,1);
 }
 
 .toolbar {
-  background: gray;
+  background: lightGray;
+  padding: 5px;
+  border: 1px solid gray;
+  
+  -webkit-border-top-left-radius: 4px;
+  -webkit-border-top-right-radius: 4px;
+  -moz-border-radius-topleft: 4px;
+  -moz-border-radius-topright: 4px;
+  border-top-left-radius: 4px;
+  border-top-right-radius: 4px;  
 }
 
 .hidden {
@@ -22,6 +34,12 @@ h1{
 
 #puzzle {
   position: relative;
+  background: black;
+}
+
+#message {
+  padding-left: 20px;
+  
 }
 
 .relative {
