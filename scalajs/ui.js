@@ -76,7 +76,6 @@ function makeJsUIController() {
       sizeCallback(size.cols, size.rows);
     },
     "tileClicked": function(tileId) {
-      //console.log(tileCallback);
       tileCallback(tileId);
     },    
     "findTile": function(id) {
@@ -110,7 +109,6 @@ function makeJsUIController() {
     },
     "moveTileTo": function(tileId, targetCol, targetRow, animate) {
       var tile = this.findTile(tileId);
-      //console.log("Moving tile: ", tile, " to: ", col, row);
       var left = tileWidth * (targetCol);
       var top = tileHeight * (targetRow);
       if(animate) {
@@ -132,7 +130,6 @@ function makeJsUIController() {
     },
     "setSelectedSize": function(cols, rows) {
       var targetVal = cols + "," + rows;
-      //console.log("Selecting size value: " + targetVal);
       $("#sizeSelector").val(targetVal);
     },
     "onTileClicked": function(callback) {
