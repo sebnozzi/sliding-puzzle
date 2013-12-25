@@ -1,51 +1,64 @@
 # Sliding Puzzle
 
-[Sliding Puzzle](http://en.wikipedia.org/wiki/Sliding_puzzle) implemented in **Scala** using JavaFX.
+[Sliding Puzzle](http://en.wikipedia.org/wiki/Sliding_puzzle) implemented in [**Scala**](http://www.scala-lang.org/).
 
-![image](images/screenshot.jpg)
+## Multi-platform
 
-Comes in many sizes: 3x2, 3x3, 4x3 and 6x4.
+Thanks to [Scala.js](http://www.scala-js.org/), it compiles both to a normal JVM application and JavaScript code.
 
-As much as possible, I've tried to have JavaFX-agnostic code. First for better design and second in order to make other implementations easier.
+The native JVM version uses [JavaFX](http://en.wikipedia.org/wiki/JavaFX) for its UI, and can be seen here:
 
-## Download
+![image](images/screenshot-javafx.jpg)
 
-A compiled, ready-to-run version can be downloaded here:
+Here's a screenshot of the [Scala.js](http://www.scala-js.org/) based version, running on the browser:
 
-http://www.sebnozzi.com/files/slidingPuzzle.jar
+![image](images/screenshot-browser.jpeg)
 
-It might not be up-to-date at some point.
+As much as possible, I've tried to have UI-agnostic code. This lead to a better design which made the different implementations possible.
 
-## Building / Running
+## Building
 
-**IMPORTANT**: 
+### JavaFX Version
 
-* Make sure your `JAVA_HOME` is properly set
-* Needs JDK 7 or later, since it relies on JavaFX
+You'll need Oracle's JDK 7 or later (as of 2013, OpenJDK will not work as it does not include JavaFX).
 
-### Through SBT
-
-Assuming you have SBT set up, run with:
+Once in sbt, run:
 
 ```
-sbt run
+javafx/run
 ```
 
-### Eclipse
+### Scala.js Version
 
-Otherwise if you are using Scala-IDE or the Eclipse plugin, from within sbt run:
+You need to properly "install" Scala.js as instructed on its website (build and publish locally).
+
+#### Unoptimized / Development
+
+Development, or "unoptimized", mode compiles code very quick. The caveat is that the generated code is very big and takes longer for the browser to load.
 
 ```
-eclipse with-source=true
+scalajs/packageJS
 ```
 
-and import the project into your workspace. From there launch it as a normal Java application (yes, Java).
+This will generate unoptimized JavaScript files. To load the unoptimized version of the puzzle, open `index-dev.html` in the browser (located inside the `scalajs` directory).
+
+#### Optimized / Production
+
+Optimized code takes considerably longer to compile, but the generated code is much smaller and loads very quickly in the browser.
+
+```
+scalajs/optimizeJS
+```
+
+This will generate one optimized JavaScript file using [Google's closure compiler](https://developers.google.com/closure/compiler/).
+
+To load the optimized version of the puzzle, open `index.html` in the browser (located inside the `scalajs` directory).
 
 ## Notes
 
 ### About the picture
 
-The musicians you see on the picture are part of a jazz band.
+The musicians you see on the picture are part of a Jazz "[Big Band](http://en.wikipedia.org/wiki/Big_band)".
 
 ![image](images/original_small.jpg)
 
@@ -58,12 +71,3 @@ I wanted to use this picture for this puzzle because it portraits two of my favo
 * **trombone** (right)
 
 Original [picture](http://www.flickr.com/photos/mawel/2322324186/) taken by [Marc Wellekötter](http://www.flickr.com/photos/mawel/)
-
-## TO-DOs
-
-* split tests into corresponding Tile traits
-* better names for the tests
-* find out why the exception happening when closing from the command line
-
-
-  
