@@ -22,15 +22,16 @@ function makeJsUIController() {
       imgHeight = srcImg["height"];
     },
     "setupGrid": function(cols, rows) {
-      
-      //console["log"]("Setting up grid: ", cols, "x", rows);
-      
+
       $("#puzzle")["empty"]();
       tiles = [];
       currentSize = {"cols": cols, "rows": rows};
     
       tileWidth = Math["floor"](imgWidth / cols);
       tileHeight = Math["floor"](imgHeight / rows);
+      
+      $("#puzzle")["css"]("width", tileWidth * cols);
+      $("#puzzle")["css"]("height", tileHeight * rows);
       
       for(var row = 0; row < rows; row++) {
         for(var col = 0; col < cols; col++) {
