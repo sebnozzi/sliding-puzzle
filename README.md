@@ -4,17 +4,24 @@
 
 ## Multi-platform
 
-Thanks to [Scala.js](http://www.scala-js.org/), it compiles both to a normal JVM application and JavaScript code.
+Thanks to [Scala.js](http://www.scala-js.org/), it compiles both to:
+
+1. Desktop JVM application
+2. Browser JavaScript RIA
+
+As much as possible, I've tried to have UI and platform-agnostic code. This lead to a better design which made the different implementations not only possible but straightforward.
+
+### Desktop Version
 
 The native JVM version uses [JavaFX](http://en.wikipedia.org/wiki/JavaFX) for its UI, and can be seen here:
 
 ![image](images/screenshot-javafx.jpg)
 
+### Browser Version
+
 Here's a screenshot of the [Scala.js](http://www.scala-js.org/) based version, running on the browser:
 
 ![image](images/screenshot-browser.jpeg)
-
-As much as possible, I've tried to have UI-agnostic code. This lead to a better design which made the different implementations possible.
 
 ## Building
 
