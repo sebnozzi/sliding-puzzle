@@ -64,10 +64,10 @@ object SlidingPuzzleBuild extends Build {
       (defaultSettings ++ scalaJSSettings): _*
   ).settings(
       name := "SlidingPuzzle ScalaJS",
-      optimizeJSPrettyPrint := true,
       // Add the startup.js file of this example project
-      unmanagedSources in (Compile, packageJS) +=
-        baseDirectory.value / "startup.js"
+      unmanagedSources in (Compile, packageJS) ++= Seq(
+        baseDirectory.value / "startup.js",
+        baseDirectory.value / "ui.js")
   ).dependsOn(coreJs)  
 
 }
