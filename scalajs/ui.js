@@ -15,7 +15,7 @@ function makeJsUIController() {
   var tileCallback = function(tileId){};
   var sizeCallback = function(newCols, newRows){};
   
-  return {
+  var jsUIController = {
     "imageLoaded": function() {
       var srcImg = $("#srcImg")[0];
       imgWidth = srcImg.width;
@@ -148,7 +148,20 @@ function makeJsUIController() {
       resetCallback = callback;
     }
   };
-    
+
+  $("#sizeSelector").on("change", function() {
+    jsUIController.sizeChanged();
+  });
+
+  $("#shuffleButton").on("click", function() {
+    jsUIController.shuffleClicked();
+  });
+
+  $("#resetButton").on("click", function() {
+    jsUIController.resetClicked();
+  });
+  
+  return jsUIController;
 }
 
   
