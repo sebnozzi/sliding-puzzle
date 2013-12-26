@@ -37,7 +37,7 @@ sbt javafx/run
 
 ### Scala.js Version
 
-You need to properly "install" Scala.js as instructed on its website (build and publish locally).
+You need to properly "install" Scala.js [as instructed](https://github.com/scala-js/scala-js/blob/master/README.md) on its website (clone, build and publish locally).
 
 #### Unoptimized / Development
 
@@ -65,7 +65,7 @@ This will generate one optimized JavaScript file using [Google's closure compile
 
 To load the optimized version of the puzzle, open `index.html` in the browser (located inside the `scalajs` directory).
 
-## Notes
+## Credits
 
 ### About the picture
 
