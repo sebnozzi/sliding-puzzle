@@ -2,27 +2,28 @@ package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import scala.scalajs.js
-import js.annotation.JSName
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import org.scalajs.jquery._
 
 class JsAppView() extends AppView with HasJsController {
 
-  setupCallbacksOnUI();
+  setupCallbacksOnUI()
 
   private def setupCallbacksOnUI() {
-    jsController.onShufflePressed(() => {
+    log("Setting up shuffle button callback")
+    jQuery("#shuffleButton").click{ () => 
+      log("Shuffle button clicked")
       shuffleClicked()
-    })
-    jsController.onResetPressed(() => {
+    }
+    jQuery("#resetButton").click { () => 
       resetClicked()
-    })
-    jsController.onSizeChanged((colsJs: js.Number, rowsJs: js.Number) => {
-      val cols = colsJs.intValue
-      val rows = rowsJs.intValue
+    }
+    jQuery("#sizeSelector").change { () => 
+      val jsSize = jsController.getSelectedSize()
+      val cols = jsSize.cols.toInt
+      val rows = jsSize.rows.toInt
       val newSize = GridSize(cols, rows)
       newSizeSelected(newSize)
-      js.Object
-    })
+    }
   }
 
   // Called when the amount of moves changes within the model.

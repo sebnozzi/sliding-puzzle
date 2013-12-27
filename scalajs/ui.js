@@ -9,11 +9,8 @@ function makeJsUIController() {
   var tileHeight = undefined;
   
   var currentSize = undefined;
-  
-  var resetCallback = function(){};
-  var shuffleCallback = function(){};
+
   var tileCallback = function(tileId){};
-  var sizeCallback = function(newCols, newRows){};
   
   var jsUIController = {
     "imageLoaded": function() {
@@ -64,16 +61,6 @@ function makeJsUIController() {
         _thisClosure.tileClicked(tileId);
       });
     
-    },
-    "shuffleClicked": function() {
-      shuffleCallback();
-    },
-    "resetClicked": function() {
-      resetCallback();
-    },
-    "sizeChanged": function() {
-      var size = this.getSelectedSize();
-      sizeCallback(size.cols, size.rows);
     },
     "tileClicked": function(tileId) {
       tileCallback(tileId);
@@ -134,29 +121,8 @@ function makeJsUIController() {
     },
     "onTileClicked": function(callback) {
       tileCallback = callback;
-    },    
-    "onSizeChanged": function(callback) {
-      sizeCallback = callback;
-    },    
-    "onShufflePressed": function(callback) {
-      shuffleCallback = callback;
-    },    
-    "onResetPressed": function(callback) {
-      resetCallback = callback;
-    }
+    }    
   };
-
-  $("#sizeSelector").on("change", function() {
-    jsUIController.sizeChanged();
-  });
-
-  $("#shuffleButton").on("click", function() {
-    jsUIController.shuffleClicked();
-  });
-
-  $("#resetButton").on("click", function() {
-    jsUIController.resetClicked();
-  });
   
   return jsUIController;
 }

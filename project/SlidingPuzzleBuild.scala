@@ -71,7 +71,7 @@ object SlidingPuzzleBuild extends Build {
   ).settings(
       name := "SlidingPuzzle ScalaJS",
       libraryDependencies += "org.scala-lang.modules.scalajs" %% "scalajs-jquery" % "0.1-SNAPSHOT",
-      // Add the startup.js file of this example project
+      // Add the startup.js file of this project
       unmanagedSources in (Compile, packageJS) ++= Seq(
         baseDirectory.value / "startup.js")
   ).dependsOn(coreJs)  
