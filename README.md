@@ -27,7 +27,7 @@ Here's a screenshot of the [Scala.js](http://www.scala-js.org/) based version, r
 
 ### JavaFX Version
 
-You'll need Oracle's JDK 7 or later (as of 2013, OpenJDK will not work as it does not include JavaFX).
+You'll need Oracle's JDK 7 or later (as of 2013, OpenJDK will not work as it does not include JavaFX - yet?).
 
 Run using SBT with:
 
@@ -37,11 +37,9 @@ sbt javafx/run
 
 ### Scala.js Version
 
-You need to properly "install" Scala.js [as instructed](https://github.com/scala-js/scala-js/blob/master/README.md) on its website (clone, build and publish locally).
-
 #### Unoptimized / Development
 
-Development, or "unoptimized", mode compiles code very quick. The caveat is that the generated code is very big and takes longer for the browser to load.
+Development, or "unoptimized", mode compiles code very quick. The caveat is that the generated code is very big and takes longer for the browser to load. Nevertheless the loading time is small enough (around 5 seconds) to do development in this mode.
 
 Package unoptimized code with SBT with:
 
@@ -49,11 +47,15 @@ Package unoptimized code with SBT with:
 sbt scalajs/packageJS
 ```
 
-This will generate unoptimized JavaScript files. To load the unoptimized version of the puzzle, open `index-dev.html` in the browser (located inside the `scalajs` directory).
+This will generate unoptimized JavaScript files. To load the unoptimized version of the puzzle, open this file in your browser:
+
+```
+scalajs/index-dev.html
+```
 
 #### Optimized / Production
 
-Optimized code takes considerably longer to compile, but the generated code is much smaller and loads very quickly in the browser.
+Optimized code takes considerably longer to compile, but the generated code is much smaller (around 200 Kb) and loads very quickly in the browser.
 
 Generate optimized code with SBT with:
 
@@ -63,9 +65,22 @@ sbt scalajs/optimizeJS
 
 This will generate one optimized JavaScript file using [Google's closure compiler](https://developers.google.com/closure/compiler/).
 
-To load the optimized version of the puzzle, open `index.html` in the browser (located inside the `scalajs` directory).
+To load the optimized version of the puzzle, open this file in your browser:
+
+```
+scalajs/index.html
+```
 
 ## Credits
+
+### Scala.js
+
+Scala.js-related acknowledgements:
+
+* Thanks to Sébastien Doeraene and the EPFL for Scala.js!
+* Thanks to all Scala.js [contributors](http://www.scala-js.org/contribute/)
+* Thanks to Li Haoyi for the Scala.js [jQuery wrappers](https://github.com/scala-js/scala-js-jquery)
+* The multi-platform SBT setup is "inspired" by [this project](https://github.com/sjrd/funlabyrinthe-scala), also by Sébastien Doeraene
 
 ### About the picture
 

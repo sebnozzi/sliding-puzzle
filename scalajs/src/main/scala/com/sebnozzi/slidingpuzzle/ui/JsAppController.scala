@@ -40,7 +40,10 @@ class JsAppController extends AppController with HasJsController {
       (3, 3),
       (4, 3),
       (6, 4))
-    val scalaJsCreditsDiv = jQuery("""<div style="margin-top:10px">Powered by <a href="http://www.scala-js.org/">Scala.js</a></div>""")
+    val scalaJsCreditsDiv = 
+      jQuery("""<div class="credits">Powered by 
+          <img src="scala-js-logo-16.png" valign="middle"/><a 
+          href="http://www.scala-js.org/">Scala.js</a></div>""")
     val toolbarDiv = {
       val container = jQuery("<div/>").attr("class", "toolbar")
       val selectNode = jQuery("<select/>").attr("id", "sizeSelector")

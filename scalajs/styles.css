@@ -38,6 +38,13 @@ h1{
   background: black;
 }
 
+.credits {
+  margin-top:10px;
+  font-family: helvetica;
+  font-size: 10pt;
+  font-weight: bold;
+}
+
 #message {
   padding-left: 20px;
   
