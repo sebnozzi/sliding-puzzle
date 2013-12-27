@@ -10,16 +10,19 @@ class JsAppController extends AppController with HasJsController {
   val imgSrc = "resources/2322324186_ca41fba641_o.jpg"
 
   override def start() {
-    setupUIWithJQuery()
-    def setupImageLoading() {
-      val imgThis = jQuery(s"""<img id="srcImg" src="$imgSrc">""")
-      imgThis.on("load", () => {
-        imgThis.appendTo("#hiddenContainer");
-        jsController.imageLoaded();
-        super.start()
-      });
-    }
-    setupImageLoading()
+    buildBasicUI()
+    loadImage(imgSrc, onLoad = { 
+      super.start()
+    })
+  }
+
+  private def loadImage(imgSrc: String, onLoad:  => Unit) {
+    val imgThis = jQuery(s"""<img id="srcImg" src="$imgSrc">""")
+    imgThis.on("load", () => {
+      imgThis.appendTo("#hiddenContainer");
+      jsController.imageLoaded();
+      onLoad
+    });
   }
 
   override def createAppView(): AppView = {
@@ -30,8 +33,8 @@ class JsAppController extends AppController with HasJsController {
     new JsPuzzleView(gridSize)
   }
 
-  def setupUIWithJQuery() {
-    // TODO: move this to core?
+  private def buildBasicUI() {
+    // TODO: move sizes to core?
     val availableSizes = Seq(
       (3, 2),
       (3, 3),
