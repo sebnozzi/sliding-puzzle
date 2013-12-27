@@ -5,6 +5,10 @@ import scala.scalajs.sbtplugin._
 import ScalaJSPlugin._
 import ScalaJSKeys._
 
+import ScctPlugin.instrumentSettings
+
+
+
 object SlidingPuzzleBuild extends Build {
 
   val slidingPuzzleScalaVersion = "2.10.3"
@@ -34,6 +38,8 @@ object SlidingPuzzleBuild extends Build {
       defaultSettings: _*
   ).settings(
       name := "SlidingPuzzle"
+  ).settings(
+      ScctPlugin.mergeReportSettings: _*
   ).aggregate(
       core, javafx
   )
@@ -43,7 +49,7 @@ object SlidingPuzzleBuild extends Build {
   ).settings(
       name := "SlidingPuzzle Core",
       libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
-  )  
+  ).settings(ScctPlugin.instrumentSettings: _*) 
   
   lazy val javafx = project.in(file("javafx")).settings(
       (defaultSettings ++ scalafxSettings): _*
