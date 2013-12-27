@@ -36,6 +36,22 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
     assert(tile2.currentPosition === tile1.initialPosition)
   }
 
+  def testShufflingState(expectedState: Boolean) {
+    var wasShuffling1 = false
+    var wasShuffling2 = false
+    tile1.onPositionChange((shuffling) => { wasShuffling1 = shuffling })
+    tile2.onPositionChange((shuffling) => { wasShuffling2 = shuffling })
+    tile1.swapPositionWith(tile2, shuffling = expectedState)
+    assert(wasShuffling1 === expectedState)
+    assert(wasShuffling2 === expectedState)
+  }
+  test("should passe shuffling state (true) to callback") {
+    testShufflingState(expectedState=true)
+  }
+  test("should passe shuffling state (false) to callback") {
+    testShufflingState(expectedState=false)
+  }
+
   test("after swapping once, the tile should not be at its initial position") {
     assert(tile1.isAtInitialPosition)
     tile1.swapPositionWith(tile2)
@@ -53,7 +69,7 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
 
   test("callback called when tile swapped") {
     var tileMoved = false
-    tile1.onPositionChange { shuffling:Boolean => 
+    tile1.onPositionChange { shuffling: Boolean =>
       tileMoved = true
     }
     tile1.swapPositionWith(tile2)
@@ -64,7 +80,7 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
     var tileMoved = false
     tile1.swapPositionWith(tile2)
     assert(!tileMoved, "callback should not have been called yet")
-    tile1.onPositionChange { shuffling:Boolean => 
+    tile1.onPositionChange { shuffling: Boolean =>
       tileMoved = true
     }
     tile1.moveToInitialPosition
