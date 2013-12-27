@@ -8,6 +8,7 @@ h1{
 }
 
 .game {
+  display: table;
   
   xborder: 1px solid gray;
   -webkit-box-shadow: 5px 5px 5px 0px rgba(84,84,84,1);
