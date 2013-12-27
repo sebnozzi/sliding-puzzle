@@ -9,8 +9,7 @@ trait VisibilityAware {
   }
 
   def visibilityChanged(toVisible: Boolean) {
-    if (_visibilityCallback.isDefined)
-      _visibilityCallback.get(toVisible)
+    _visibilityCallback foreach (callback => callback(toVisible))
   }
 
 }

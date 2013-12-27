@@ -39,8 +39,7 @@ trait AppView {
    * if "shuffle" clicked on the UI
    */
   def shuffleClicked() {
-    if (shuffleCallback.isDefined)
-      shuffleCallback.get()
+    shuffleCallback foreach (callback => callback())
   }
 
   /**
@@ -48,8 +47,7 @@ trait AppView {
    * if "reset" clicked on the UI
    */
   def resetClicked() {
-    if (resetCallback.isDefined)
-      resetCallback.get()
+    resetCallback foreach (callback => callback())
   }
 
   /**
@@ -57,8 +55,7 @@ trait AppView {
    * if a new size was selected on the UI
    */
   def newSizeSelected(newSize: GridSize) {
-    if (newSizeCallback.isDefined)
-      newSizeCallback.get(newSize)
+    newSizeCallback foreach (callback => callback(newSize))
   }
 
   /**
@@ -66,8 +63,7 @@ trait AppView {
    * if a key was pressed on the UI
    */
   def arrowKeyPressed(arrowKey: ArrowKey) {
-    if (arrowKeyCallback.isDefined)
-      arrowKeyCallback.get(arrowKey)
+    arrowKeyCallback foreach (callback => callback(arrowKey))
   }
 
   /**

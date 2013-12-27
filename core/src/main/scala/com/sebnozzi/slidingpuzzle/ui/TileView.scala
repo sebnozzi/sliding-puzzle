@@ -7,8 +7,7 @@ trait TileView {
   private var onTilePressedCallback: Option[() => Unit] = None
 
   def mousePressed() {
-    if (onTilePressedCallback.isDefined)
-      onTilePressedCallback.get()
+    onTilePressedCallback foreach (callback => callback())
   }
 
   def onMousePressed(callback: => Unit) {
