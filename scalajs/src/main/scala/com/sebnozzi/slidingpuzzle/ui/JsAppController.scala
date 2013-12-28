@@ -6,23 +6,25 @@ import scala.scalajs.js
 import org.scalajs.jquery._
 
 class JsAppController extends AppController with HasJsController {
-
+  
   val imgSrc = "resources/2322324186_ca41fba641_o.jpg"
-
+  var srcImg: JsImage = _
+    
   override def start() {
     buildBasicUI()
-    loadImage(imgSrc, onLoad = { 
+    loadImage(imgSrc, onLoad = {
       super.start()
     })
   }
 
-  private def loadImage(imgSrc: String, onLoad:  => Unit) {
-    val imgThis = jQuery(s"""<img id="srcImg" src="$imgSrc">""")
+  private def loadImage(imgSrc: String, onLoad: => Unit) {
+    val imgThis = jQuery(s"""<img id="srcImg">""")
     imgThis.on("load", () => {
       imgThis.appendTo("#hiddenContainer");
-      jsController.imageLoaded();
+      srcImg = jQuery("#srcImg").asInstanceOf[js.Array[JsImage]](0)
       onLoad
     });
+    imgThis.attr("src", imgSrc)
   }
 
   override def createAppView(): AppView = {
@@ -30,7 +32,7 @@ class JsAppController extends AppController with HasJsController {
   }
 
   override def createPuzzleView(gridSize: GridSize): PuzzleView = {
-    new JsPuzzleView(gridSize)
+    new JsPuzzleView(srcImg, gridSize)
   }
 
   private def buildBasicUI() {
@@ -40,7 +42,7 @@ class JsAppController extends AppController with HasJsController {
       (3, 3),
       (4, 3),
       (6, 4))
-    val scalaJsCreditsDiv = 
+    val scalaJsCreditsDiv =
       jQuery("""<div class="credits">Powered by 
           <img src="scala-js-logo-16.png" valign="middle"/><a 
           href="http://www.scala-js.org/">Scala.js</a></div>""")

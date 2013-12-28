@@ -5,7 +5,7 @@ import scala.scalajs.js
 import org.scalajs.jquery._
 
 class JsAppView() extends AppView with HasJsController {
-
+  
   setupCallbacksOnUI()
 
   private def setupCallbacksOnUI() {

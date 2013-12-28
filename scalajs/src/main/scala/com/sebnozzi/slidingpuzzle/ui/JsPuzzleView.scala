@@ -8,21 +8,23 @@ import scala.scalajs.js
 import org.scalajs.jquery._
 import js.Dynamic
 
-
-class JsPuzzleView(gridSize: GridSize) extends PuzzleView with HasJsController {
+class JsPuzzleView(srcImg: JsImage, gridSize: GridSize) extends PuzzleView with HasJsController {
 
   jsController.setupGrid(gridSize.columns, gridSize.rows)
+
+  val tileWidth = Math.floor(srcImg.width / gridSize.columns).toInt
+  val tileHeight = Math.floor(srcImg.height / gridSize.rows).toInt
   
-  jQuery("#puzzle").css("width", jsController.getTileWidth * gridSize.columns)
-  jQuery("#puzzle").css("height", jsController.getTileHeight * gridSize.rows)  
-  
+  jQuery("#puzzle").css("width", tileWidth * gridSize.columns)
+  jQuery("#puzzle").css("height", tileHeight * gridSize.rows)
+
   lazy val tileViews: List[JsTileView] = {
     val ids = jsController.getTileIds()
     val tiles = Buffer[JsTileView]()
     val tileAmount = ids.length.toInt
     for (i <- 0 until tileAmount) {
       val tileId = ids(i)
-      tiles += new JsTileView(tileId)
+      tiles += new JsTileView(tileId, tileWidth, tileHeight)
     }
     tiles.toList
   }

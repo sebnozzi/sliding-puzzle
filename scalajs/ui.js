@@ -2,24 +2,17 @@ function makeJsUIController() {
 
   var tiles = [];
 
-  var imgWidth = undefined;
-  var imgHeight = undefined;
-  var tileWidth = undefined;
-  var tileHeight = undefined;
-
   var jsUIController = {
-    "imageLoaded" : function() {
-      var srcImg = $("#srcImg")[0];
-      imgWidth = srcImg.width;
-      imgHeight = srcImg.height;
-    },
     "setupGrid" : function(cols, rows) {
 
+      var srcImg = $("#srcImg")[0];
+      var imgWidth = srcImg.width;
+      var imgHeight = srcImg.height;      
+      var tileWidth = Math.floor(imgWidth / cols);
+      var tileHeight = Math.floor(imgHeight / rows);
+      
       $("#puzzle").empty();
       tiles = [];
-
-      tileWidth = Math.floor(imgWidth / cols);
-      tileHeight = Math.floor(imgHeight / rows);
 
       for (var row = 0; row < rows; row++) {
         for (var col = 0; col < cols; col++) {
@@ -31,11 +24,10 @@ function makeJsUIController() {
           $("#puzzle").append(tile);
           tile = tile.get(0);
 
-          var img = $("#srcImg").get(0);
           var ctx = tile.getContext("2d");
           var sx = col * tileWidth;
           var sy = row * tileHeight;
-          ctx.drawImage(img, sx, sy, tileWidth, tileHeight, 0, 0, tileWidth,
+          ctx.drawImage(srcImg, sx, sy, tileWidth, tileHeight, 0, 0, tileWidth,
               tileHeight);
           ctx.strokeRect(0, 0, tileWidth, tileHeight);
 
@@ -52,12 +44,6 @@ function makeJsUIController() {
           return tiles[i];
       }
       return undefined;
-    },
-    "getTileWidth" : function() {
-      return tileWidth;
-    },
-    "getTileHeight" : function() {
-      return tileHeight;
     },
     "getTileIds" : function() {
       var ids = [];
