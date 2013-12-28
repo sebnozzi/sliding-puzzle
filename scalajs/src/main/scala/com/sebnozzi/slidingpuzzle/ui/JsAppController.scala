@@ -7,7 +7,7 @@ import org.scalajs.jquery._
 
 class JsAppController extends AppController with JsLogging {
 
-  val imgSrc = "resources/2322324186_ca41fba641_o.jpg"
+  val imgSrc = "resources/img/2322324186_ca41fba641_o.jpg"
   var srcImg: JsImage = _
 
   override def start() {
@@ -46,7 +46,7 @@ class JsAppController extends AppController with JsLogging {
       (6, 4))
     val scalaJsCreditsDiv =
       jQuery("""<div class="credits">Powered by 
-          <img src="scala-js-logo-16.png" valign="middle"/><a 
+          <img src="resources/img/scala-js-logo-16.png" valign="middle"/><a 
           href="http://www.scala-js.org/">Scala.js</a></div>""")
     val toolbarDiv = buildToolbar(availableSizes)
 
