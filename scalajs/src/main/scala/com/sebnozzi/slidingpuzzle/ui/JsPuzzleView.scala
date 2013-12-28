@@ -1,14 +1,20 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import scala.scalajs.js
-import js.Dynamic
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 import scala.collection.mutable.Buffer
 
+import scala.scalajs.js
+import org.scalajs.jquery._
+import js.Dynamic
+
+
 class JsPuzzleView(gridSize: GridSize) extends PuzzleView with HasJsController {
 
   jsController.setupGrid(gridSize.columns, gridSize.rows)
+  
+  jQuery("#puzzle").css("width", jsController.getTileWidth * gridSize.columns)
+  jQuery("#puzzle").css("height", jsController.getTileHeight * gridSize.rows)  
   
   lazy val tileViews: List[JsTileView] = {
     val ids = jsController.getTileIds()
