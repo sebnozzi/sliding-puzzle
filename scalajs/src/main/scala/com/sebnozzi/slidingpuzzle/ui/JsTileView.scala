@@ -1,15 +1,35 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.Position
+import scala.scalajs.js
+import org.scalajs.jquery._
 
 class JsTileView(val tileId: String, jsController: JsUIController) extends TileView {
   def makeVisible(animate: Boolean) {
-    jsController.makeTileVisible(tileId, animate)
+    val tile = jsController.findTile(tileId)
+    if (animate) {
+      jQuery(tile).show(400)
+    } else {
+      jQuery(tile).show()
+    }
   }
   def makeHidden() {
-    jsController.makeTileHidden(tileId)
+    val tile = jsController.findTile(tileId)
+    jQuery(tile).hide()
   }
   def moveTileTo(pos: Position, animate: Boolean = false) {
-    jsController.moveTileTo(tileId, pos.col - 1, pos.row - 1, animate)
+    val tile = jsController.findTile(tileId);
+    val left = jsController.getTileWidth * (pos.col - 1);
+    val top = jsController.getTileHeight * (pos.row - 1);
+    if (animate) {
+      jQuery(tile).animate(
+        js.Dictionary(
+          ("left", left),
+          ("top", top)),
+        100)
+    } else {
+      jQuery(tile).css("top", top);
+      jQuery(tile).css("left", left);
+    }
   }
 }

@@ -8,8 +8,6 @@ function makeJsUIController() {
   var tileWidth = undefined;
   var tileHeight = undefined;
   
-  var currentSize = undefined;
-
   var tileCallback = function(tileId){};
   
   var jsUIController = {
@@ -22,7 +20,6 @@ function makeJsUIController() {
 
       $("#puzzle").empty();
       tiles = [];
-      currentSize = {"cols": cols, "rows": rows};
     
       tileWidth = Math.floor(imgWidth / cols);
       tileHeight = Math.floor(imgHeight / rows);
@@ -72,8 +69,11 @@ function makeJsUIController() {
       }
       return undefined;
     },    
-    "setMovesCount": function(newValue) {
-      $("#movesCount").html(newValue);
+    "getTileWidth": function() {
+      return tileWidth;
+    },
+    "getTileHeight": function() {
+      return tileHeight;
     },
     "getTileIds": function() {
       var ids = [];
@@ -81,43 +81,6 @@ function makeJsUIController() {
         ids.push($(tiles[i]).attr("id"));
       }
       return ids;
-    },
-    "makeTileVisible": function(tileId, animate) {
-      var tile = this.findTile(tileId);
-      if(animate) {
-        $(tile).show(400);
-      } else {
-        $(tile).show();
-      }
-    },
-    "makeTileHidden": function(tileId) {
-      var tile = this.findTile(tileId);
-      $(tile).hide();
-    },
-    "moveTileTo": function(tileId, targetCol, targetRow, animate) {
-      var tile = this.findTile(tileId);
-      var left = tileWidth * (targetCol);
-      var top = tileHeight * (targetRow);
-      if(animate) {
-        $(tile).animate({
-          "left": "" + left,
-          "top": "" + top,
-        }, 100);
-      } else {
-        $(tile).css("top", top); 
-        $(tile).css("left", left); 
-      }
-    },
-    "getSelectedSize": function() {
-      var commaSeparatedNumbers = $("#sizeSelector").val();
-      var parts = commaSeparatedNumbers.split(",");
-      var cols = parseInt(parts[0]);
-      var rows = parseInt(parts[1]);
-      return {"cols": cols, "rows": rows};
-    },
-    "setSelectedSize": function(cols, rows) {
-      var targetVal = cols + "," + rows;
-      $("#sizeSelector").val(targetVal);
     },
     "onTileClicked": function(callback) {
       tileCallback = callback;

@@ -10,32 +10,38 @@ class JsAppView() extends AppView with HasJsController {
 
   private def setupCallbacksOnUI() {
     log("Setting up shuffle button callback")
-    jQuery("#shuffleButton").click{ () => 
+    jQuery("#shuffleButton").click { () =>
       log("Shuffle button clicked")
       shuffleClicked()
     }
-    jQuery("#resetButton").click { () => 
+    jQuery("#resetButton").click { () =>
       resetClicked()
     }
-    jQuery("#sizeSelector").change { () => 
-      val jsSize = jsController.getSelectedSize()
-      val cols = jsSize.cols.toInt
-      val rows = jsSize.rows.toInt
-      val newSize = GridSize(cols, rows)
+    jQuery("#sizeSelector").change { () =>
+      val newSize = getSelectedSize()
       newSizeSelected(newSize)
     }
+  }
+
+  private def getSelectedSize(): GridSize = {
+    val commaSeparatedNumbers: String = jQuery("#sizeSelector").value().asInstanceOf[js.String]
+    val parts = commaSeparatedNumbers.split(",")
+    val cols = parts(0).toInt
+    val rows = parts(1).toInt
+    GridSize(cols, rows)
   }
 
   // Called when the amount of moves changes within the model.
   // The UI needs to be updated to reflect this fact.
   override def setMovesCount(newCount: Int) {
-    jsController.setMovesCount(newCount)
+    jQuery("#movesCount").html(newCount.toString);
   }
 
   // Called when the grid-size changes from within the model.
   // The UI needs to be updated to reflect this fact.
   override def selectGridSize(newSize: GridSize) {
-    jsController.setSelectedSize(newSize.columns, newSize.rows)
+    val targetVal = newSize.columns + "," + newSize.rows
+    jQuery("#sizeSelector").value(targetVal);
   }
 
   override def setPuzzleView(puzzleView: PuzzleView) {
