@@ -47,7 +47,9 @@ Package unoptimized code with SBT with:
 sbt scalajs/packageJS
 ```
 
-This will generate unoptimized JavaScript files. To load the unoptimized version of the puzzle, open this file in your browser:
+This will generate unoptimized JavaScript files.
+
+To load the unoptimized version of the puzzle, open this file in your browser:
 
 ```
 scalajs/index-dev.html
