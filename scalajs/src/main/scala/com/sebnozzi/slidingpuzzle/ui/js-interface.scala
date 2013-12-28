@@ -8,8 +8,8 @@ trait JsImage extends js.Object {
 }
 
 trait JsController extends js.Object {
-  def setupGrid(srcImg: JsImage, target: js.Object, cols: js.Number, rows: js.Number) = ???
-  def getNativeTiles(): js.Array[js.Object] = ???
+  //def setupGrid(srcImg: JsImage, target: js.Object, cols: js.Number, rows: js.Number) = ???
+  //def getNativeTiles(): js.Array[js.Object] = ???
 }
 
 trait JsLogging {
