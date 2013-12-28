@@ -16,15 +16,10 @@ class JsPuzzleView(gridSize: GridSize) extends PuzzleView with HasJsController {
     val tileAmount = ids.length.toInt
     for (i <- 0 until tileAmount) {
       val tileId = ids(i)
-      tiles += new JsTileView(tileId, jsController)
+      tiles += new JsTileView(tileId)
     }
     tiles.toList
   }
-
-  jsController.onTileClicked((tileId: String) => {
-    tileViews.find(_.tileId == tileId).foreach(_.mousePressed)
-    js.Object
-  })
 
   override def requestFocus() {
     // Not applicable to our JavaScript UI

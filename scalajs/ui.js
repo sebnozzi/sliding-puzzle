@@ -8,8 +8,6 @@ function makeJsUIController() {
   var tileWidth = undefined;
   var tileHeight = undefined;
   
-  var tileCallback = function(tileId){};
-  
   var jsUIController = {
     "imageLoaded": function() {
       var srcImg = $("#srcImg")[0];
@@ -49,19 +47,7 @@ function makeJsUIController() {
           tiles.push(tile);
         }
       }
-    
-      var _thisClosure = this;
-      $(tiles).click(function() {
-        var col = parseInt($(this).attr("data-col"));
-        var row = parseInt($(this).attr("data-row"));
-        var tileId = $(this).attr("id");
-        _thisClosure.tileClicked(tileId);
-      });
-    
     },
-    "tileClicked": function(tileId) {
-      tileCallback(tileId);
-    },    
     "findTile": function(id) {
       for(var i = 0; i < tiles.length; i++) {
         if($(tiles[i]).attr("id") == id)
@@ -81,10 +67,7 @@ function makeJsUIController() {
         ids.push($(tiles[i]).attr("id"));
       }
       return ids;
-    },
-    "onTileClicked": function(callback) {
-      tileCallback = callback;
-    }    
+    }
   };
   
   return jsUIController;
