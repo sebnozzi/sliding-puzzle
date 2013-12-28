@@ -20,6 +20,7 @@ class JsPuzzleView(srcImg: JsImage, gridSize: GridSize) extends PuzzleView with 
 
   val nativeTiles = setupGrid(srcImg, target = nativeView, gridSize.columns, gridSize.rows)
 
+  // TODO: cleanup
   def setupGrid(srcImg: JsImage, target: js.Object,
     cols: Int, rows: Int): Seq[js.Object] = {
     val tiles = Buffer[js.Object]()

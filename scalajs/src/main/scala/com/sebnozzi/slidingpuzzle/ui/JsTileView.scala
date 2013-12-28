@@ -26,6 +26,7 @@ class JsTileView(val nativeTile: js.Object, tileWidth: Int, tileHeight: Int) ext
     val left = tileWidth * (pos.col - 1)
     val top = tileHeight * (pos.row - 1)
     if (animate) {
+      // note the use of js.Dictionary for a JSON object
       jQuery(nativeTile).animate(
         js.Dictionary(
           ("left", left),
