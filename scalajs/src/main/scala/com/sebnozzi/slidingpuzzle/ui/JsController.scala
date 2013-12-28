@@ -7,7 +7,7 @@ trait JsSize extends js.Object {
   def rows: js.Number = ???
 }
 
-trait JsUIController extends js.Object {
+trait JsController extends js.Object {
   def imageLoaded() = ???
 
   def setupGrid(cols: js.Number, rows: js.Number) = ???
@@ -20,6 +20,6 @@ trait JsUIController extends js.Object {
 
 trait HasJsController {
   def log(msg: String) = js.Dynamic.global.console.log(msg)
-  def jsController: JsUIController =
-    js.Dynamic.global.window.jsUIController.asInstanceOf[JsUIController]
+  def jsController: JsController =
+    js.Dynamic.global.window.jsUIController.asInstanceOf[JsController]
 }
