@@ -4,7 +4,7 @@ import com.sebnozzi.slidingpuzzle.model.structs.Position
 import scala.scalajs.js
 import org.scalajs.jquery._
 
-class JsTileView(val nativeTile: js.Object, tileWidth: Int, tileHeight: Int) extends TileView with HasJsController {
+class JsTileView(val nativeTile: js.Object, tileWidth: Int, tileHeight: Int) extends TileView {
 
   jQuery(nativeTile).click { () =>
     this.mousePressed

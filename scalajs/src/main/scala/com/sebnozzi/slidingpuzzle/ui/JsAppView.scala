@@ -4,7 +4,7 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import scala.scalajs.js
 import org.scalajs.jquery._
 
-class JsAppView() extends AppView with HasJsController {
+class JsAppView() extends AppView with JsLogging {
   
   setupCallbacksOnUI()
 
@@ -46,6 +46,7 @@ class JsAppView() extends AppView with HasJsController {
 
   override def setPuzzleView(puzzleView: PuzzleView) {
     // do nothing, view permanently set on creation
+    // (should add here to DOM?)
   }
 
   override def show() {

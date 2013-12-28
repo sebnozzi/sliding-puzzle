@@ -5,7 +5,7 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import scala.scalajs.js
 import org.scalajs.jquery._
 
-class JsAppController extends AppController with HasJsController {
+class JsAppController extends AppController with JsLogging {
   
   val imgSrc = "resources/2322324186_ca41fba641_o.jpg"
   var srcImg: JsImage = _

@@ -3,15 +3,13 @@ function makeJsUIController() {
   var tiles = [];
 
   var jsUIController = {
-    "setupGrid" : function(cols, rows) {
+    "setupGrid" : function(srcImg, target, cols, rows) {
 
-      var srcImg = $("#srcImg")[0];
       var imgWidth = srcImg.width;
       var imgHeight = srcImg.height;      
       var tileWidth = Math.floor(imgWidth / cols);
       var tileHeight = Math.floor(imgHeight / rows);
       
-      $("#puzzle").empty();
       tiles = [];
 
       for (var row = 0; row < rows; row++) {
@@ -21,7 +19,7 @@ function makeJsUIController() {
               'class="absolute" width="' + tileWidth + '" '+
               'height="' + tileHeight + '"/>');
 
-          $("#puzzle").append(tile);
+          $(target).append(tile);
           tile = tile.get(0);
 
           var ctx = tile.getContext("2d");

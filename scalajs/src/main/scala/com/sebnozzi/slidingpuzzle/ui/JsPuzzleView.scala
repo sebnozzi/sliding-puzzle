@@ -10,13 +10,15 @@ import js.Dynamic
 
 class JsPuzzleView(srcImg: JsImage, gridSize: GridSize) extends PuzzleView with HasJsController {
 
-  jsController.setupGrid(gridSize.columns, gridSize.rows)
-
+  val nativeView = jQuery("#puzzle")
   val tileWidth = Math.floor(srcImg.width / gridSize.columns).toInt
   val tileHeight = Math.floor(srcImg.height / gridSize.rows).toInt
   
-  jQuery("#puzzle").css("width", tileWidth * gridSize.columns)
-  jQuery("#puzzle").css("height", tileHeight * gridSize.rows)
+  nativeView.empty()
+  nativeView.css("width", tileWidth * gridSize.columns)
+  nativeView.css("height", tileHeight * gridSize.rows)
+
+  jsController.setupGrid(srcImg, target = nativeView, gridSize.columns, gridSize.rows)
 
   lazy val tileViews: List[JsTileView] = {
     val nativeTiles = jsController.getNativeTiles()
