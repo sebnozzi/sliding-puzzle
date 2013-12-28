@@ -19,12 +19,11 @@ class JsPuzzleView(srcImg: JsImage, gridSize: GridSize) extends PuzzleView with 
   jQuery("#puzzle").css("height", tileHeight * gridSize.rows)
 
   lazy val tileViews: List[JsTileView] = {
-    val ids = jsController.getTileIds()
+    val nativeTiles = jsController.getNativeTiles()
     val tiles = Buffer[JsTileView]()
-    val tileAmount = ids.length.toInt
+    val tileAmount = nativeTiles.length.toInt
     for (i <- 0 until tileAmount) {
-      val tileId = ids(i)
-      tiles += new JsTileView(tileId, tileWidth, tileHeight)
+      tiles += new JsTileView(nativeTiles(i), tileWidth, tileHeight)
     }
     tiles.toList
   }

@@ -36,7 +36,7 @@ class JsAppController extends AppController with HasJsController {
   }
 
   private def buildBasicUI() {
-    // TODO: move sizes to core?
+    // TODO: move sizes to core, make it overridable
     val availableSizes = Seq(
       (3, 2),
       (3, 3),

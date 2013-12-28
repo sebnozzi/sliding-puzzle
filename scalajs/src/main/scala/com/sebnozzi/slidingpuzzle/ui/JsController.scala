@@ -4,8 +4,7 @@ import scala.scalajs.js
 
 trait JsController extends js.Object {
   def setupGrid(cols: js.Number, rows: js.Number) = ???
-  def findTile(tileId: js.String): js.Object = ???
-  def getTileIds(): js.Array[String] = ???
+  def getNativeTiles(): js.Array[js.Object] = ???
 }
 
 trait HasJsController {

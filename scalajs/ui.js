@@ -38,19 +38,8 @@ function makeJsUIController() {
         }
       }
     },
-    "findTile" : function(id) {
-      for (var i = 0; i < tiles.length; i++) {
-        if ($(tiles[i]).attr("id") == id)
-          return tiles[i];
-      }
-      return undefined;
-    },
-    "getTileIds" : function() {
-      var ids = [];
-      for (var i = 0; i < tiles.length; i++) {
-        ids.push($(tiles[i]).attr("id"));
-      }
-      return ids;
+    "getNativeTiles" : function() {
+      return tiles;
     }
   };
 
