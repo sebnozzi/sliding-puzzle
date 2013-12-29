@@ -3,23 +3,24 @@ package com.sebnozzi.slidingpuzzle.ui
 import com.sebnozzi.slidingpuzzle.model.structs.Position
 import scala.scalajs.js
 import org.scalajs.jquery._
+import org.scalajs.dom.HTMLCanvasElement
 
-class JsTileView(val nativeTile: js.Object, tileWidth: Int, tileHeight: Int) extends TileView {
+class JsTileView(val tileCanvas: HTMLCanvasElement, tileWidth: Int, tileHeight: Int) extends TileView {
 
-  jQuery(nativeTile).click { () =>
+  jQuery(tileCanvas).click { () =>
     this.mousePressed
   }
 
   def makeVisible(animate: Boolean) {
     if (animate) {
-      jQuery(nativeTile).show(400)
+      jQuery(tileCanvas).show(400)
     } else {
-      jQuery(nativeTile).show()
+      jQuery(tileCanvas).show()
     }
   }
 
   def makeHidden() {
-    jQuery(nativeTile).hide()
+    jQuery(tileCanvas).hide()
   }
 
   def moveTileTo(pos: Position, animate: Boolean = false) {
@@ -27,14 +28,14 @@ class JsTileView(val nativeTile: js.Object, tileWidth: Int, tileHeight: Int) ext
     val top = tileHeight * (pos.row - 1)
     if (animate) {
       // note the use of js.Dictionary for a JSON object
-      jQuery(nativeTile).animate(
+      jQuery(tileCanvas).animate(
         js.Dictionary(
           ("left", left),
           ("top", top)),
         100)
     } else {
-      jQuery(nativeTile).css("top", top)
-      jQuery(nativeTile).css("left", left)
+      jQuery(tileCanvas).css("top", top)
+      jQuery(tileCanvas).css("left", left)
     }
   }
 

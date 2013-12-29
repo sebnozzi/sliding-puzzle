@@ -5,8 +5,8 @@ import com.sebnozzi.slidingpuzzle.ui.AppController
 import com.sebnozzi.slidingpuzzle.ui.JsAppController
 
 object SlidingPuzzleMain {
-  def main(): Unit = {
-    val appController = new JsAppController()
+  def main(puzzleImgId:String): Unit = {
+    val appController = new JsAppController(puzzleImgId)
     appController.start()
   }
 }
