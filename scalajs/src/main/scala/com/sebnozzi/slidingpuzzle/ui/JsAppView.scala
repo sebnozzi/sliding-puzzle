@@ -4,14 +4,12 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import scala.scalajs.js
 import org.scalajs.jquery._
 
-class JsAppView(toolbar: JqToolbar) extends AppView with JsLogging {
+class JsAppView(toolbar: JqToolbar) extends AppView {
 
   setupCallbacksOnUI()
 
   private def setupCallbacksOnUI() {
-    log("Setting up shuffle button callback")
     toolbar.shuffleButton.click { () =>
-      log("Shuffle button clicked")
       shuffleClicked()
     }
     toolbar.resetButton.click { () =>
