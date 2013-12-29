@@ -2,6 +2,8 @@
 
 [Sliding Puzzle](http://en.wikipedia.org/wiki/Sliding_puzzle) implemented in [**Scala**](http://www.scala-lang.org/).
 
+See the [online demo](http://www.sebnozzi.com/demos/sliding-puzzle/) here.
+
 ## Multi-platform
 
 Thanks to [Scala.js](http://www.scala-js.org/), it compiles both to:
