@@ -1,6 +1,9 @@
 import sbt._
 import Keys._
 
+import sbtassembly.Plugin._
+import AssemblyKeys._
+
 import scala.scalajs.sbtplugin._
 import ScalaJSPlugin._
 import ScalaJSKeys._
@@ -28,7 +31,7 @@ object SlidingPuzzleBuild extends Build {
       unmanagedJars in Compile += Attributed.blank(
           file(scala.util.Properties.javaHome) / "lib" / "jfxrt.jar"),
       fork in run := true
-  )
+  ) ++ Seq(assemblySettings:_*)
 
   val scalafxSettings: Seq[Setting[_]] = javafxSettings ++ Seq(
       libraryDependencies += "org.scalafx" %% "scalafx" % "1.0.0-M4"
@@ -56,6 +59,8 @@ object SlidingPuzzleBuild extends Build {
   ).settings(
       name := "SlidingPuzzle JavaFX",
       libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+  ).settings(
+    jarName in assembly := "slidingPuzzle.jar"
   ).dependsOn(core)
 
   lazy val coreJs = project.settings(
