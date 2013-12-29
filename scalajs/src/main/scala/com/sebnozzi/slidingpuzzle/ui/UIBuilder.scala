@@ -7,8 +7,6 @@ trait UIBuilder extends HtmlBuilder with JqToolbar {
 
   def availableSizes: Seq[(Int, Int)]
 
-  val scalaJsLogo = "resources/img/scala-js-logo-16.png"
-
   val puzzleDiv = div(cssClass="puzzle")
   val shuffleButton = button(label = "Shuffle!")
   val resetButton = button(label = "Reset")
@@ -24,7 +22,6 @@ trait UIBuilder extends HtmlBuilder with JqToolbar {
 
   def buildUI(target: JQuery) {
     jQuery(target).append(gameDiv)
-    jQuery(target).append(scalaJsCreditsDiv)
   }
 
   private def gameDiv = {
@@ -32,13 +29,6 @@ trait UIBuilder extends HtmlBuilder with JqToolbar {
     gameDiv.append(buildToolbar)
     gameDiv.append(puzzleDiv)
     gameDiv
-  }
-
-  private def scalaJsCreditsDiv = {
-    val creditsDiv = div(cssClass = "credits")
-    creditsDiv.html(s"""Powered by <img src="$scalaJsLogo" 
-        valign="middle"/><a href="http://www.scala-js.org/">Scala.js</a>""")
-    creditsDiv
   }
   
   private def buildToolbar: JQuery = {
