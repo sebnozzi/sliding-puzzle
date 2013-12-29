@@ -45,9 +45,12 @@ h1{
   font-weight: bold;
 }
 
+.moves {
+ font-size: small;
+}
+
 .message {
   padding-left: 20px;
-  
 }
 
 .relative {

@@ -10,17 +10,17 @@ trait UIBuilder extends HtmlBuilder with JqToolbar {
   val scalaJsLogo = "resources/img/scala-js-logo-16.png"
 
   val puzzleDiv = div(cssClass="puzzle")
-  val shuffleButton = button(id = "shuffleButton", label = "Shuffle!")
-  val resetButton = button(id = "resetButton", label = "Reset")
+  val shuffleButton = button(label = "Shuffle!")
+  val resetButton = button(label = "Reset")
   val sizeSelect: JQuery = {
-    val selectNode = select(id = "sizeSelector")
+    val selectNode = select()
     for ((cols, rows) <- availableSizes) {
       selectNode.append(option(value = s"$cols,$rows",
         label = s"${cols}x${rows}"))
     }
     selectNode
   }
-  val (movesWidget, movesCount) = labelledValue(id = "movesCount", label = "Moves:", value = "0")
+  val (movesWidget, movesCount) = labelledValue(cssClass = "moves", label = "Moves:", value = "0")
 
   def buildUI(target: JQuery) {
     jQuery(target).append(gameDiv)
