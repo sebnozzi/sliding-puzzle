@@ -6,7 +6,7 @@ import scala.scalajs.js
 import org.scalajs.jquery._
 import org.scalajs.dom.HTMLImageElement
 
-class JsAppController(imgId: String) extends AppController 
+class JsAppController(jqueryImg: JQuery) extends AppController 
   with UIBuilder with JqToolbar {
 
   lazy val availableSizes = Seq(
@@ -15,7 +15,7 @@ class JsAppController(imgId: String) extends AppController
     (4, 3),
     (6, 4))
 
-  val srcImg: HTMLImageElement = jQuery(s"#$imgId").asInstanceOf[js.Array[HTMLImageElement]](0)
+  val srcImg: HTMLImageElement = jqueryImg.asInstanceOf[js.Array[HTMLImageElement]](0)
   val target = jQuery(srcImg).parent()
   
   override def start() {
