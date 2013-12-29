@@ -33,11 +33,23 @@ Here's a screenshot of the [Scala.js](http://www.scala-js.org/) based version, r
 
 You'll need Oracle's JDK 7 or later (as of 2013, OpenJDK will not work as it does not include JavaFX - yet?).
 
+#### Running
+
 Run using SBT with:
 
 ```
 sbt javafx/run
 ```
+
+#### Packaging
+
+Package as a stand-alone JAR with:
+
+```
+sbt javafx/assembly
+```
+
+This makes use of the [SBT-assebly](https://github.com/sbt/sbt-assembly) plugin.
 
 ### Scala.js Version
 
