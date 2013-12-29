@@ -9,12 +9,12 @@ import js.Dynamic
 import org.scalajs.dom.HTMLImageElement
 import org.scalajs.dom.HTMLCanvasElement
 
-class JsPuzzleView(srcImg: HTMLImageElement, gridSize: GridSize) extends PuzzleView {
+class JsPuzzleView(srcImg: HTMLImageElement, nativeView:JQuery, gridSize: GridSize)
+    extends PuzzleView with HtmlBuilder {
 
   val cols = gridSize.columns
   val rows = gridSize.rows
-  
-  val nativeView = jQuery("#puzzle")
+
   val tileWidth = Math.floor(srcImg.width / cols).toInt
   val tileHeight = Math.floor(srcImg.height / rows).toInt
 
@@ -22,40 +22,35 @@ class JsPuzzleView(srcImg: HTMLImageElement, gridSize: GridSize) extends PuzzleV
   nativeView.css("width", tileWidth * cols)
   nativeView.css("height", tileHeight * rows)
 
-  val tileViews: List[JsTileView] = {
-    val tiles = Buffer[JsTileView]()
+  val tileViews: List[JsTileView] = (for {
+    row <- 0 until rows
+    col <- 0 until cols
+  } yield {
+    val tileCanvas = canvas(
+      width = tileWidth,
+      height = tileHeight,
+      cssClass = "absolute")
 
-    for (row <- 0 until rows) {
-      for (col <- 0 until cols) {
-        val tile = jQuery(
-          s"""<canvas class="absolute" width="$tileWidth" """ +
-            s"""height="$tileHeight"/>""")
+    jQuery(nativeView).append(tileCanvas)
 
-        jQuery(nativeView).append(tile)
-        
-        val tileCanvas = tile.get(0).asInstanceOf[HTMLCanvasElement] 
-        val ctx = {
-          tileCanvas.getContext("2d")
-        }
-        
-        // Copy image part into tile
-        val sx = col * tileWidth
-        val sy = row * tileHeight
-        ctx.drawImage(srcImg, sx, sy, tileWidth, tileHeight, 0, 0, tileWidth,
-          tileHeight)
-          
-        // Draw tile border
-        ctx.strokeRect(0, 0, tileWidth, tileHeight)
+    val sx = col * tileWidth
+    val sy = row * tileHeight
 
-        // Position tile
-        jQuery(tile).css("left", sx)
-        jQuery(tile).css("top", sy)
+    // Position tile
+    jQuery(tileCanvas).css("left", sx)
+    jQuery(tileCanvas).css("top", sy)
 
-        tiles += new JsTileView(tileCanvas, tileWidth, tileHeight)
-      }
-    }
-    tiles.toList
-  }
+    val ctx = tileCanvas.getContext("2d")
+
+    // Copy image part into tile
+    ctx.drawImage(srcImg, sx, sy, tileWidth, tileHeight, 0, 0, tileWidth,
+      tileHeight)
+
+    // Draw tile border
+    ctx.strokeRect(0, 0, tileWidth, tileHeight)
+
+    new JsTileView(tileCanvas, tileWidth, tileHeight)
+  }).toList
 
   override def requestFocus() {
     // Not applicable to our JavaScript UI

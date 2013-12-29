@@ -6,9 +6,10 @@ import scala.scalajs.js
 import org.scalajs.jquery._
 import org.scalajs.dom.HTMLImageElement
 
-class JsAppController(imgId: String) extends AppController {
+class JsAppController(imgId: String) extends AppController 
+  with UIBuilder with JqToolbar {
 
-  val availableSizes = Seq(
+  lazy val availableSizes = Seq(
     (3, 2),
     (3, 3),
     (4, 3),
@@ -18,17 +19,17 @@ class JsAppController(imgId: String) extends AppController {
   val target = jQuery(srcImg).parent()
   
   override def start() {
-    UIBuilder.buildUI(target, availableSizes)
+    buildUI(target)
     super.start()
     jQuery(srcImg).hide()
   }
 
   override def createAppView(): AppView = {
-    new JsAppView()
+    new JsAppView(this)
   }
 
   override def createPuzzleView(gridSize: GridSize): PuzzleView = {
-    new JsPuzzleView(srcImg, gridSize)
+    new JsPuzzleView(srcImg, puzzleDiv, gridSize)
   }
 
 }

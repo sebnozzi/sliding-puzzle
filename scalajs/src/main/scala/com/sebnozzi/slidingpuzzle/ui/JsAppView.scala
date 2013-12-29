@@ -4,27 +4,27 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import scala.scalajs.js
 import org.scalajs.jquery._
 
-class JsAppView() extends AppView with JsLogging {
-  
+class JsAppView(toolbar: JqToolbar) extends AppView with JsLogging {
+
   setupCallbacksOnUI()
 
   private def setupCallbacksOnUI() {
     log("Setting up shuffle button callback")
-    jQuery("#shuffleButton").click { () =>
+    toolbar.shuffleButton.click { () =>
       log("Shuffle button clicked")
       shuffleClicked()
     }
-    jQuery("#resetButton").click { () =>
+    toolbar.resetButton.click { () =>
       resetClicked()
     }
-    jQuery("#sizeSelector").change { () =>
+    toolbar.sizeSelect.change { () =>
       val newSize = getSelectedSize()
       newSizeSelected(newSize)
     }
   }
 
   private def getSelectedSize(): GridSize = {
-    val commaSeparatedNumbers: String = jQuery("#sizeSelector").value().asInstanceOf[js.String]
+    val commaSeparatedNumbers: String = toolbar.sizeSelect.value().asInstanceOf[js.String]
     val parts = commaSeparatedNumbers.split(",")
     val cols = parts(0).toInt
     val rows = parts(1).toInt
@@ -34,14 +34,14 @@ class JsAppView() extends AppView with JsLogging {
   // Called when the amount of moves changes within the model.
   // The UI needs to be updated to reflect this fact.
   override def setMovesCount(newCount: Int) {
-    jQuery("#movesCount").html(newCount.toString);
+    toolbar.movesCount.html(newCount.toString);
   }
 
   // Called when the grid-size changes from within the model.
   // The UI needs to be updated to reflect this fact.
   override def selectGridSize(newSize: GridSize) {
     val targetVal = newSize.columns + "," + newSize.rows
-    jQuery("#sizeSelector").value(targetVal);
+    toolbar.sizeSelect.value(targetVal);
   }
 
   override def setPuzzleView(puzzleView: PuzzleView) {

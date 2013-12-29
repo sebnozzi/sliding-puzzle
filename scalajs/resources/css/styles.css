@@ -33,7 +33,7 @@ h1{
   display: none;
 }
 
-#puzzle {
+.puzzle {
   position: relative;
   background: black;
 }
@@ -45,7 +45,7 @@ h1{
   font-weight: bold;
 }
 
-#message {
+.message {
   padding-left: 20px;
   
 }
