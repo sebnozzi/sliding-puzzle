@@ -100,14 +100,15 @@ abstract class AppController() {
 
   private def arrowKeyPressed(arrowKey: ArrowKey) {
     import com.sebnozzi.slidingpuzzle.ui.keys.{Down, Left, Right, Up}
-    val tileToMove: Option[PuzzleTile] = arrowKey match {
-      case Up => { hiddenTile.tileBelow }
-      case Down => { hiddenTile.tileAbove }
-      case Left => { hiddenTile.tileRight }
-      case Right => { hiddenTile.tileLeft }
+    val optTileToMove: Option[PuzzleTile] = arrowKey match {
+      case Up => hiddenTile.tileBelow
+      case Down => hiddenTile.tileAbove
+      case Left => hiddenTile.tileRight
+      case Right => hiddenTile.tileLeft
     }
-
-    tileToMove.map { _.moveToEmptySlot() }
+    optTileToMove foreach {
+      _.moveToEmptySlot()
+    }
   }
 
 }

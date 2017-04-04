@@ -5,7 +5,7 @@ import org.scalatest.{BeforeAndAfter, FunSuite}
 
 import scala.language.implicitConversions
 
-class puzzleSuite extends FunSuite with BeforeAndAfter {
+class PuzzleSuite extends FunSuite with BeforeAndAfter {
 
   implicit def tupleToPosition(tuple: (Int, Int)): Position = Position(tuple._1, tuple._2)
 

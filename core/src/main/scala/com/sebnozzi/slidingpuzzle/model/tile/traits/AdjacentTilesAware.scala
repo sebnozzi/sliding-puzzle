@@ -19,16 +19,16 @@ trait AdjacentTilesAware { self:PositionAware =>
     tileBelow).flatten
 
   def tileAbove: Option[PuzzleTile] =
-    currentPosition.aboveIn(positionsRect).map { tileAt }
+    currentPosition.aboveIn(positionsRect).map(pos => tileAt(pos))
 
   def tileBelow: Option[PuzzleTile] =
-    currentPosition.belowIn(positionsRect).map { tileAt }
+    currentPosition.belowIn(positionsRect).map(pos => tileAt(pos))
 
   def tileLeft: Option[PuzzleTile] =
-    currentPosition.leftIn(positionsRect).map { tileAt }
+    currentPosition.leftIn(positionsRect).map(pos => tileAt(pos))
 
   def tileRight: Option[PuzzleTile] =
-    currentPosition.rightIn(positionsRect).map { tileAt }
+    currentPosition.rightIn(positionsRect).map(pos => tileAt(pos))
 
   def randomAdjacentTile: PuzzleTile = {
     val tiles = adjacentTiles
