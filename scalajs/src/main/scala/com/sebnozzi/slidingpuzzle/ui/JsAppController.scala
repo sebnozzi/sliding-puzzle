@@ -1,10 +1,10 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import org.scalajs.dom.html
+import org.scalajs.jquery._
 
 import scala.scalajs.js
-import org.scalajs.jquery._
-import org.scalajs.dom.html
 
 class JsAppController(jqueryImg: JQuery) extends AppController
   with UIBuilder with JqToolbar {

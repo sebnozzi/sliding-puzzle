@@ -1,15 +1,15 @@
 package com.sebnozzi.slidingpuzzle.model.tile.traits
 
-import com.sebnozzi.slidingpuzzle.model.structs.Rect
-import com.sebnozzi.slidingpuzzle.model.structs.Position
 import com.sebnozzi.slidingpuzzle.model.PuzzleTile
+import com.sebnozzi.slidingpuzzle.model.structs.{Position, Rect}
+
 import scala.util.Random
 
 trait AdjacentTilesAware { self:PositionAware =>
 
   protected def positionsRect: Rect
   protected def tileAt(pos: Position): PuzzleTile
-  
+
   def isAdjacentTo(other: PuzzleTile) = adjacentTiles.contains(other)
 
   def adjacentTiles: List[PuzzleTile] = List(

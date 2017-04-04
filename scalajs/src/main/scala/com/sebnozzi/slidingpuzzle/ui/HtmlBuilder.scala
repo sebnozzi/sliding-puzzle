@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import org.scalajs.jquery._
 import org.scalajs.dom.html
+import org.scalajs.jquery._
 
 trait HtmlBuilder {
   def div(cssClass: String = null): JQuery = {

@@ -1,14 +1,13 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import javafx.scene.canvas.Canvas
-import com.sebnozzi.slidingpuzzle.model.structs.Position
-import javafx.scene.Group
-import javafx.scene.Node
+import javafx.animation.{FadeTransitionBuilder, TranslateTransitionBuilder}
 import javafx.event.EventHandler
+import javafx.scene.Group
+import javafx.scene.canvas.Canvas
 import javafx.scene.input.MouseEvent
-import javafx.animation.TranslateTransitionBuilder
 import javafx.util.Duration
-import javafx.animation.FadeTransitionBuilder
+
+import com.sebnozzi.slidingpuzzle.model.structs.Position
 import com.sebnozzi.slidingpuzzle.ui.TileView
 
 class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {

@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import org.scalatest.FunSuite
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import org.scalatest.FunSuite
 
 class AppControllerSuite extends FunSuite {
 

@@ -1,9 +1,10 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.Position
-import scala.scalajs.js
-import org.scalajs.jquery._
 import org.scalajs.dom.html
+import org.scalajs.jquery._
+
+import scala.scalajs.js
 
 class JsTileView(val tileCanvas: html.Canvas, tileWidth: Int, tileHeight: Int) extends TileView {
 

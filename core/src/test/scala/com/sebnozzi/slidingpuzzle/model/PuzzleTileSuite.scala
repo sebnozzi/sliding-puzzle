@@ -1,9 +1,7 @@
 package com.sebnozzi.slidingpuzzle.model
 
-import org.scalatest.BeforeAndAfter
-import org.scalatest.FunSuite
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.model.structs.Position
+import org.scalatest.{BeforeAndAfter, FunSuite}
 
 class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
 
@@ -44,7 +42,7 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
     puzzle4x3.setHiddenTileAt(4, 3)
     assert(tile1.canMoveToEmptySlot === false)
   }
-  
+
   test("tile notifies puzzle on every move") {
     var called = false
     val puzzle = new Puzzle(GridSize(columns = 4, rows = 3)) {
@@ -71,7 +69,7 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
     puzzle.reset()
     assert(calls === 1)
   }
-  
+
   test("setting another tile as hidden unsets the previous one") {
     puzzle4x3.tileAt(4, 2).makeHidden()
     puzzle4x3.tileAt(4, 3).makeHidden()
@@ -92,5 +90,5 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
 
     assert(calls === 2)
   }
-  
+
 }

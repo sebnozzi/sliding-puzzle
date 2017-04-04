@@ -1,8 +1,7 @@
 package com.sebnozzi.slidingpuzzle.model.tile.traits
 
-import org.scalatest.FunSuite
 import com.sebnozzi.slidingpuzzle.model.structs.Position
-import org.scalatest.BeforeAndAfter
+import org.scalatest.{BeforeAndAfter, FunSuite}
 
 class PositionAwareSuite extends FunSuite with BeforeAndAfter {
 

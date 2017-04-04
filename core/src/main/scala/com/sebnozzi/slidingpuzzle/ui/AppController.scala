@@ -1,8 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
+import com.sebnozzi.slidingpuzzle.model.{Puzzle, PuzzleTile}
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.model.PuzzleTile
-import com.sebnozzi.slidingpuzzle.model.Puzzle
 import com.sebnozzi.slidingpuzzle.ui.keys.ArrowKey
 
 abstract class AppController() {
@@ -100,7 +99,7 @@ abstract class AppController() {
   }
 
   private def arrowKeyPressed(arrowKey: ArrowKey) {
-    import com.sebnozzi.slidingpuzzle.ui.keys.{ Up, Down, Left, Right }
+    import com.sebnozzi.slidingpuzzle.ui.keys.{Down, Left, Right, Up}
     val tileToMove: Option[PuzzleTile] = arrowKey match {
       case Up => { hiddenTile.tileBelow }
       case Down => { hiddenTile.tileAbove }

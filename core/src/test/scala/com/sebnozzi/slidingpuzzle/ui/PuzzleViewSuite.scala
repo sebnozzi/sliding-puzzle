@@ -1,10 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import org.scalatest.FunSuite
-import org.scalatest.BeforeAndAfter
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.model.structs.Position
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import org.scalatest.{BeforeAndAfter, FunSuite}
 
 class PuzzleViewSuite extends FunSuite with BeforeAndAfter {
 

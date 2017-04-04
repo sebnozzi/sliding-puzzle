@@ -1,10 +1,8 @@
 package com.sebnozzi.slidingpuzzle.model.tile.traits
 
-import org.scalatest.FunSuite
-import org.scalatest.BeforeAndAfter
 import com.sebnozzi.slidingpuzzle.model.Puzzle
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.model.structs.Position
+import com.sebnozzi.slidingpuzzle.model.structs.{GridSize, Position}
+import org.scalatest.{BeforeAndAfter, FunSuite}
 
 class AdjacentTilesAwareSuite extends FunSuite with BeforeAndAfter {
 

@@ -1,11 +1,10 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx.utils
 
-import org.scalatest.FunSuite
-import org.scalatest.BeforeAndAfter
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
+
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import org.scalatest.Ignore
+import org.scalatest.{BeforeAndAfter, FunSuite, Ignore}
 
 @Ignore
 class ImageSlicerSuite extends FunSuite with BeforeAndAfter {

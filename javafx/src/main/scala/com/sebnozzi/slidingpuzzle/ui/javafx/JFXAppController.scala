@@ -1,11 +1,10 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import com.sebnozzi.slidingpuzzle.ui.AppController
-import javafx.stage.Stage
 import javafx.scene.image.Image
-import com.sebnozzi.slidingpuzzle.ui.PuzzleView
+import javafx.stage.Stage
+
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.ui.AppView
+import com.sebnozzi.slidingpuzzle.ui.{AppController, AppView, PuzzleView}
 
 class JFXAppController(mainWindow: Stage) extends AppController {
 

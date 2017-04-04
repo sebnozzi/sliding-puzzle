@@ -2,6 +2,7 @@ package com.sebnozzi.slidingpuzzle.ui.javafx.utils
 
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
+
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 
 class ImageSlicer(val img: Image, gridSize: GridSize) {

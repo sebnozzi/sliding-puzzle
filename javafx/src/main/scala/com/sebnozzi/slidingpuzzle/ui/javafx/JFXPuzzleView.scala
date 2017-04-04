@@ -1,11 +1,11 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.ui.PuzzleView
-import com.sebnozzi.slidingpuzzle.model.structs.Position
 import javafx.scene.Group
 import javafx.scene.image.Image
+
+import com.sebnozzi.slidingpuzzle.model.structs.{GridSize, Position}
+import com.sebnozzi.slidingpuzzle.ui.PuzzleView
+import com.sebnozzi.slidingpuzzle.ui.javafx.utils.ImageSlicer
 
 class JFXPuzzleView(img: Image, gridSize: GridSize) extends Group with PuzzleView {
 

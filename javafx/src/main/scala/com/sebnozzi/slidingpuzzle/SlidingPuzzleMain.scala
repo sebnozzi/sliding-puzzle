@@ -1,7 +1,7 @@
 package com.sebnozzi.slidingpuzzle
 
-import _root_.javafx.stage.Stage
 import _root_.javafx.application.Application
+import _root_.javafx.stage.Stage
 
 import com.sebnozzi.slidingpuzzle.ui.javafx.JFXAppController
 

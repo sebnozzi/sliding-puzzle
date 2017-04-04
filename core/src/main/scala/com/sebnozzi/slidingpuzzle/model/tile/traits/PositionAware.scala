@@ -1,7 +1,6 @@
 package com.sebnozzi.slidingpuzzle.model.tile.traits
 
 import com.sebnozzi.slidingpuzzle.model.structs.Position
-import com.sebnozzi.slidingpuzzle.model.PuzzleTile
 
 trait PositionAware {
 

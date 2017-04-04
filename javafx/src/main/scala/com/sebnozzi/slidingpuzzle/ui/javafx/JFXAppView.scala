@@ -1,20 +1,16 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.ui.AppView
-import com.sebnozzi.slidingpuzzle.ui.PuzzleView
 import javafx.application.Platform
 import javafx.event.EventHandler
-import javafx.scene.Group
-import javafx.scene.Parent
-import javafx.scene.Scene
-import javafx.scene.input.KeyEvent
+import javafx.scene.{Group, Parent, Scene}
+import javafx.scene.input.{KeyCode, KeyEvent}
 import javafx.scene.layout.VBox
 import javafx.scene.paint.Color
-import javafx.stage.Stage
-import javafx.stage.WindowEvent
-import javafx.scene.input.KeyCode
-import com.sebnozzi.slidingpuzzle.ui.keys.{ Up, Down, Left, Right }
+import javafx.stage.{Stage, WindowEvent}
+
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import com.sebnozzi.slidingpuzzle.ui.{AppView, PuzzleView}
+import com.sebnozzi.slidingpuzzle.ui.keys.{Down, Left, Right, Up}
 
 class JFXAppView(window: Stage) extends AppView {
 
