@@ -14,11 +14,16 @@ lazy val defaultSettings = Seq(
 
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % "test"
 
-lazy val javafxSettings = Seq(
-  unmanagedJars in Compile += Attributed.blank(
-    file(scala.util.Properties.javaHome) / "lib" / "jfxrt.jar"),
-  fork in run := true
-)
+lazy val javafxSettings = (
+  if (scala.util.Properties.javaHome.contains("openjdk"))
+    Seq(
+      fork := true,
+      unmanagedJars in Compile += Attributed.blank(
+        file(scala.util.Properties.javaHome) / "lib" / "ext" / "jfxrt.jar"))
+  else
+    Seq(
+      fork := true
+    ))
 
 lazy val scalafxSettings = javafxSettings ++ Seq(
   libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.102-R11"

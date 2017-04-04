@@ -29,7 +29,9 @@ Here's a screenshot of the [Scala.js](http://www.scala-js.org/) based version, r
 
 ### JavaFX Version
 
-You'll need Oracle's JDK 7 or later (as of 2013, OpenJDK will not work as it does not include JavaFX - yet?).
+For Windows / OSX you will need JDK 7 or later.
+
+For Linux you need to install openjdk-8 **and openjfx**.
 
 #### Running
 
