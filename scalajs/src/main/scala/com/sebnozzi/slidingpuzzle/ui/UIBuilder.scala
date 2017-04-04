@@ -1,7 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import org.scalajs.jquery._
-import org.scalajs.dom.HTMLCanvasElement
 
 trait UIBuilder extends HtmlBuilder with JqToolbar {
 
@@ -30,7 +29,7 @@ trait UIBuilder extends HtmlBuilder with JqToolbar {
     gameDiv.append(puzzleDiv)
     gameDiv
   }
-  
+
   private def buildToolbar: JQuery = {
     val toolbar = div(cssClass = "toolbar")
     toolbar.append(sizeSelect)

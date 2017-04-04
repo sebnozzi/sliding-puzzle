@@ -1,8 +1,7 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import scala.scalajs.js
-import org.scalajs.jquery._
+
 
 class JsAppView(toolbar: JqToolbar) extends AppView {
 
@@ -22,7 +21,7 @@ class JsAppView(toolbar: JqToolbar) extends AppView {
   }
 
   private def getSelectedSize(): GridSize = {
-    val commaSeparatedNumbers: String = toolbar.sizeSelect.value().asInstanceOf[js.String]
+    val commaSeparatedNumbers: String = toolbar.sizeSelect.value().asInstanceOf[String]
     val parts = commaSeparatedNumbers.split(",")
     val cols = parts(0).toInt
     val rows = parts(1).toInt

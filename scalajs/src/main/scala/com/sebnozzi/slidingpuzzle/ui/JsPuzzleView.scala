@@ -1,15 +1,11 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import com.sebnozzi.slidingpuzzle.model.structs.Position
-import scala.collection.mutable.Buffer
-import scala.scalajs.js
+import org.scalajs.dom.html
 import org.scalajs.jquery._
-import js.Dynamic
-import org.scalajs.dom.HTMLImageElement
-import org.scalajs.dom.HTMLCanvasElement
 
-class JsPuzzleView(srcImg: HTMLImageElement, nativeView:JQuery, gridSize: GridSize)
+
+class JsPuzzleView(srcImg: html.Image, nativeView:JQuery, gridSize: GridSize)
     extends PuzzleView with HtmlBuilder {
 
   val cols = gridSize.columns

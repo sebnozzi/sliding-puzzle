@@ -1,20 +1,13 @@
 import sbt._
 import Keys._
 
-import sbtassembly.Plugin._
-import AssemblyKeys._
-
-import scala.scalajs.sbtplugin._
-import ScalaJSPlugin._
-import ScalaJSKeys._
-
-import ScctPlugin.instrumentSettings
-
+import org.scalajs.sbtplugin.ScalaJSPlugin
+import org.scalajs.sbtplugin.ScalaJSPlugin.autoImport._
 
 
 object SlidingPuzzleBuild extends Build {
 
-  val slidingPuzzleScalaVersion = "2.10.3"
+  val slidingPuzzleScalaVersion = "2.11.8"
 
   val defaultSettings: Seq[Setting[_]] = Seq(
       scalaVersion := slidingPuzzleScalaVersion,
@@ -31,18 +24,16 @@ object SlidingPuzzleBuild extends Build {
       unmanagedJars in Compile += Attributed.blank(
           file(scala.util.Properties.javaHome) / "lib" / "jfxrt.jar"),
       fork in run := true
-  ) ++ Seq(assemblySettings:_*)
+  )
 
   val scalafxSettings: Seq[Setting[_]] = javafxSettings ++ Seq(
-      libraryDependencies += "org.scalafx" %% "scalafx" % "1.0.0-M4"
+      libraryDependencies += "org.scalafx" %% "scalafx" % "8.0.102-R11"
   )
 
   lazy val root = project.in(file(".")).settings(
       defaultSettings: _*
   ).settings(
       name := "SlidingPuzzle"
-  ).settings(
-      ScctPlugin.mergeReportSettings: _*
   ).aggregate(
       core, javafx
   )
@@ -52,34 +43,32 @@ object SlidingPuzzleBuild extends Build {
   ).settings(
       name := "SlidingPuzzle Core",
       libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
-  ).settings(ScctPlugin.instrumentSettings: _*) 
-  
+  )
+
   lazy val javafx = project.in(file("javafx")).settings(
       (defaultSettings ++ scalafxSettings): _*
   ).settings(
       name := "SlidingPuzzle JavaFX",
       libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
-  ).settings(
-    jarName in assembly := "slidingPuzzle.jar"
   ).dependsOn(core)
 
   lazy val coreJs = project.settings(
-      (defaultSettings ++ scalaJSSettings): _*
+      (defaultSettings): _*
   ).settings(
     name := "SlidingPuzzle CoreJS",
     sourceDirectory := (sourceDirectory in core).value,
     libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
-  ).dependsOn(core)
-  
+  ).dependsOn(core).enablePlugins(ScalaJSPlugin)
+
   lazy val scalajs = project.in(file("scalajs")).settings(
-      (defaultSettings ++ scalaJSSettings): _*
+      (defaultSettings): _*
   ).settings(
       name := "SlidingPuzzle ScalaJS",
-      libraryDependencies += "org.scala-lang.modules.scalajs" %% "scalajs-jquery" % "0.1-SNAPSHOT",
-      libraryDependencies += "org.scala-lang.modules.scalajs" %% "scalajs-dom" % "0.1-SNAPSHOT",
+      libraryDependencies += "be.doeraene" %%% "scalajs-jquery" % "0.9.1",
+      libraryDependencies += "org.scala-js" %%% "scalajs-dom" % "0.9.1",
       // Add the startup.js file of this project
-      unmanagedSources in (Compile, packageJS) ++= Seq(
+      unmanagedSources in (Compile, fastOptJS) ++= Seq(
         baseDirectory.value / "resources" / "js" / "startup.js")
-  ).dependsOn(coreJs)  
+  ).dependsOn(coreJs).enablePlugins(ScalaJSPlugin)
 
 }

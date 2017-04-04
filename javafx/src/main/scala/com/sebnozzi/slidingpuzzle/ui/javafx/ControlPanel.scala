@@ -1,19 +1,12 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import javafx.scene.control.Button
-import javafx.scene.layout.VBox
-import javafx.event.EventHandler
-import javafx.event.ActionEvent
-import javafx.geometry.Pos
-import javafx.geometry.Insets
-import javafx.scene.control.ToolBar
-import javafx.scene.control.Label
-import javafx.scene.control.ChoiceBox
+import javafx.beans.value.{ChangeListener, ObservableValue}
 import javafx.collections.FXCollections
-import javafx.beans.value.ChangeListener
-import javafx.beans.value.ObservableValue
-import com.sebnozzi.slidingpuzzle.model.structs.GridSize
+import javafx.event.{ActionEvent, EventHandler}
+import javafx.scene.control.{Button, ChoiceBox, Label, ToolBar}
 import javafx.util.StringConverter
+
+import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 
 class ControlPanel extends ToolBar {
 
