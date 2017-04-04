@@ -10,9 +10,9 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import scala.language.implicitConversions
 
 class puzzleSuite extends FunSuite with BeforeAndAfter {
-  
-  implicit def tupleToPosition(tuple: Pair[Int, Int]): Position = Position(tuple._1, tuple._2)
-  
+
+  implicit def tupleToPosition(tuple: (Int, Int)): Position = Position(tuple._1, tuple._2)
+
   var puzzle4x3: Puzzle = _
   var puzzle2x2: Puzzle = _
   var puzzle3x3: Puzzle = _
@@ -108,7 +108,7 @@ class puzzleSuite extends FunSuite with BeforeAndAfter {
     puzzle4x3.reset()
     assert(puzzle4x3.isSolved)
   }
-  
+
   test("callback when puzzle solved") {
     var called = false
     val tile = puzzle4x3.tileAt(4, 2)

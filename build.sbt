@@ -12,6 +12,8 @@ lazy val defaultSettings = Seq(
   version := "0.2-SNAPSHOT"
 )
 
+val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+
 lazy val javafxSettings = Seq(
   unmanagedJars in Compile += Attributed.blank(
     file(scala.util.Properties.javaHome) / "lib" / "jfxrt.jar"),
@@ -34,14 +36,14 @@ lazy val core = (project in file("core")).settings(
   (defaultSettings): _*
 ).settings(
   name := "SlidingPuzzle Core",
-  libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+  libraryDependencies += scalaTest
 )
 
 lazy val javafx = project.in(file("javafx")).settings(
   (defaultSettings ++ scalafxSettings): _*
 ).settings(
   name := "SlidingPuzzle JavaFX",
-  libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+  libraryDependencies += scalaTest
 ).dependsOn(core)
 
 lazy val coreJs = project.settings(
@@ -49,7 +51,7 @@ lazy val coreJs = project.settings(
 ).settings(
   name := "SlidingPuzzle CoreJS",
   sourceDirectory := (sourceDirectory in core).value,
-  libraryDependencies += "org.scalatest" % "scalatest_2.10" % "2.0" % "test"
+  libraryDependencies += scalaTest
 ).enablePlugins(ScalaJSPlugin).dependsOn(core)
 
 lazy val scalajs = project.in(file("scalajs")).settings(
