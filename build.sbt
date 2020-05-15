@@ -1,5 +1,5 @@
 
-val slidingPuzzleScalaVersion = "2.12.1"
+val slidingPuzzleScalaVersion = "2.13.2"
 
 lazy val defaultSettings = Seq(
   scalaVersion := slidingPuzzleScalaVersion,
@@ -12,7 +12,7 @@ lazy val defaultSettings = Seq(
   version := "0.2-SNAPSHOT"
 )
 
-val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % "test"
+val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1" % "test"
 
 lazy val javafxSettings = (
   if (scala.util.Properties.javaHome.contains("openjdk"))
