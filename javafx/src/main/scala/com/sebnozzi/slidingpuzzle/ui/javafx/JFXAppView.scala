@@ -15,17 +15,16 @@ import com.sebnozzi.slidingpuzzle.ui.keys.{Down, Left, Right, Up}
 class JFXAppView(window: Stage) extends AppView {
 
   private val tilesBoardContainer = new Group
-  private var _controlPanel: ControlPanel =
-    _
+  private var _controlPanel: ControlPanel = _
 
   init()
 
-  private def init() {
+  private def init(): Unit = {
     val mainGroup = new VBox()
     _controlPanel = new ControlPanel()
 
-    mainGroup.getChildren().add(_controlPanel)
-    mainGroup.getChildren().add(tilesBoardContainer)
+    mainGroup.getChildren.add(_controlPanel)
+    mainGroup.getChildren.add(tilesBoardContainer)
 
     _controlPanel.onResetPressed {
       this.resetClicked()
@@ -40,49 +39,49 @@ class JFXAppView(window: Stage) extends AppView {
     }
 
     tilesBoardContainer.setOnKeyPressed(new EventHandler[KeyEvent] {
-      def handle(event: KeyEvent) {
-        val maybeMatch = event.getCode() match {
+      def handle(event: KeyEvent): Unit = {
+        val maybeMatch = event.getCode match {
           case KeyCode.UP => Some(Up)
           case KeyCode.DOWN => Some(Down)
           case KeyCode.LEFT => Some(Left)
           case KeyCode.RIGHT => Some(Right)
           case _ => None
         }
-        maybeMatch.map { arrowKey =>
+        maybeMatch.foreach { arrowKey =>
           arrowKeyPressed(arrowKey)
           event.consume()
         }
       }
-    });
+    })
 
     setupWithGroup(mainGroup)
   }
 
-  def setMovesCount(newCount: Int) {
+  def setMovesCount(newCount: Int): Unit = {
     _controlPanel.setMovesCount(newCount)
   }
 
-  def selectGridSize(newSize: GridSize) {
+  def selectGridSize(newSize: GridSize): Unit = {
     _controlPanel.selectGridSize(newSize)
   }
 
-  def setPuzzleView(puzzleView: PuzzleView) {
+  def setPuzzleView(puzzleView: PuzzleView): Unit = {
     puzzleView match {
       case jfxView: JFXPuzzleView => setPuzzleView(jfxView)
     }
   }
 
-  def setPuzzleView(puzzleView: JFXPuzzleView) {
-    val grpChildren = tilesBoardContainer.getChildren()
+  def setPuzzleView(puzzleView: JFXPuzzleView): Unit = {
+    val grpChildren = tilesBoardContainer.getChildren
     grpChildren.clear()
     grpChildren.add(puzzleView)
   }
 
-  def show() {
+  def show(): Unit = {
     window.show()
   }
 
-  private def setupWithGroup(mainGroup: Parent) {
+  private def setupWithGroup(mainGroup: Parent): Unit = {
     val scene = new Scene(mainGroup)
     scene.setFill(Color.BLACK)
     window.setScene(scene)
@@ -96,7 +95,7 @@ class JFXAppView(window: Stage) extends AppView {
     window.setFullScreen(false)
 
     window.setOnCloseRequest(new EventHandler[WindowEvent] {
-      def handle(event: WindowEvent) {
+      def handle(event: WindowEvent): Unit = {
         Platform.exit()
       }
     })

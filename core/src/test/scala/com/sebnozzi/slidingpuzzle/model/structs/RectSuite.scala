@@ -1,8 +1,9 @@
 package com.sebnozzi.slidingpuzzle.model.structs
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class RectSuite extends FunSuite {
+
+class RectSuite extends AnyFunSuite {
 
   test("if within rect") {
     val pos1 = Position(col = 1, row = 1)

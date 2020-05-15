@@ -21,7 +21,7 @@ abstract class AppController() {
    * After creating the controller, you should call
    * this method to get the application running.
    */
-  def start() {
+  def start(): Unit = {
     val initialGridSize = GridSize(3, 3)
     appView = createAppView()
     setupAppView(appView, initialGridSize)
@@ -29,7 +29,7 @@ abstract class AppController() {
     appView.show()
   }
 
-  private def setupAppView(appView: AppView, gridSize: GridSize) = {
+  private def setupAppView(appView: AppView, gridSize: GridSize): AppView = {
     appView.selectGridSize(gridSize)
 
     appView.onArrowKeyPressed { arrowKey =>
@@ -54,7 +54,7 @@ abstract class AppController() {
     appView
   }
 
-  private def setupGame(gridSize: GridSize) {
+  private def setupGame(gridSize: GridSize): Unit = {
     puzzle = new Puzzle(gridSize)
 
     puzzleView = createPuzzleView(gridSize)
@@ -62,9 +62,8 @@ abstract class AppController() {
     appView.setPuzzleView(puzzleView)
 
     puzzle.tiles.zip(puzzleView.tileViews).foreach {
-      case (modelTile: PuzzleTile, uiTile: TileView) => {
+      case (modelTile: PuzzleTile, uiTile: TileView) =>
         bindUiAndModelTiles(uiTile, modelTile)
-      }
     }
 
     puzzle.onMovesCountChange {
@@ -78,11 +77,11 @@ abstract class AppController() {
     updateMovesCount()
   }
 
-  private def updateMovesCount() {
+  private def updateMovesCount(): Unit = {
     appView.setMovesCount(puzzle.movesDone)
   }
 
-  private def bindUiAndModelTiles(tileView: TileView, modelTile: PuzzleTile) {
+  private def bindUiAndModelTiles(tileView: TileView, modelTile: PuzzleTile): Unit = {
     modelTile.onPositionChange { shuffling: Boolean =>
       tileView.moveTileTo(modelTile.currentPosition, animate = !shuffling)
     }
@@ -98,7 +97,7 @@ abstract class AppController() {
     }
   }
 
-  private def arrowKeyPressed(arrowKey: ArrowKey) {
+  private def arrowKeyPressed(arrowKey: ArrowKey): Unit = {
     import com.sebnozzi.slidingpuzzle.ui.keys.{Down, Left, Right, Up}
     val optTileToMove: Option[PuzzleTile] = arrowKey match {
       case Up => hiddenTile.tileBelow

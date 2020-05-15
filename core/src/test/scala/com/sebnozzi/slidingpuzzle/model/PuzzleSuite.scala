@@ -1,11 +1,12 @@
 package com.sebnozzi.slidingpuzzle.model
 
 import com.sebnozzi.slidingpuzzle.model.structs.{GridSize, Position, Rect}
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.BeforeAndAfter
+import org.scalatest.funsuite.AnyFunSuite
 
 import scala.language.implicitConversions
 
-class PuzzleSuite extends FunSuite with BeforeAndAfter {
+class PuzzleSuite extends AnyFunSuite with BeforeAndAfter {
 
   implicit def tupleToPosition(tuple: (Int, Int)): Position = Position(tuple._1, tuple._2)
 
@@ -59,7 +60,7 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
   test("as soon as one move is made, the puzzle is not in solved state") {
     val tile1 = puzzle4x3.tileAt(4, 2)
     val tile2 = puzzle4x3.tileAt(4, 3)
-    tile2.makeHidden
+    tile2.makeHidden()
     tile1.moveToEmptySlot()
     assert(puzzle4x3.isSolved === false)
   }
@@ -67,7 +68,7 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
   test("puzzle solved after putting back one moved tile") {
     val tile = puzzle4x3.tileAt(4, 2)
     val hiddenTile = puzzle4x3.tileAt(4, 3)
-    hiddenTile.makeHidden
+    hiddenTile.makeHidden()
     val firstMoveDone = tile.moveToEmptySlot()
     val secondMoveDone = tile.moveToEmptySlot()
     assert(firstMoveDone)
@@ -76,13 +77,13 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("shuffling tiles should result in unsolved state") {
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     puzzle4x3.shuffle()
     assume(puzzle4x3.isSolved === false)
   }
 
   test("resetting the puzzle should leave it in solved state") {
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     puzzle4x3.shuffle()
     puzzle4x3.reset()
     assert(puzzle4x3.isSolved)
@@ -91,7 +92,7 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
   test("callback when puzzle solved") {
     var called = false
     val tile = puzzle4x3.tileAt(4, 2)
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     tile.moveToEmptySlot()
     puzzle4x3.onSolved {
       called = true
@@ -106,14 +107,14 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
 
   test("after one move is made, the counter should reflect it") {
     val tile = puzzle4x3.tileAt(4, 2)
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     tile.moveToEmptySlot()
     assert(puzzle4x3.movesDone === 1)
   }
 
   test("shuffling resets the amount of moves") {
     val tile = puzzle4x3.tileAt(4, 2)
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     tile.moveToEmptySlot()
     puzzle4x3.shuffle()
     assert(puzzle4x3.movesDone === 0)
@@ -122,7 +123,7 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
   test("callback when move-count changes") {
     var calls = 0
     val tile = puzzle4x3.tileAt(4, 2)
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     puzzle4x3.onMovesCountChange {
       calls += 1
     }
@@ -133,7 +134,7 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
 
   test("moves go back to 0 after reset") {
     val tile = puzzle4x3.tileAt(4, 2)
-    puzzle4x3.tileAt(4, 3).makeHidden
+    puzzle4x3.tileAt(4, 3).makeHidden()
     tile.moveToEmptySlot()
     puzzle4x3.reset()
     assert(puzzle4x3.movesDone === 0)

@@ -9,8 +9,8 @@ class Puzzle(gridSize: GridSize) {
   private var _movesCountCallback: Option[() => Unit] = None
   private var _hiddenTile: Option[PuzzleTile] = None
 
-  val columns = gridSize.columns
-  val rows = gridSize.rows
+  val columns: Int = gridSize.columns
+  val rows: Int = gridSize.rows
 
   val tiles: List[PuzzleTile] = {
     (for (
@@ -19,31 +19,31 @@ class Puzzle(gridSize: GridSize) {
     ) yield new PuzzleTile(puzzle = this, initialPosition = Position(colNr, rowNr))).toList
   }
 
-  val positionsRect = Rect(Position(1, 1), Position(columns, rows))
+  val positionsRect: Rect = Rect(Position(1, 1), Position(columns, rows))
 
-  private def makeRandomMove(times: Int = 1) {
+  private def makeRandomMove(times: Int = 1): Unit = {
     if (hasHiddenTile) {
-      for (_ <- (1 to times)) {
+      for (_ <- 1 to times) {
         val tileToMove = hiddenTile.randomAdjacentTile
         tileToMove.moveToEmptySlot(shuffling = true)
       }
     }
   }
 
-  def shuffle() {
+  def shuffle(): Unit = {
     makeRandomMove(times = 300)
     movesDone = 0
   }
 
-  def movesDone = _movesDone
+  def movesDone: Int = _movesDone
 
-  private def movesDone_=(newCount: Int) {
+  private def movesDone_=(newCount: Int): Unit = {
     _movesDone = newCount
     if (_movesCountCallback.isDefined)
       _movesCountCallback.get()
   }
 
-  def canMoveToEmptySlot(tile: PuzzleTile) = {
+  def canMoveToEmptySlot(tile: PuzzleTile): Boolean = {
     if (hasHiddenTile) {
       tile.isAdjacentTo(hiddenTile)
     } else {
@@ -51,7 +51,7 @@ class Puzzle(gridSize: GridSize) {
     }
   }
 
-  def moveToEmptySlot(tile: PuzzleTile, shuffling: Boolean = false) = {
+  def moveToEmptySlot(tile: PuzzleTile, shuffling: Boolean = false): Boolean = {
     if (canMoveToEmptySlot(tile)) {
       tile.swapPositionWith(hiddenTile, shuffling)
       if (!shuffling)
@@ -62,27 +62,27 @@ class Puzzle(gridSize: GridSize) {
     }
   }
 
-  def didMoveToEmptySlot(tile: PuzzleTile) {
+  def didMoveToEmptySlot(tile: PuzzleTile): Unit = {
     movesDone = movesDone + 1
     if (this.isSolved && _solvedCallback.isDefined)
       _solvedCallback.get()
   }
 
-  def onSolved(callback: => Unit) {
-    _solvedCallback = Some(callback _)
+  def onSolved(callback: => Unit): Unit = {
+    _solvedCallback = Some(() => callback)
   }
 
-  def onMovesCountChange(callback: => Unit) {
-    _movesCountCallback = Some(callback _)
+  def onMovesCountChange(callback: => Unit): Unit = {
+    _movesCountCallback = Some(() => callback)
   }
 
-  def reset() {
+  def reset(): Unit = {
     tiles.foreach(_.moveToInitialPosition())
     movesDone = 0
     clearHiddenTile()
   }
 
-  def isSolved = {
+  def isSolved: Boolean = {
     tiles.forall { tile => tile.isAtInitialPosition }
   }
 
@@ -92,34 +92,32 @@ class Puzzle(gridSize: GridSize) {
 
   def tileAt(col: Int, row: Int): PuzzleTile = tileAt(Position(col, row))
 
-  def setHiddenTile(newTile: PuzzleTile) {
+  def setHiddenTile(newTile: PuzzleTile): Unit = {
     _hiddenTile match {
-      case Some(currentTile) if newTile != currentTile => {
+      case Some(currentTile) if newTile != currentTile =>
         currentTile.visibilityChanged(toVisible = true)
         _hiddenTile = Some(newTile)
         newTile.visibilityChanged(toVisible = false)
-      }
-      case None => {
+      case None =>
         _hiddenTile = Some(newTile)
         newTile.visibilityChanged(toVisible = false)
-      }
-      case _ => {}
+      case _ => // Do nothing
     }
   }
 
   def setHiddenTileAt(col: Int, row: Int): Unit = setHiddenTileAt(Position(col, row))
 
-  def setHiddenTileAt(position: Position) {
+  def setHiddenTileAt(position: Position): Unit = {
     val newTile = tileAt(position)
     setHiddenTile(newTile)
   }
 
-  def clearHiddenTile() {
-    _hiddenTile.map(_.visibilityChanged(toVisible = true))
+  def clearHiddenTile(): Unit = {
+    _hiddenTile.foreach(_.visibilityChanged(toVisible = true))
     _hiddenTile = None
   }
 
-  def hasHiddenTile = _hiddenTile.isDefined
+  def hasHiddenTile: Boolean = _hiddenTile.isDefined
 
   def hiddenTile: PuzzleTile = _hiddenTile.getOrElse(throw new java.util.NoSuchElementException("Does not have a hidden tile"))
 

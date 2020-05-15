@@ -6,18 +6,18 @@ trait TileView {
 
   private var onTilePressedCallback: Option[() => Unit] = None
 
-  def mousePressed() {
+  def mousePressed(): Unit = {
     onTilePressedCallback foreach (callback => callback())
   }
 
-  def onMousePressed(callback: => Unit) {
-    onTilePressedCallback = Some(callback _)
+  def onMousePressed(callback: => Unit): Unit = {
+    onTilePressedCallback = Some(() => callback)
   }
 
-  def makeVisible(animate: Boolean)
+  def makeVisible(animate: Boolean): Unit
 
-  def makeHidden()
+  def makeHidden(): Unit
 
-  def moveTileTo(pos: Position, animate: Boolean = false)
+  def moveTileTo(pos: Position, animate: Boolean = false): Unit
 
 }

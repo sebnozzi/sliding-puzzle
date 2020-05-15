@@ -9,10 +9,10 @@ import scala.scalajs.js
 class JsTileView(val tileCanvas: html.Canvas, tileWidth: Int, tileHeight: Int) extends TileView {
 
   jQuery(tileCanvas).click { () =>
-    this.mousePressed
+    this.mousePressed()
   }
 
-  def makeVisible(animate: Boolean) {
+  def makeVisible(animate: Boolean): Unit = {
     if (animate) {
       jQuery(tileCanvas).show(400)
     } else {
@@ -20,11 +20,11 @@ class JsTileView(val tileCanvas: html.Canvas, tileWidth: Int, tileHeight: Int) e
     }
   }
 
-  def makeHidden() {
+  def makeHidden(): Unit = {
     jQuery(tileCanvas).hide()
   }
 
-  def moveTileTo(pos: Position, animate: Boolean = false) {
+  def moveTileTo(pos: Position, animate: Boolean = false): Unit = {
     val left = tileWidth * (pos.col - 1)
     val top = tileHeight * (pos.row - 1)
     if (animate) {

@@ -1,8 +1,9 @@
 package com.sebnozzi.slidingpuzzle.model.tile.traits
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class VisibilityAwareSuite extends FunSuite {
+
+class VisibilityAwareSuite extends AnyFunSuite {
 
   test("callback when visibility changes") {
     var calls = 0

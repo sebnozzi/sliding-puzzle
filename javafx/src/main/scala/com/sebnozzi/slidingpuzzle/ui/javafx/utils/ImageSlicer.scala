@@ -7,8 +7,8 @@ import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 
 class ImageSlicer(val img: Image, gridSize: GridSize) {
 
-  val sliceWidth = img.getWidth() / gridSize.columns
-  val sliceHeight = img.getHeight() / gridSize.rows
+  val sliceWidth: Double = img.getWidth / gridSize.columns
+  val sliceHeight: Double = img.getHeight / gridSize.rows
 
   val slicePositions: List[(Int, Int)] = {
     (for (
@@ -38,7 +38,7 @@ class ImageSlicer(val img: Image, gridSize: GridSize) {
 
   private def makeSliceAt(x: Int, y: Int): Canvas = {
     val canvas = new Canvas(sliceWidth, sliceHeight)
-    val grContext = canvas.getGraphicsContext2D()
+    val grContext = canvas.getGraphicsContext2D
 
     val (sourceX, sourceY) = coordinatesOfSliceAt(x, y)
     val (destX, destY) = (0, 0)

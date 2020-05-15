@@ -21,7 +21,6 @@ dist
 /.project
 /RUNNING_PID
 /.settings
-.DS_Store
 .scala_dependencies
 .target/
 /.cache

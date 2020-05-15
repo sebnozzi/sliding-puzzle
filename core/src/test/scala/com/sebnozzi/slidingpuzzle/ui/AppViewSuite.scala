@@ -2,18 +2,19 @@ package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
 import com.sebnozzi.slidingpuzzle.ui.keys.{ArrowKey, Down, Left, Right, Up}
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.BeforeAndAfter
 
-class AppViewSuite extends FunSuite with BeforeAndAfter {
+class AppViewSuite extends AnyFunSuite with BeforeAndAfter {
 
   class TestAppView extends AppView {
     var hasPuzzleView = false
-    def setPuzzleView(puzzleView: PuzzleView) {
+    def setPuzzleView(puzzleView: PuzzleView): Unit = {
       hasPuzzleView = true
     }
-    def selectGridSize(gridSize: GridSize) {}
-    def setMovesCount(newCount: Int) {}
-    def show() {}
+    def selectGridSize(gridSize: GridSize): Unit = {}
+    def setMovesCount(newCount: Int): Unit = {}
+    def show(): Unit = {}
   }
 
   var appView: TestAppView = _
@@ -64,7 +65,7 @@ class AppViewSuite extends FunSuite with BeforeAndAfter {
     appView.newSizeSelected(newSize)
   }
 
-  def assertKeyPressed(key: ArrowKey) {
+  def assertKeyPressed(key: ArrowKey): Unit = {
     var pressed = false
     appView.onArrowKeyPressed { arrowKey =>
       if (arrowKey == key)

@@ -2,10 +2,10 @@ package com.sebnozzi.slidingpuzzle.model.structs
 
 case class Position(col: Int, row: Int) {
 
-  lazy val above = Position(col, row - 1)
-  lazy val below = Position(col, row + 1)
-  lazy val left = Position(col - 1, row)
-  lazy val right = Position(col + 1, row)
+  lazy val above: Position = Position(col, row - 1)
+  lazy val below: Position = Position(col, row + 1)
+  lazy val left: Position = Position(col - 1, row)
+  lazy val right: Position = Position(col + 1, row)
 
   def adjacentPositionsWithin(rect: Rect): Seq[Position] =
     Seq(above, left, right, below)

@@ -1,8 +1,9 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.BeforeAndAfter
+import org.scalatest.funsuite.AnyFunSuite
 
-class PuzzleViewSuite extends FunSuite with BeforeAndAfter {
+class PuzzleViewSuite extends AnyFunSuite with BeforeAndAfter {
 
   var view: PuzzleView = _
 
@@ -20,11 +21,11 @@ class PuzzleViewSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("getting tile views") {
-    val tiles: List[TileView] = view.tileViews
+    val tiles: Seq[TileView] = view.tileViews
   }
 
   ignore("amount of tiles") {
-    val tiles: List[TileView] = view.tileViews
+    val tiles: Seq[TileView] = view.tileViews
     assert(tiles.size === 9)
   }
 

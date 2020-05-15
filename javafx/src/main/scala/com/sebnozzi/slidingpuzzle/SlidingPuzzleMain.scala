@@ -11,7 +11,7 @@ object SlidingPuzzleMain extends App {
 }
 
 class SlidingPuzzleJFXApp extends Application {
-  override def start(mainWindow: Stage) {
+  override def start(mainWindow: Stage): Unit = {
     val appController = new JFXAppController(mainWindow)
     appController.start()
   }

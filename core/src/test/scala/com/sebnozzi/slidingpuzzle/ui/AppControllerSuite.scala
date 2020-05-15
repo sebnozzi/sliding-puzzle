@@ -1,19 +1,19 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class AppControllerSuite extends FunSuite {
+class AppControllerSuite extends AnyFunSuite {
 
-  def mockAppView = new AppView() {
-    override def setPuzzleView(puzzleView: PuzzleView) = {}
-    override def setMovesCount(newCount: Int) {}
-    override def selectGridSize(newSize: GridSize) {}
-    override def show() {}
+  def mockAppView: AppView = new AppView() {
+    override def setPuzzleView(puzzleView: PuzzleView): Unit = {}
+    override def setMovesCount(newCount: Int): Unit = {}
+    override def selectGridSize(newSize: GridSize): Unit = {}
+    override def show(): Unit = {}
   }
 
-  def mockPuzzleView = new PuzzleView {
-    override def requestFocus() {}
+  def mockPuzzleView: PuzzleView = new PuzzleView {
+    override def requestFocus(): Unit = {}
     override val tileViews: List[TileView] = List[TileView]()
   }
 

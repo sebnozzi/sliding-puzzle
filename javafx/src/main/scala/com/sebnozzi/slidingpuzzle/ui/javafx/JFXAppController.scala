@@ -8,8 +8,8 @@ import com.sebnozzi.slidingpuzzle.ui.{AppController, AppView, PuzzleView}
 
 class JFXAppController(mainWindow: Stage) extends AppController {
 
-  lazy val img = {
-    val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
+  lazy val img: Image = {
+    val inputStream = this.getClass.getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     new Image(inputStream)
   }
 
