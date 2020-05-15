@@ -14,10 +14,33 @@ lazy val defaultSettings = Seq(
 
 val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1" % "test"
 
-lazy val javafxSettings = (
-    Seq(
-      fork := true
-    ))
+lazy val root = (project in file(".")).settings(
+  defaultSettings: _*
+).settings(
+  name := "SlidingPuzzle"
+).aggregate(
+  core, javafx
+)
+
+lazy val core = (project in file("core")).settings(
+  (defaultSettings): _*
+).settings(
+  name := "SlidingPuzzle Core",
+  libraryDependencies += scalaTest
+)
+
+// === JavaFX ===
+
+lazy val javafxSettings = Seq(
+    fork := true
+  )
+
+lazy val javafx = project.in(file("javafx")).settings(
+  (defaultSettings ++ scalafxSettings): _*
+).settings(
+  name := "SlidingPuzzle JavaFX",
+  libraryDependencies += scalaTest
+).dependsOn(core)
 
 lazy val scalafxSettings = {
   // Add dependency on JavaFX libraries, OS dependent
@@ -39,27 +62,7 @@ lazy val scalafxSettings = {
   )
 }
 
-lazy val root = (project in file(".")).settings(
-  defaultSettings: _*
-).settings(
-  name := "SlidingPuzzle"
-).aggregate(
-  core, javafx
-)
-
-lazy val core = (project in file("core")).settings(
-  (defaultSettings): _*
-).settings(
-  name := "SlidingPuzzle Core",
-  libraryDependencies += scalaTest
-)
-
-lazy val javafx = project.in(file("javafx")).settings(
-  (defaultSettings ++ scalafxSettings): _*
-).settings(
-  name := "SlidingPuzzle JavaFX",
-  libraryDependencies += scalaTest
-).dependsOn(core)
+// === Scala JS ===
 
 lazy val coreJs = project.settings(
   (defaultSettings): _*
