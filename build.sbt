@@ -70,7 +70,8 @@ lazy val coreJs = project.settings(
   name := "SlidingPuzzle CoreJS",
   sourceDirectory := (sourceDirectory in core).value,
   libraryDependencies += scalaTest
-).enablePlugins(ScalaJSPlugin).dependsOn(core)
+).enablePlugins(ScalaJSPlugin)
+ .dependsOn(core)
 
 lazy val scalajs = project.in(file("scalajs")).settings(
   (defaultSettings): _*
@@ -79,5 +80,6 @@ lazy val scalajs = project.in(file("scalajs")).settings(
   libraryDependencies ++= Seq(
     "be.doeraene" %%% "scalajs-jquery" % "1.0.0",
     "org.scala-js" %%% "scalajs-dom" % "1.0.0")
-).enablePlugins(ScalaJSPlugin).dependsOn(coreJs)
+).enablePlugins(ScalaJSPlugin)
+ .dependsOn(coreJs)
 
