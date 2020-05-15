@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui.javafx
 
-import javafx.animation.{FadeTransitionBuilder, TranslateTransitionBuilder}
+import javafx.animation.{FadeTransition, TranslateTransition}
 import javafx.event.EventHandler
 import javafx.scene.Group
 import javafx.scene.canvas.Canvas
@@ -45,13 +45,10 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
 
   def makeVisible(animate: Boolean = false) {
     if (animate) {
-      val toVisibleTransition = FadeTransitionBuilder.create()
-        .duration(Duration.seconds(0.3))
-        .delay(Duration.seconds(0.4))
-        .node(this)
-        .fromValue(0.0)
-        .toValue(1.0)
-        .build();
+      val toVisibleTransition = new FadeTransition(Duration.seconds(0.3), this)
+      toVisibleTransition.setDelay(Duration.seconds(0.4))
+      toVisibleTransition.setFromValue(0.0)
+      toVisibleTransition.setToValue(1.0)
       toVisibleTransition.play()
     } else {
       setOpacity(1.0)
@@ -59,12 +56,9 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
   }
 
   def animateTo(x: Double, y: Double) {
-    val translateTransition = TranslateTransitionBuilder.create()
-      .duration(Duration.millis(animationDurationMs))
-      .node(this)
-      .toX(x)
-      .toY(y)
-      .build()
+    val translateTransition = new TranslateTransition(Duration.millis(animationDurationMs), this)
+    translateTransition.setToX(x)
+    translateTransition.setToY(y)
     translateTransition.play()
   }
 
