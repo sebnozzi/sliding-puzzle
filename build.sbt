@@ -1,5 +1,5 @@
 
-val slidingPuzzleScalaVersion = "2.11.8"
+val slidingPuzzleScalaVersion = "2.12.1"
 
 lazy val defaultSettings = Seq(
   scalaVersion := slidingPuzzleScalaVersion,
