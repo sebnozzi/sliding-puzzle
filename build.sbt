@@ -36,13 +36,13 @@ lazy val javafxSettings = Seq(
   )
 
 lazy val javafx = project.in(file("javafx")).settings(
-  (defaultSettings ++ scalafxSettings): _*
+  (defaultSettings ++ scalaFxSettings): _*
 ).settings(
   name := "SlidingPuzzle JavaFX",
   libraryDependencies += scalaTest
 ).dependsOn(core)
 
-lazy val scalafxSettings = {
+lazy val scalaFxSettings = {
   // Add dependency on JavaFX libraries, OS dependent
   lazy val javaFXModules = Seq("base", "controls", "fxml", "graphics", "media", "swing", "web")
 
