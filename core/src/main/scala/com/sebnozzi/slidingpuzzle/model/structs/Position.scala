@@ -7,17 +7,21 @@ case class Position(col: Int, row: Int) {
   lazy val left = Position(col - 1, row)
   lazy val right = Position(col + 1, row)
 
-  def adjacentIn(rect: Rect): List[Position] = {
-    List(above, left, right, below).filter { rect.contains(_) }
-  }
+  def adjacentPositionsWithin(rect: Rect): Seq[Position] =
+    Seq(above, left, right, below)
+      .filter( pos => rect.contains(pos) )
 
-  def aboveIn(rect: Rect): Option[Position] = above.optionallyWithin(rect)
+  def aboveWithin(rect: Rect): Option[Position] =
+    above.optionallyWithin(rect)
 
-  def belowIn(rect: Rect): Option[Position] = below.optionallyWithin(rect)
+  def belowWithin(rect: Rect): Option[Position] =
+    below.optionallyWithin(rect)
 
-  def leftIn(rect: Rect): Option[Position] = left.optionallyWithin(rect)
+  def leftWithin(rect: Rect): Option[Position] =
+    left.optionallyWithin(rect)
 
-  def rightIn(rect: Rect): Option[Position] = right.optionallyWithin(rect)
+  def rightWithin(rect: Rect): Option[Position] =
+    right.optionallyWithin(rect)
 
   private def optionallyWithin(rect: Rect): Option[Position] = {
     if (rect.contains(this))
