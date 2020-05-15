@@ -21,11 +21,11 @@ class PuzzleViewSuite extends AnyFunSuite with BeforeAndAfter {
   }
 
   test("getting tile views") {
-    val tiles: List[TileView] = view.tileViews
+    val tiles: Seq[TileView] = view.tileViews
   }
 
   ignore("amount of tiles") {
-    val tiles: List[TileView] = view.tileViews
+    val tiles: Seq[TileView] = view.tileViews
     assert(tiles.size === 9)
   }
 

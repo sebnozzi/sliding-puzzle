@@ -15,7 +15,7 @@ class JFXPuzzleView(img: Image, gridSize: GridSize) extends Group with PuzzleVie
 
   addSliceNodes()
 
-  lazy val tileViews = makeTiles()
+  lazy val tileViews: Seq[JFXTileView] = makeTiles()
 
   override def requestFocus(): Unit = {
     super[Group].requestFocus()
@@ -25,12 +25,12 @@ class JFXPuzzleView(img: Image, gridSize: GridSize) extends Group with PuzzleVie
     tileViews.foreach { this.getChildren.add(_) }
   }
 
-  private def makeTiles() = {
+  private def makeTiles(): Seq[JFXTileView] = {
     slicer.slicePositions.map {
       case (col, row) =>
         val imgSlice = slicer.sliceAt(col, row)
         new JFXTileView(imgSlice, Position(col, row))
-    }
+    }.toSeq
   }
 
 }
