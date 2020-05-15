@@ -15,12 +15,6 @@ lazy val defaultSettings = Seq(
 val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1" % "test"
 
 lazy val javafxSettings = (
-  if (scala.util.Properties.javaHome.contains("openjdk"))
-    Seq(
-      fork := true,
-      unmanagedJars in Compile += Attributed.blank(
-        file(scala.util.Properties.javaHome) / "lib" / "ext" / "jfxrt.jar"))
-  else
     Seq(
       fork := true
     ))
