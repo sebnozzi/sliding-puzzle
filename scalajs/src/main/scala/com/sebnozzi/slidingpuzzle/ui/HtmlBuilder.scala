@@ -17,9 +17,9 @@ trait HtmlBuilder {
         s"""height="$height"/>""")
     jqCanvas.get(0).asInstanceOf[html.Canvas]
   }
-  def select() = (jQuery("<select/>"))
-  def option(value: String, label: String) = (jQuery("<option/>")).attr("value", value).html(label)
-  def button(label: String) = jQuery(s"""<button>$label</button>""")
+  def select(): JQuery = jQuery("<select/>")
+  def option(value: String, label: String): JQuery = jQuery("<option/>").attr("value", value).html(label)
+  def button(label: String): JQuery = jQuery(s"""<button>$label</button>""")
   def labelledValue(cssClass:String, label: String, value: String): (JQuery, JQuery) = {
     val outer = jQuery(s"""<span class="$cssClass">$label </span>""")
     val inner = jQuery(s"""<span>$value</span>""")

@@ -1,9 +1,10 @@
 package com.sebnozzi.slidingpuzzle.model
 
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.BeforeAndAfter
 
-class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
+class PuzzleTileSuite extends AnyFunSuite with BeforeAndAfter {
 
   var puzzle4x3: Puzzle = _
 
@@ -23,16 +24,16 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
 
   test("making a tile hidden") {
     val tile1 = puzzle4x3.tileAt(1, 1)
-    tile1.makeHidden
+    tile1.makeHidden()
     assert(puzzle4x3.hiddenTile === tile1)
   }
 
   test("unhiding the tile") {
     assert(puzzle4x3.hasHiddenTile === false)
     val tile = puzzle4x3.tileAt(1, 1)
-    tile.makeHidden
+    tile.makeHidden()
     assert(puzzle4x3.hasHiddenTile)
-    tile.makeVisible
+    tile.makeVisible()
     assert(puzzle4x3.hasHiddenTile === false)
   }
 
@@ -46,7 +47,7 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
   test("tile notifies puzzle on every move") {
     var called = false
     val puzzle = new Puzzle(GridSize(columns = 4, rows = 3)) {
-      override def didMoveToEmptySlot(tile: PuzzleTile) {
+      override def didMoveToEmptySlot(tile: PuzzleTile): Unit = {
         super.didMoveToEmptySlot(tile)
         called = true
       }
@@ -59,7 +60,7 @@ class PuzzleTileSuite extends FunSuite with BeforeAndAfter {
   test("tile notifies puzzle on every move to empty slot") {
     var calls = 0
     val puzzle = new Puzzle(GridSize(columns = 4, rows = 3)) {
-      override def didMoveToEmptySlot(tile: PuzzleTile) {
+      override def didMoveToEmptySlot(tile: PuzzleTile): Unit = {
         super.didMoveToEmptySlot(tile)
         calls += 1
       }

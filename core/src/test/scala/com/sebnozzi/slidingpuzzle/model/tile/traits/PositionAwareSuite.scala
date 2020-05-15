@@ -1,9 +1,10 @@
 package com.sebnozzi.slidingpuzzle.model.tile.traits
 
 import com.sebnozzi.slidingpuzzle.model.structs.Position
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.BeforeAndAfter
+import org.scalatest.funsuite.AnyFunSuite
 
-class PositionAwareSuite extends FunSuite with BeforeAndAfter {
+class PositionAwareSuite extends AnyFunSuite with BeforeAndAfter {
 
   class TestTile(val initialPosition: Position) extends PositionAware {}
 
@@ -35,11 +36,11 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
     assert(tile2.currentPosition === tile1.initialPosition)
   }
 
-  def testShufflingState(expectedState: Boolean) {
+  def testShufflingState(expectedState: Boolean): Unit = {
     var wasShuffling1 = false
     var wasShuffling2 = false
-    tile1.onPositionChange((shuffling) => { wasShuffling1 = shuffling })
-    tile2.onPositionChange((shuffling) => { wasShuffling2 = shuffling })
+    tile1.onPositionChange(shuffling => { wasShuffling1 = shuffling })
+    tile2.onPositionChange(shuffling => { wasShuffling2 = shuffling })
     tile1.swapPositionWith(tile2, shuffling = expectedState)
     assert(wasShuffling1 === expectedState)
     assert(wasShuffling2 === expectedState)
@@ -82,7 +83,7 @@ class PositionAwareSuite extends FunSuite with BeforeAndAfter {
     tile1.onPositionChange { shuffling: Boolean =>
       tileMoved = true
     }
-    tile1.moveToInitialPosition
+    tile1.moveToInitialPosition()
     assert(tileMoved, "callback should have been called after moving to initial position")
   }
 

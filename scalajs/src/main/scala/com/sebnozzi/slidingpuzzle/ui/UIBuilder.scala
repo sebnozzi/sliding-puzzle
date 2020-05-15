@@ -6,24 +6,24 @@ trait UIBuilder extends HtmlBuilder with JqToolbar {
 
   def availableSizes: Seq[(Int, Int)]
 
-  val puzzleDiv = div(cssClass="puzzle")
-  val shuffleButton = button(label = "Shuffle!")
-  val resetButton = button(label = "Reset")
+  val puzzleDiv: JQuery = div(cssClass="puzzle")
+  val shuffleButton: JQuery = button(label = "Shuffle!")
+  val resetButton: JQuery = button(label = "Reset")
   val sizeSelect: JQuery = {
     val selectNode = select()
     for ((cols, rows) <- availableSizes) {
       selectNode.append(option(value = s"$cols,$rows",
-        label = s"${cols}x${rows}"))
+        label = s"${cols}x$rows"))
     }
     selectNode
   }
   val (movesWidget, movesCount) = labelledValue(cssClass = "moves", label = "Moves:", value = "0")
 
-  def buildUI(target: JQuery) {
+  def buildUI(target: JQuery): Unit = {
     jQuery(target).append(gameDiv)
   }
 
-  private def gameDiv = {
+  private def gameDiv: JQuery = {
     val gameDiv = div(cssClass = "game")
     gameDiv.append(buildToolbar)
     gameDiv.append(puzzleDiv)

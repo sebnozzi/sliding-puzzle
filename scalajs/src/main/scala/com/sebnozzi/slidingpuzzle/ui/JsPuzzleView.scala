@@ -8,11 +8,11 @@ import org.scalajs.jquery._
 class JsPuzzleView(srcImg: html.Image, nativeView:JQuery, gridSize: GridSize)
     extends PuzzleView with HtmlBuilder {
 
-  val cols = gridSize.columns
-  val rows = gridSize.rows
+  val cols: Int = gridSize.columns
+  val rows: Int = gridSize.rows
 
-  val tileWidth = Math.floor(srcImg.width / cols).toInt
-  val tileHeight = Math.floor(srcImg.height / rows).toInt
+  val tileWidth: Int = Math.floor(srcImg.width / cols).toInt
+  val tileHeight: Int = Math.floor(srcImg.height / rows).toInt
 
   nativeView.empty()
   nativeView.css("width", tileWidth * cols)
@@ -48,7 +48,7 @@ class JsPuzzleView(srcImg: html.Image, nativeView:JQuery, gridSize: GridSize)
     new JsTileView(tileCanvas, tileWidth, tileHeight)
   }).toList
 
-  override def requestFocus() {
+  override def requestFocus(): Unit = {
     // Not applicable to our JavaScript UI
   }
 

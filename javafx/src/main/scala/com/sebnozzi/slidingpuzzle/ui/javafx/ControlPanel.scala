@@ -22,60 +22,60 @@ class ControlPanel extends ToolBar {
   private val movesLabel = new Label(movesMsg(0))
   private val sizeSelector = new ChoiceBox[GridSize]()
 
-  private var sizeChangeCallback: Option[(GridSize) => Unit] = None
+  private var sizeChangeCallback: Option[GridSize => Unit] = None
 
   setup()
 
-  def onShufflePressed(callback: => Unit) =
+  def onShufflePressed(callback: => Unit): Unit =
     addButtonHandler(shuffleButton) { callback }
 
-  def onResetPressed(callback: => Unit) =
+  def onResetPressed(callback: => Unit): Unit =
     addButtonHandler(resetButton) { callback }
 
-  def onSizeChange(callback: (GridSize) => Unit) {
+  def onSizeChange(callback: GridSize => Unit): Unit = {
     sizeChangeCallback = Some(callback)
   }
 
-  def setMovesCount(count: Int) {
+  def setMovesCount(count: Int): Unit = {
     movesLabel.setText(movesMsg(count))
   }
 
-  def selectGridSize(gridSize: GridSize) {
-    val selectionModel = sizeSelector.getSelectionModel()
+  def selectGridSize(gridSize: GridSize): Unit = {
+    val selectionModel = sizeSelector.getSelectionModel
     selectionModel.select(gridSize)
   }
 
-  private def movesMsg(count: Int) = s"Moves: $count"
+  private def movesMsg(count: Int): String = s"Moves: $count"
 
-  private def setup() {
-    ControlPanel.this.getItems().add(sizeSelector)
-    ControlPanel.this.getItems().add(shuffleButton)
-    ControlPanel.this.getItems().add(resetButton)
-    ControlPanel.this.getItems().add(movesLabel)
+  private def setup(): Unit = {
+    ControlPanel.this.getItems.add(sizeSelector)
+    ControlPanel.this.getItems.add(shuffleButton)
+    ControlPanel.this.getItems.add(resetButton)
+    ControlPanel.this.getItems.add(movesLabel)
 
     sizeSelector.setItems(FXCollections.observableArrayList[GridSize](gridSizes: _*))
-    val selectionModel = sizeSelector.getSelectionModel()
+    val selectionModel = sizeSelector.getSelectionModel
     selectionModel.selectedIndexProperty().addListener(new ChangeListener[Number]() {
       def changed(ov: ObservableValue[_ <: Number],
-        oldValue: Number, newValue: Number) {
-        val newSize: GridSize = sizeSelector.getItems().get(newValue.intValue())
+        oldValue: Number, newValue: Number): Unit = {
+        val newSize: GridSize = sizeSelector.getItems.get(newValue.intValue())
         sizeChanged(newSize)
       }
-    });
+    })
     sizeSelector.setConverter(new StringConverter[GridSize]() {
-      def fromString(str: String) = ???
-      def toString(size: GridSize) = "%dx%d".format(size.columns, size.rows)
+      def fromString(str: String): GridSize = ???
+      def toString(size: GridSize): String = "%dx%d".format(size.columns, size.rows)
     })
   }
 
-  private def sizeChanged(newSize: GridSize) {
+  private def sizeChanged(newSize: GridSize): Unit = {
     if (sizeChangeCallback.isDefined)
-      (sizeChangeCallback.get)(newSize)
+      sizeChangeCallback.get.apply(newSize)
   }
 
-  private def addButtonHandler(button: Button)(block: => Unit) {
+  private def addButtonHandler(button: Button)(block: => Unit): Unit = {
     button.setOnAction(new EventHandler[ActionEvent]() {
-      override def handle(event: ActionEvent) {
+      override def handle(event: ActionEvent): Unit = {
         block
       }
     })

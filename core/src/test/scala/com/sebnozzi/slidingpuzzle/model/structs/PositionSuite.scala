@@ -1,8 +1,9 @@
 package com.sebnozzi.slidingpuzzle.model.structs
 
-import org.scalatest.FunSuite
+import org.scalatest.funsuite.AnyFunSuite
 
-class PositionSuite extends FunSuite {
+
+class PositionSuite extends AnyFunSuite {
 
   test("a Position consists of column and row") {
     val pos1 = Position(col = 1, row = 1)

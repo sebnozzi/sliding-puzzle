@@ -23,7 +23,7 @@ lazy val root = (project in file(".")).settings(
 )
 
 lazy val core = (project in file("core")).settings(
-  (defaultSettings): _*
+  defaultSettings: _*
 ).settings(
   name := "SlidingPuzzle Core",
   libraryDependencies += scalaTest
@@ -36,7 +36,7 @@ lazy val javafxSettings = Seq(
   )
 
 lazy val javafx = project.in(file("javafx")).settings(
-  (defaultSettings ++ scalaFxSettings): _*
+  defaultSettings ++ scalaFxSettings: _*
 ).settings(
   name := "SlidingPuzzle JavaFX",
   libraryDependencies += scalaTest
@@ -65,7 +65,7 @@ lazy val scalaFxSettings = {
 // === Scala JS ===
 
 lazy val coreJs = project.settings(
-  (defaultSettings): _*
+  defaultSettings: _*
 ).settings(
   name := "SlidingPuzzle CoreJS",
   sourceDirectory := (sourceDirectory in core).value,
@@ -74,7 +74,7 @@ lazy val coreJs = project.settings(
  .dependsOn(core)
 
 lazy val scalajs = project.in(file("scalajs")).settings(
-  (defaultSettings): _*
+  defaultSettings: _*
 ).settings(
   name := "SlidingPuzzle ScalaJS",
   libraryDependencies ++= Seq(

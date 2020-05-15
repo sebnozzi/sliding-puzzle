@@ -10,7 +10,7 @@ object SlidingPuzzleMain {
 
   @JSExport
   def main(jqueryImages: JQuery): Unit = {
-    for (i <- 0 until jqueryImages.length.toInt) {
+    for (i <- 0 until jqueryImages.length) {
       val jqueryImg = jQuery(jqueryImages.get(i))
       val appController:AppController = new JsAppController(jqueryImg)
       appController.start()

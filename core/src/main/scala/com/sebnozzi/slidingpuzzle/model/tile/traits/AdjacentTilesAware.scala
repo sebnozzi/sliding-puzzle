@@ -10,7 +10,7 @@ trait AdjacentTilesAware { self:PositionAware =>
   protected def positionsRect: Rect
   protected def tileAt(pos: Position): PuzzleTile
 
-  def isAdjacentTo(other: PuzzleTile) = adjacentTiles.contains(other)
+  def isAdjacentTo(other: PuzzleTile): Boolean = adjacentTiles.contains(other)
 
   def adjacentTiles: List[PuzzleTile] = List(
     tileAbove,

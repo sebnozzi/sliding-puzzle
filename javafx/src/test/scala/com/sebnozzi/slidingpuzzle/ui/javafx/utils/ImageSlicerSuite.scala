@@ -2,15 +2,15 @@ package com.sebnozzi.slidingpuzzle.ui.javafx.utils
 
 import javafx.scene.canvas.Canvas
 import javafx.scene.image.Image
-
 import com.sebnozzi.slidingpuzzle.model.structs.GridSize
-import org.scalatest.{BeforeAndAfter, FunSuite, Ignore}
+import org.scalatest.funsuite.AnyFunSuite
+import org.scalatest.{BeforeAndAfter, Ignore}
 
 @Ignore
-class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
+class ImageSlicerSuite extends AnyFunSuite with BeforeAndAfter {
 
   val img: Image = {
-    val inputStream = this.getClass().getResourceAsStream("/2322324186_ca41fba641_o.jpg")
+    val inputStream = this.getClass.getResourceAsStream("/2322324186_ca41fba641_o.jpg")
     assert(inputStream != null, "image not found")
     new Image(inputStream)
   }
@@ -22,7 +22,7 @@ class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
   }
 
   test("dimensions") {
-    assert(img.getWidth() === 840)
+    assert(img.getWidth === 840)
     assert(img.getHeight === 560)
   }
 
@@ -45,8 +45,8 @@ class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
 
   test("get one slice") {
     val slice: Canvas = slicer.sliceAt(x = 1, y = 1)
-    assert(slice.getWidth() === 420)
-    assert(slice.getHeight() === 280)
+    assert(slice.getWidth === 420)
+    assert(slice.getHeight === 280)
   }
 
   test("get slice positions") {
@@ -56,8 +56,8 @@ class ImageSlicerSuite extends FunSuite with BeforeAndAfter {
   test("check dimensions of all slices") {
     val slices: Seq[Canvas] = slicer.allSlices
     slices.foreach { slice =>
-      assert(slice.getWidth() === 420)
-      assert(slice.getHeight() === 280)
+      assert(slice.getWidth === 420)
+      assert(slice.getHeight === 280)
     }
   }
 

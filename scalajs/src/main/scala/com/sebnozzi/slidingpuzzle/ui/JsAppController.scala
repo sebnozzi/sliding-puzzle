@@ -16,9 +16,9 @@ class JsAppController(jqueryImg: JQuery) extends AppController
     (6, 4))
 
   val srcImg: html.Image = jqueryImg.asInstanceOf[js.Array[html.Image]](0)
-  val target = jQuery(srcImg).parent()
+  val target: JQuery = jQuery(srcImg).parent()
 
-  override def start() {
+  override def start(): Unit = {
     buildUI(target)
     super.start()
     jQuery(srcImg).hide()

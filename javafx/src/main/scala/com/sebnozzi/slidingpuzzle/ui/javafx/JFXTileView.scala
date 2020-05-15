@@ -14,21 +14,21 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
 
   val animationDurationMs = 200
 
-  val initialPosition = pos
-  val tileWidth = imgSlice.getWidth()
-  val tileHeight = imgSlice.getHeight()
+  val initialPosition: Position = pos
+  val tileWidth: Double = imgSlice.getWidth
+  val tileHeight: Double = imgSlice.getHeight
 
-  this.getChildren().add(imgSlice)
+  this.getChildren.add(imgSlice)
 
   setupTranslation()
   drawBorders(imgSlice)
   setupEventHandler()
 
-  def moveToInitialPosition() {
+  def moveToInitialPosition(): Unit = {
     moveTileTo(initialPosition, animate = false)
   }
 
-  def moveTileTo(pos: Position, animate: Boolean = true) {
+  def moveTileTo(pos: Position, animate: Boolean = true): Unit = {
     val destX = (pos.col - 1) * tileWidth
     val destY = (pos.row - 1) * tileHeight
 
@@ -39,11 +39,11 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
     }
   }
 
-  def makeHidden() {
+  def makeHidden(): Unit = {
     this.setOpacity(0.0)
   }
 
-  def makeVisible(animate: Boolean = false) {
+  def makeVisible(animate: Boolean = false): Unit = {
     if (animate) {
       val toVisibleTransition = new FadeTransition(Duration.seconds(0.3), this)
       toVisibleTransition.setDelay(Duration.seconds(0.4))
@@ -55,37 +55,37 @@ class JFXTileView(imgSlice: Canvas, pos: Position) extends Group with TileView {
     }
   }
 
-  def animateTo(x: Double, y: Double) {
+  def animateTo(x: Double, y: Double): Unit = {
     val translateTransition = new TranslateTransition(Duration.millis(animationDurationMs), this)
     translateTransition.setToX(x)
     translateTransition.setToY(y)
     translateTransition.play()
   }
 
-  def translateTo(x: Double, y: Double) {
+  def translateTo(x: Double, y: Double): Unit = {
     setTranslateX(x)
     setTranslateY(y)
   }
 
-  private def setupEventHandler() {
+  private def setupEventHandler(): Unit = {
     imgSlice.setOnMousePressed(new EventHandler[MouseEvent]() {
-      def handle(event: MouseEvent) {
+      def handle(event: MouseEvent): Unit = {
         mousePressed()
       }
     })
   }
 
-  private def setupTranslation() {
+  private def setupTranslation(): Unit = {
     val xCoord = (pos.col - 1) * tileWidth
     val yCoord = (pos.row - 1) * tileHeight
     this.setTranslateX(xCoord)
     this.setTranslateY(yCoord)
   }
 
-  private def drawBorders(slice: Canvas) {
-    val gc = slice.getGraphicsContext2D()
+  private def drawBorders(slice: Canvas): Unit = {
+    val gc = slice.getGraphicsContext2D
     gc.beginPath()
-    gc.rect(0, 0, slice.getWidth(), slice.getHeight())
+    gc.rect(0, 0, slice.getWidth, slice.getHeight)
     gc.closePath()
     gc.stroke()
   }

@@ -1,6 +1,6 @@
 package com.sebnozzi.slidingpuzzle.ui
 
 trait PuzzleView {
-  def requestFocus() {}
+  def requestFocus(): Unit = {}
   def tileViews: List[TileView]
 }

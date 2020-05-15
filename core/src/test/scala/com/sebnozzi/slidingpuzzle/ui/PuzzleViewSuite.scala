@@ -1,8 +1,9 @@
 package com.sebnozzi.slidingpuzzle.ui
 
-import org.scalatest.{BeforeAndAfter, FunSuite}
+import org.scalatest.BeforeAndAfter
+import org.scalatest.funsuite.AnyFunSuite
 
-class PuzzleViewSuite extends FunSuite with BeforeAndAfter {
+class PuzzleViewSuite extends AnyFunSuite with BeforeAndAfter {
 
   var view: PuzzleView = _
 
