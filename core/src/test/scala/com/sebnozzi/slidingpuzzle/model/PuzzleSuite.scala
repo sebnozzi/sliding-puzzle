@@ -19,23 +19,6 @@ class PuzzleSuite extends FunSuite with BeforeAndAfter {
     puzzle3x3 = new Puzzle(GridSize(columns = 3, rows = 3))
   }
 
-  test("a puzzle of dimensions 4x3 should have 12 tiles") {
-    assert(puzzle4x3.tiles.size === 12)
-  }
-
-  test("a puzzle of dimensions 3x3 should have 9 tiles") {
-    assert(puzzle3x3.tiles.size === 9)
-  }
-
-  test("a tile knows its puzzle") {
-    puzzle4x3.tiles.foreach { tile => assert(tile.puzzle === puzzle4x3) }
-  }
-
-  test("a puzzle can return a rect for valid positions") {
-    assert(puzzle4x3.positionsRect === Rect((1, 1), (4, 3)))
-    assert(puzzle2x2.positionsRect === Rect((1, 1), (2, 2)))
-  }
-
   test("it is possible to define a hidden tile") {
     val tile = puzzle4x3.tileAt(4, 3)
     puzzle4x3.setHiddenTileAt(4, 3)
