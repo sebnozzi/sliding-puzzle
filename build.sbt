@@ -64,7 +64,7 @@ lazy val scalajs = project.in(file("scalajs")).settings(
 ).settings(
   name := "SlidingPuzzle ScalaJS",
   libraryDependencies ++= Seq(
-    "be.doeraene" %%% "scalajs-jquery" % "0.9.1",
-    "org.scala-js" %%% "scalajs-dom" % "0.9.1")
+    "be.doeraene" %%% "scalajs-jquery" % "1.0.0",
+    "org.scala-js" %%% "scalajs-dom" % "1.0.0")
 ).enablePlugins(ScalaJSPlugin).dependsOn(coreJs)
 
